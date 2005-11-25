@@ -67,8 +67,10 @@ Device *PicDevice::load(char *name) {
 		return new Pic12f6xxDevice(name);
 	} else if(Util::regex_match("^PIC16.*", name)) {
 		return new Pic16Device(name);
-	} else if(Util::regex_match("^PIC18.*", name)) {
-		return new Pic18Device(name);
+	} else if(Util::regex_match("^PIC18F((2..[05])|(2.21)|(4..[05])|(4.21))", name)) {
+		return new Pic18f2xx0Device(name);
+    } else if(Util::regex_match("^PIC18.*", name)) {
+        return new Pic18Device(name);
 	}
 	return NULL;
 }

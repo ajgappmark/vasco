@@ -1,4 +1,5 @@
 /* Copyright (C) 2002-2004  Mark Andrew Aikens <marka@desert.cx>
+ * Copyright (C) 2005       Pierre Gaufillet   <pierre.gaufillet@magic.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,9 +22,7 @@ using namespace std;
 #include <stdexcept>
 #include "PicDevice.h"
 #include "Util.h"
-
-#define PANEL_SHIFT 13
-#define PANELSIZE (1 << PANEL_SHIFT)	/* bytes */
+#include <iostream>
 
 /* ID locations: 0x200000 - 0x200007 (byte address)
  * Config words: 0x300000 - 0x30000D (byte address)
@@ -31,7 +30,7 @@ using namespace std;
  * Data EEPROM:  0xf00000 (byte address)
  */
 
-Pic18Device::Pic18Device(char *name) : PicDevice(name) {
+Pic18f2xx0Device::Pic18f2xx0Device(char *name) : Pic18Device(name) {
 	char buf[16];
 	long value;
 	int i;
@@ -56,11 +55,11 @@ Pic18Device::Pic18Device(char *name) : PicDevice(name) {
 }
 
 
-Pic18Device::~Pic18Device() {
+Pic18f2xx0Device::~Pic18f2xx0Device() {
 }
 
 
-uint32_t Pic18Device::read_deviceid(void) {
+uint32_t Pic18f2xx0Device::read_deviceid(void) {
 	unsigned int d1, d2;
 
 	/* Read and check the device ID */
@@ -72,15 +71,17 @@ uint32_t Pic18Device::read_deviceid(void) {
 }
 
 
-void Pic18Device::erase(void) {
+void Pic18f2xx0Device::erase(void)  {
 	if(this->memtype != MEMTYPE_FLASH)
 		throw runtime_error("Operation not supported by device");
 
 	try {
 		set_program_mode();
 
+		set_tblptr(0x3c0005);
+		write_command(COMMAND_TABLE_WRITE, 0x0f0f);	/* "Chip Erase" */
 		set_tblptr(0x3c0004);
-		write_command(COMMAND_TABLE_WRITE, 0x0080);	/* "Chip Erase" */
+		write_command(COMMAND_TABLE_WRITE, 0x8787);	/* "Chip Erase" */
 		write_command(COMMAND_CORE_INSTRUCTION, 0x0000); /* nop */
 		write_command(COMMAND_CORE_INSTRUCTION, 0x0000); /* nop */
 		this->io->usleep(this->erase_time);
@@ -93,37 +94,9 @@ void Pic18Device::erase(void) {
 }
 
 
-void Pic18Device::program(DataBuffer& buf) {
-	switch(this->memtype) {
-	case MEMTYPE_EPROM:
-	case MEMTYPE_FLASH:
-		break;
-	default:
-		throw runtime_error("Unsupported memory type in device");
-	}
-
-	/* Progress_total is x2 because we write and verify every location */
-	this->progress_total = 2 * (this->codesize + 4 + 7 + this->eesize) - 1;
-	this->progress_count = 0;
-
-	try {
-		set_program_mode();
-
-		write_program_memory(buf, true);
-		write_id_memory(buf, 0x200000, true);
-		if(flags & PIC_FEATURE_EEPROM)
-			write_data_memory(buf, 0xf00000, true);
-		write_config_memory(buf, 0x300000, true);
-
-		pic_off();
-	} catch(std::exception& e) {
-		pic_off();
-		throw;
-	}
-}
 
 
-void Pic18Device::read(DataBuffer& buf, bool verify) {
+void Pic18f2xx0Device::read(DataBuffer& buf, bool verify) {
 	this->progress_total = this->codesize + 4 + 7 + this->eesize - 1;
 	this->progress_count = 0;
 
@@ -144,52 +117,50 @@ void Pic18Device::read(DataBuffer& buf, bool verify) {
 }
 
 
-void Pic18Device::write_program_memory(DataBuffer& buf, bool verify) {
-	unsigned int npanels, panel, offset;
- 
-	panel = 0;
-	offset = 0;
-	npanels = this->codesize/(PANELSIZE/2);
-	try {
-		/* Step 1: Enable multi-panel writes */
-		set_tblptr(0x3c0006);
-		write_command(COMMAND_TABLE_WRITE, 0x0040);
+void Pic18f2xx0Device::write_program_memory(DataBuffer& buf, bool verify) {
+	unsigned long address;
+    unsigned long offset;
+    offset=0;
+	address = 0;
 
-		/* Step 2: Direct access to code memory */
+	try {
+		/* Step 1: Direct access to code memory */
 		/* BSF EECON1, EEPGD */
 		write_command(COMMAND_CORE_INSTRUCTION, 0x8ea6);
 		/* BCF EECON1, CFGS */
 		write_command(COMMAND_CORE_INSTRUCTION, 0x9ca6);
 
-		for(offset=0; offset < PANELSIZE; offset+=8) {
-			/* Step 3,4,5,6: Load write buffer for Panel 1,2,3,4 */
-			for(panel=0; panel<npanels-1; panel++) {
+        while(address < this->codesize)
+        {
+			set_tblptr(2*address);
+			for(offset=0; offset < WRITE_BUFFER_SIZE-2; offset+=2) {
 				/* Give byte addresses to progress() to match datasheet. */
-				progress((panel << PANEL_SHIFT) + offset);
-				load_write_buffer(buf, panel, offset, false);
+				progress(2*address);
+				/* Step 2, 3: Load write buffer */
+				load_write_buffer(buf[address], false);
+                address++;
 			}
-			load_write_buffer(buf, panel, offset, true);
 
-			program_wait();
-
-			if(verify) {
-				/* Verify the memory just written */
-				for(panel=0; panel<npanels; panel++) {
-					progress((panel << PANEL_SHIFT) + offset);
-					/* Verify the 4 words per panel */
-					read_memory(buf, (panel << PANEL_SHIFT) + offset, 4, true);
-				}
+			progress(2*address);
+            /* Step 4: Load write buffer */
+			load_write_buffer(buf[address], true);
+            address++;
+            program_wait();
+        }
+        
+		if(verify) {
+			/* Verify the memory just written */
+			read_memory(buf, 0x00000, this->codesize, true);
 			}
-		}
 	} catch(std::exception& e) {
 		THROW_ERROR(runtime_error,
 		  "Couldn't write program memory at address 0x%06lx: %s",
-		  (unsigned long)(panel << PANEL_SHIFT) + offset, e.what());
+		  address, e.what());
 	}
 }
 
 
-void Pic18Device::write_id_memory(DataBuffer& buf, unsigned long addr,
+void Pic18f2xx0Device::write_id_memory(DataBuffer& buf, unsigned long addr,
   bool verify) {
 	progress(addr);
 	try {
@@ -211,7 +182,7 @@ void Pic18Device::write_id_memory(DataBuffer& buf, unsigned long addr,
 
 		/* Step 4: Load write buffer. Panel will be automatically determined
 		 * by address. */
-		load_write_buffer(buf, addr/PANELSIZE, addr%PANELSIZE, true);
+//		load_write_buffer(buf, addr/PANELSIZE, addr%PANELSIZE, true);
 		program_wait();
 
 		if(verify) {
@@ -225,7 +196,7 @@ void Pic18Device::write_id_memory(DataBuffer& buf, unsigned long addr,
 }
 
 
-void Pic18Device::write_data_memory(DataBuffer& buf, unsigned long addr,
+void Pic18f2xx0Device::write_data_memory(DataBuffer& buf, unsigned long addr,
   bool verify)
 {
 	uint32_t ins;
@@ -320,7 +291,7 @@ void Pic18Device::write_data_memory(DataBuffer& buf, unsigned long addr,
 }
 
 
-void Pic18Device::write_config_memory(DataBuffer& buf, unsigned long addr,
+void Pic18f2xx0Device::write_config_memory(DataBuffer& buf, unsigned long addr,
   bool verify) {
 	int i;
 
@@ -365,7 +336,7 @@ void Pic18Device::write_config_memory(DataBuffer& buf, unsigned long addr,
 }
 
 
-void Pic18Device::read_memory(DataBuffer& buf, unsigned long addr,
+void Pic18f2xx0Device::read_memory(DataBuffer& buf, unsigned long addr,
   unsigned long len, bool verify) {
 	unsigned int data;
 
@@ -397,7 +368,7 @@ void Pic18Device::read_memory(DataBuffer& buf, unsigned long addr,
 }
 
 
-void Pic18Device::read_config_memory(DataBuffer& buf, unsigned long addr,
+void Pic18f2xx0Device::read_config_memory(DataBuffer& buf, unsigned long addr,
   unsigned long len, bool verify) {
 	unsigned int data, cword_num;
 	unsigned long i;
@@ -431,7 +402,7 @@ void Pic18Device::read_config_memory(DataBuffer& buf, unsigned long addr,
 }
 
 
-void Pic18Device::read_data_memory(DataBuffer& buf, unsigned long addr,
+void Pic18f2xx0Device::read_data_memory(DataBuffer& buf, unsigned long addr,
   bool verify) {
 	uint32_t ins;
 	unsigned int offset, data;
@@ -492,70 +463,45 @@ void Pic18Device::read_data_memory(DataBuffer& buf, unsigned long addr,
 }
 
 
-void Pic18Device::load_write_buffer(DataBuffer& buf, unsigned int panel,
-  unsigned int offset, bool last) {
-	unsigned long addr;
-	int i;
-
-	addr = (panel << PANEL_SHIFT) + offset;
-	set_tblptr(addr);
-	for(i=0; i<3; i++) {		/* Write 3 words */
-		write_command(COMMAND_TABLE_WRITE_POSTINC, buf[(addr / 2) + i]);
-		this->progress_count++;
-	}
+void Pic18f2xx0Device::load_write_buffer(unsigned int word, bool last) {
 	if(last) {
 		/* Do the final word write which also starts the programming */
-		write_command(COMMAND_TABLE_WRITE_START, buf[(addr / 2) + 3]);
+		write_command(COMMAND_TABLE_WRITE_START, word);
 	} else {
 		/* Just another load */
-		write_command(COMMAND_TABLE_WRITE_POSTINC, buf[(addr / 2) + 3]);
+		write_command(COMMAND_TABLE_WRITE_POSTINC, word);
 	}
 	this->progress_count++;
 }
 
 
-void Pic18Device::program_wait(void) {
+void Pic18f2xx0Device::program_wait(void) {
 	this->io->shift_bits_out(0x00, 3);
 	this->io->set_data(false);
 	this->io->set_clk(true);	/* Hold clk high */
 
-	this->io->usleep(program_time);
+	this->io->usleep(program_time); /* P9 */
 
 	this->io->set_clk(false);
-	this->io->usleep(5);	/* High-voltage discharge time */
+	this->io->usleep(100);	/* High-voltage discharge time P10 */
 	this->io->shift_bits_out(0x0000, 16);/* 16-bit payload (NOP) */
 }
 
 
-void Pic18Device::set_tblptr(unsigned long addr) {
-	uint32_t ins;
-
-	ins = 0x0e00 | ((addr >> 16) & 0x3f);	/* movlw addr[21:16] */
-	write_command(COMMAND_CORE_INSTRUCTION, ins);
-	write_command(COMMAND_CORE_INSTRUCTION, 0x6ef8);/* movwf TBLPTRU */
-	ins = 0x0e00 | ((addr >> 8) & 0xff);	/* movlw addr[15:8] */
-	write_command(COMMAND_CORE_INSTRUCTION, ins);
-	write_command(COMMAND_CORE_INSTRUCTION, 0x6ef7);/* movwf TBLPTRH */
-	ins = 0x0e00 | (addr & 0xff);			/* movlw addr[7:0] */
-	write_command(COMMAND_CORE_INSTRUCTION, ins);
-	write_command(COMMAND_CORE_INSTRUCTION, 0x6ef6);/* movwf TBLPTRL */
-}
-
-
-void Pic18Device::write_command(unsigned int command) {
+void Pic18f2xx0Device::write_command(unsigned int command) {
 	this->io->shift_bits_out(command, 4);
 	this->io->usleep(1);
 }
 
 
-void Pic18Device::write_command(unsigned int command, unsigned int data) {
+void Pic18f2xx0Device::write_command(unsigned int command, unsigned int data) {
 	write_command(command);
 	this->io->shift_bits_out(data, 16);
 	this->io->usleep(1);
 }
 
 
-unsigned int Pic18Device::write_command_read_data(unsigned int command) {
+unsigned int Pic18f2xx0Device::write_command_read_data(unsigned int command) {
 	write_command(command);
 	this->io->shift_bits_out(0x00, 8);		/* 8 dummy bits */
 	this->io->usleep(1);

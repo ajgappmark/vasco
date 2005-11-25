@@ -62,6 +62,9 @@ LinuxPPDevIO::LinuxPPDevIO(int port) : ParallelPort(port)  {
 		close(this->fd);
 		throw runtime_error(strerror(err));
 	}
+    /* TODO generalize this hack */
+    set_pin_state("vpp1", 0, 3, true, false);
+    set_pin_state("vpp3", 0, 5, true, false);
 }
 
 

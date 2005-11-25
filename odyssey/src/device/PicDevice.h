@@ -657,5 +657,51 @@ protected:
 	unsigned int config_masks[7];
 };
 
+class Pic18f2xx0Device : public Pic18Device {
+public:
+	/* PIC18* commands */
+	const static int
+		COMMAND_TABLE_WRITE_START_POSTINC=0x0e;/**< Table Write, start programming, post-inc by 2 */
+
+	const static unsigned long
+		WRITE_BUFFER_SIZE=32; /* TODO generalize to a pic.conf parameter : 32 is for 18f4550 */
+	const static unsigned long
+		ERASE_BUFFER_SIZE=64; /* TODO idem */
+	
+	Pic18f2xx0Device(char *name);	/**< Constructor */
+	virtual ~Pic18f2xx0Device();		/**< Destructor */
+
+	virtual void erase(void);
+	virtual void read(DataBuffer& buf, bool verify=false);
+
+protected:
+	virtual void write_program_memory(DataBuffer& buf, bool verify);
+
+	virtual void write_id_memory(DataBuffer& buf, unsigned long addr, bool verify);
+
+	virtual void write_data_memory(DataBuffer& buf, unsigned long addr, bool verify);
+
+	virtual void write_config_memory(DataBuffer& buf, unsigned long addr, bool verify);
+
+	virtual void read_memory(DataBuffer& buf, unsigned long addr, unsigned long len, bool verify);
+
+	virtual void read_config_memory(DataBuffer& buf, unsigned long addr, unsigned long len, bool verify);
+
+	virtual void read_data_memory(DataBuffer& buf, unsigned long addr, bool verify);
+
+	void load_write_buffer(unsigned int word, bool last);
+	
+	virtual void program_wait(void);
+
+	virtual void write_command(unsigned int command);
+
+	virtual void write_command(unsigned int command, unsigned int data);
+
+	virtual unsigned int write_command_read_data(unsigned int command);
+
+	virtual uint32_t read_deviceid(void);
+
+};
+
 
 #endif

@@ -42,20 +42,20 @@ using namespace std;
 
 
 /* Mapping of parallel port pin #'s to I/O register offset. */
-static char pin2reg[25] = {
+static signed char pin2reg[25] = {
 	2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 1, 2, 2,
 	-1, -1, -1, -1, -1, -1, -1, -1
 };
 
 /* Mapping of parallel port pin #'s to I/O register bit positions. */
-static char pin2bit[25] = {
+static signed char pin2bit[25] = {
 	0, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 5, 4, 1, 3, 2, 3,
 	-1, -1, -1, -1, -1, -1, -1, -1
 };
 
 /* Flags for each pin, indicating if the parallel port hardware inverts the
  * value. (BSY, STB, ALF, DSL) */
-static char hw_invert[25] = {
+static signed char hw_invert[25] = {
 	1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
 	0, 0, 0, 0, 0, 0, 0, 0
 };

@@ -1,8 +1,8 @@
 AUTOMAKE_OPTIONS=nostdinc subdir-objects
-CPPFLAGS=-DDATADIR="\"$(pkgdatadir)\"" -DSYSCONFDIR="\"$(sysconfdir)\""
+AM_CPPFLAGS=-DDATADIR="\"$(pkgdatadir)\"" -DSYSCONFDIR="\"$(sysconfdir)\""
 INCLUDES=-I.
 CFLAGS=-Wall -Werror @CFLAGS@
-CXXFLAGS=-Wall -Werror @CXXFLAGS@
+AM_CXXFLAGS=-Wall -Werror @CXXFLAGS@
 
 noinst_LIBRARIES=libcommon.a
 bin_PROGRAMS=odyssey
@@ -15,7 +15,7 @@ libcommon_a_SOURCES=ConfigFile.cxx ConfigFile.h \
 	device/Pic16Device.cxx device/Pic16f8xxDevice.cxx \
 	device/Pic16f7xDevice.cxx device/Pic18Device.cxx \
 	device/Pic12f6xxDevice.cxx device/Pic16f6xx.cxx \
-	device/Pic16f87xADevice.cxx \
+	device/Pic16f87xADevice.cxx device/Pic18f2xx0Device.cxx\
 	DirectPPIO.cxx DirectPPIO.h
 EXTRA_libcommon_a_SOURCES=LinuxPPDevIO.cxx LinuxPPDevIO.h
 

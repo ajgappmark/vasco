@@ -164,6 +164,10 @@ protected:
 	 */
 	virtual uint32_t read_deviceid(void);
 	
+	/** Prepare the default value of the configuration registers.
+	 */
+	virtual void set_config_default(DataBuffer& buf);
+	
 /* Protected data: */
 	/** The calculated bitmask for clearing upper bits of a word. */
 	uint32_t wordmask;
@@ -651,6 +655,8 @@ protected:
 	virtual unsigned int write_command_read_data(unsigned int command);
 
 	virtual uint32_t read_deviceid(void);
+	
+	virtual void set_config_default(DataBuffer& buf);
 
 /* Protected Data: */
 	/** The bitmasks for each configuration word */
@@ -672,7 +678,6 @@ public:
 	virtual ~Pic18f2xx0Device();		/**< Destructor */
 
 	virtual void erase(void);
-	virtual void read(DataBuffer& buf, bool verify=false);
 
 protected:
 	virtual void write_program_memory(DataBuffer& buf, bool verify);
@@ -683,23 +688,11 @@ protected:
 
 	virtual void write_config_memory(DataBuffer& buf, unsigned long addr, bool verify);
 
-	virtual void read_memory(DataBuffer& buf, unsigned long addr, unsigned long len, bool verify);
-
-	virtual void read_config_memory(DataBuffer& buf, unsigned long addr, unsigned long len, bool verify);
-
 	virtual void read_data_memory(DataBuffer& buf, unsigned long addr, bool verify);
 
 	void load_write_buffer(unsigned int word, bool last);
 	
 	virtual void program_wait(void);
-
-	virtual void write_command(unsigned int command);
-
-	virtual void write_command(unsigned int command, unsigned int data);
-
-	virtual unsigned int write_command_read_data(unsigned int command);
-
-	virtual uint32_t read_deviceid(void);
 
 };
 

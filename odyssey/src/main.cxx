@@ -460,6 +460,8 @@ static int do_erase(int argc, char *argv[]) {
 static int do_blankcheck(int argc, char *argv[]) {
 	DataBuffer buf(device->get_wordsize());
 
+	device->set_config_default(buf);
+
 	printf("Verifying a device is blank.\n");
 	try {
 		/* Verify the contents of the device */

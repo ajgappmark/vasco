@@ -133,8 +133,10 @@ void Pic18Device::read(DataBuffer& buf, bool verify) {
 		read_memory(buf, 0, this->codesize, verify);	/* Program memory */
 		read_memory(buf, 0x200000, 4, verify);			/* ID memory */
 		read_config_memory(buf, 0x300000, 7, verify);	/* Config words */
-		if(flags & PIC_FEATURE_EEPROM);
+		if(flags & PIC_FEATURE_EEPROM)
+		{
 			read_data_memory(buf, 0xf00000, verify);
+		}
 
 		pic_off();
 	} catch(std::exception& e) {
@@ -560,4 +562,21 @@ unsigned int Pic18Device::write_command_read_data(unsigned int command) {
 	this->io->shift_bits_out(0x00, 8);		/* 8 dummy bits */
 	this->io->usleep(1);
 	return (this->io->shift_bits_in(8) & 0xff);
+}
+
+void Pic18Device::set_config_default(DataBuffer& buf)
+{
+	/* On most PICs 18, the configuration memory is only = 0xffff */
+	int i;
+	char sbuf[32];
+	long value;
+
+	for(i=0; i<7; i++) {
+		sprintf(sbuf, "configdefault%d", i);
+		if(pic_config->get_integer(name, sbuf, &value)) {
+			buf[(0x300000 >> 1) + i] = value;
+		} else {
+			buf[(0x300000 >> 1) + i] = 0xffff;
+		}
+	}
 }

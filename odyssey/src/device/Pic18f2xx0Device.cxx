@@ -31,44 +31,12 @@ using namespace std;
  */
 
 Pic18f2xx0Device::Pic18f2xx0Device(char *name) : Pic18Device(name) {
-	char buf[16];
-	long value;
-	int i;
-
-	/* Read in config bits */
-	for(i=0; i<7; i++) {
-		sprintf(buf, "configmask%d", i);
-		if(pic_config->get_integer(name, buf, &value)) {
-			config_masks[i] = value;
-		} else {
-			config_masks[i] = 0xffff;
-		}
-	}
-
-	/* Create the memory map for this device. Note that these are 16-bit word
-	 * offsets and lengths which are 1/2 of their byte equivalents */
-	this->memmap.push_back(IntPair (0, this->codesize));
-	this->memmap.push_back(IntPair (0x200000/2, 4));	/* ID locations */
-	this->memmap.push_back(IntPair (0x300000/2, 7));	/* Config words */
-	if(this->flags & PIC_FEATURE_EEPROM)
-		this->memmap.push_back(IntPair (0xf00000/2, this->eesize/2));
 }
 
 
 Pic18f2xx0Device::~Pic18f2xx0Device() {
 }
 
-
-uint32_t Pic18f2xx0Device::read_deviceid(void) {
-	unsigned int d1, d2;
-
-	/* Read and check the device ID */
-	set_tblptr(0x3ffffe);
-	d1 = write_command_read_data(COMMAND_TABLE_READ_POSTINC);
-	d2 = write_command_read_data(COMMAND_TABLE_READ_POSTINC);
-
-	return d1 | d2<<8;
-}
 
 
 void Pic18f2xx0Device::erase(void)  {
@@ -85,29 +53,6 @@ void Pic18f2xx0Device::erase(void)  {
 		write_command(COMMAND_CORE_INSTRUCTION, 0x0000); /* nop */
 		write_command(COMMAND_CORE_INSTRUCTION, 0x0000); /* nop */
 		this->io->usleep(this->erase_time);
-
-		pic_off();
-	} catch(std::exception& e) {
-		pic_off();
-		throw;
-	}
-}
-
-
-
-
-void Pic18f2xx0Device::read(DataBuffer& buf, bool verify) {
-	this->progress_total = this->codesize + 4 + 7 + this->eesize - 1;
-	this->progress_count = 0;
-
-	try {
-		set_program_mode();
-
-		read_memory(buf, 0, this->codesize, verify);	/* Program memory */
-		read_memory(buf, 0x200000, 4, verify);			/* ID memory */
-		read_config_memory(buf, 0x300000, 7, verify);	/* Config words */
-		if(flags & PIC_FEATURE_EEPROM);
-			read_data_memory(buf, 0xf00000, verify);
 
 		pic_off();
 	} catch(std::exception& e) {
@@ -164,25 +109,20 @@ void Pic18f2xx0Device::write_id_memory(DataBuffer& buf, unsigned long addr,
   bool verify) {
 	progress(addr);
 	try {
-		/* Step 1: Direct access to config memory */
-		/* BSF EECON1, EEPGD */
-		write_command(COMMAND_CORE_INSTRUCTION, 0x8ea6);
-		/* BSF EECON1, CFGS */
-		write_command(COMMAND_CORE_INSTRUCTION, 0x8ca6);
-
-		/* Step 2: Configure device for single panel writes */
-		set_tblptr(0x3c0006);
-		write_command(COMMAND_TABLE_WRITE, 0x0000);
-
-		/* Step 3: Direct access to code memory */
+		/* Step 1: Direct access to code memory */
 		/* BSF EECON1, EEPGD */
 		write_command(COMMAND_CORE_INSTRUCTION, 0x8ea6);
 		/* BCF EECON1, CFGS */
 		write_command(COMMAND_CORE_INSTRUCTION, 0x9ca6);
 
-		/* Step 4: Load write buffer. Panel will be automatically determined
-		 * by address. */
-//		load_write_buffer(buf, addr/PANELSIZE, addr%PANELSIZE, true);
+		/* Step 2: Load write buffer with 8 bytes and write. */
+		set_tblptr(addr);
+		load_write_buffer(buf[(addr>>1)], false);
+		load_write_buffer(buf[(addr>>1)+1], false);
+		load_write_buffer(buf[(addr>>1)+2], false);
+		load_write_buffer(buf[(addr>>1)+3], true);
+
+		/* and wait the device been programmed */
 		program_wait();
 
 		if(verify) {
@@ -236,30 +176,25 @@ void Pic18f2xx0Device::write_data_memory(DataBuffer& buf, unsigned long addr,
 			/* BSF EECON1, WREN */
 			write_command(COMMAND_CORE_INSTRUCTION, 0x84a6);
 
-			/* Step 5: Perform required sequence */
-			/* MOVLW 0x55 */
-			write_command(COMMAND_CORE_INSTRUCTION, 0x0e55);
-			/* MOVWF EECON2 */
-			write_command(COMMAND_CORE_INSTRUCTION, 0x6ea7);
-			/* MOVLW 0xAA */
-			write_command(COMMAND_CORE_INSTRUCTION, 0x0eaa);
-			/* MOVWF EECON2 */
-			write_command(COMMAND_CORE_INSTRUCTION, 0x6ea7);
-
-			/* Step 6: Initiate write */
+			/* Step 5: Initiate write */
 			/* BSF EECON1, WR */
 			write_command(COMMAND_CORE_INSTRUCTION, 0x82a6);
 
-			/* Step 7: Poll WR bit, repeat until the bit is clear */
+			/* Step 6: Poll WR bit, repeat until the bit is clear */
 			do {
 				/* MOVF EECON1, W, 0 */
 				write_command(COMMAND_CORE_INSTRUCTION, 0x50a6);
 				/* MOVWF TABLAT */
 				write_command(COMMAND_CORE_INSTRUCTION, 0x6ef5);
+				/* required NOP */
+				write_command(COMMAND_CORE_INSTRUCTION, 0x0000);
 
 				ins = write_command_read_data(COMMAND_SHIFT_OUT_TABLAT);
 			} while(ins & 0x02);
 
+			/* Step 7: Hold PGC low for time P10 */
+			this->io->usleep(100);	/* High-voltage discharge time P10 */
+			
 			/* Step 8: Disable writes */
 			/* BCF EECON1, WREN */
 			write_command(COMMAND_CORE_INSTRUCTION, 0x94a6);
@@ -276,6 +211,8 @@ void Pic18f2xx0Device::write_data_memory(DataBuffer& buf, unsigned long addr,
 				write_command(COMMAND_CORE_INSTRUCTION, 0x50a8);
 				/* MOVWF TABLAT */
 				write_command(COMMAND_CORE_INSTRUCTION, 0x6ef5);
+				/* required NOP */
+				write_command(COMMAND_CORE_INSTRUCTION, 0x0000);
 
 				/* Shift out data and check */
 				ins = write_command_read_data(COMMAND_SHIFT_OUT_TABLAT);
@@ -303,16 +240,11 @@ void Pic18f2xx0Device::write_config_memory(DataBuffer& buf, unsigned long addr,
 		/* BSF EECON1, CFGS */
 		write_command(COMMAND_CORE_INSTRUCTION, 0x8ca6);
 
-		/* Step 2: Position the program counter */
-		/* GOTO 100000h */
-		write_command(COMMAND_CORE_INSTRUCTION, 0xef00);
-		write_command(COMMAND_CORE_INSTRUCTION, 0xf800);
-
 		for(i=0; i<7; i++) {
 			/* Give byte addresses to the callback to match datasheet. */
 			progress(addr);
 
-			/* Step 3: Set Table Pointer for config byte to be written. Write
+			/* Step 2: Set Table Pointer for config byte to be written. Write
 			 * even/odd addresses */
 			set_tblptr(addr);
 			write_command(COMMAND_TABLE_WRITE_START, buf[(addr/2)] & 0xff);
@@ -332,72 +264,6 @@ void Pic18f2xx0Device::write_config_memory(DataBuffer& buf, unsigned long addr,
 	} catch(std::exception& e) {
 		THROW_ERROR(runtime_error,
 		  "Couldn't write configuration word #%d", i);
-	}
-}
-
-
-void Pic18f2xx0Device::read_memory(DataBuffer& buf, unsigned long addr,
-  unsigned long len, bool verify) {
-	unsigned int data;
-
-	try {
-		addr >>= 1;			/* Shift to word addresses */
-		set_tblptr(2*addr);
-		while(len > 0) {
-			/* Give byte addresses to progress() to match datasheet. */
-			progress(addr*2);
-
-			/* Read memory a byte at a time (little endian format) */
-			data = write_command_read_data(COMMAND_TABLE_READ_POSTINC);
-			data |= (write_command_read_data(COMMAND_TABLE_READ_POSTINC) << 8);
-			if(verify) {
-				if(data != buf[addr])
-					throw runtime_error("");
-			} else {
-				buf[addr] = data;
-			}
-			addr++;
-			len--;
-			this->progress_count++;
-		}
-	} catch(std::exception& e) {
-		THROW_ERROR(runtime_error, "%s at address 0x%06lx",
-		  verify ? "Verification failed" : "Couldn't read memory",
- 		  2*addr);
-	}
-}
-
-
-void Pic18f2xx0Device::read_config_memory(DataBuffer& buf, unsigned long addr,
-  unsigned long len, bool verify) {
-	unsigned int data, cword_num;
-	unsigned long i;
-
-	cword_num = 0;
-	try {
-		addr >>= 1;			/* Shift to word addresses */
-		set_tblptr(2*addr);
-		for(i=0; i<len; i++) {
-			/* Give byte addresses to progress() to match datasheet. */
-			progress(addr*2);
-
-			/* Read memory a byte at a time (little endian format) */
-			cword_num = addr - (0x300000/2);
-			data = write_command_read_data(COMMAND_TABLE_READ_POSTINC);
-			data |= (write_command_read_data(COMMAND_TABLE_READ_POSTINC) << 8);
-			if(verify) {
-				if((data & this->config_masks[cword_num]) !=
-				  (buf[addr] & this->config_masks[cword_num]))
-					throw runtime_error("");
-			} else {
-				buf[addr] = data;
-			}
-			addr++;
-			this->progress_count++;
-		}
-	} catch(std::exception& e) {
-		THROW_ERROR(runtime_error, "%s of configuration word #%u failed",
-		  verify ? "Verification" : "Read", cword_num);
 	}
 }
 
@@ -431,6 +297,8 @@ void Pic18f2xx0Device::read_data_memory(DataBuffer& buf, unsigned long addr,
 			write_command(COMMAND_CORE_INSTRUCTION, 0x50a8);
 			/* movwf TABLAT */
 			write_command(COMMAND_CORE_INSTRUCTION, 0x6ef5);
+			/* a required nop */
+			write_command(COMMAND_CORE_INSTRUCTION, 0x0000);
 
 			/* Shift out data */
 			data = write_command_read_data(COMMAND_SHIFT_OUT_TABLAT);
@@ -485,25 +353,4 @@ void Pic18f2xx0Device::program_wait(void) {
 	this->io->set_clk(false);
 	this->io->usleep(100);	/* High-voltage discharge time P10 */
 	this->io->shift_bits_out(0x0000, 16);/* 16-bit payload (NOP) */
-}
-
-
-void Pic18f2xx0Device::write_command(unsigned int command) {
-	this->io->shift_bits_out(command, 4);
-	this->io->usleep(1);
-}
-
-
-void Pic18f2xx0Device::write_command(unsigned int command, unsigned int data) {
-	write_command(command);
-	this->io->shift_bits_out(data, 16);
-	this->io->usleep(1);
-}
-
-
-unsigned int Pic18f2xx0Device::write_command_read_data(unsigned int command) {
-	write_command(command);
-	this->io->shift_bits_out(0x00, 8);		/* 8 dummy bits */
-	this->io->usleep(1);
-	return (this->io->shift_bits_in(8) & 0xff);
 }

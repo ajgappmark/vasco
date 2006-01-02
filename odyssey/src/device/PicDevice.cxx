@@ -240,3 +240,9 @@ uint32_t PicDevice::read_prog_data(void) {
 	this->io->usleep(1);
 	return (data >> 1) & this->wordmask;
 }
+
+void PicDevice::set_config_default(DataBuffer& buf)
+{
+	/* On most PICs, the configuration memory is only = 0xffff but it is not always the case */
+	/* TODO should be done through the pic.conf configuration */
+}

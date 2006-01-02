@@ -1,3 +1,9 @@
+Version 0.4vasco:
+  * Added PIC18F2XX0/2X21/2XX5/4XX0/4X21/4XX5 support (Pierre Gaufillet).
+  * Fix EEPROM reading for PIC18 (Pierre Gaufillet).
+  * Added configdefault<x> variable in pic.conf to take into account config
+    reset != 0xffff (Pierre Gaufillet).
+  
 Version 0.3.1:
   * Add verification of the PIC device ID (Ian Jackson)
   * Added a new pin definition for the LVP control pin. Some programming issues

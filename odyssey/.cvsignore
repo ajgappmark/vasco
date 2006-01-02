@@ -3,3 +3,4 @@ debian
 build-stamp
 patch-stamp
 Makefile
+.settings

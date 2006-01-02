@@ -4,7 +4,7 @@ AC_PREREQ(2.50)
 AC_INIT(src/main.cxx)
 AC_REVISION($Id$)
 AC_CONFIG_AUX_DIR(scripts)
-AM_INIT_AUTOMAKE(odyssey, 0.3.1)
+AM_INIT_AUTOMAKE(odyssey, 0.4vasco)
 AM_CONFIG_HEADER(src/config.h)
 
 

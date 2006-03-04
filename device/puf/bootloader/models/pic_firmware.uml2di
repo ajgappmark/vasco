@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0">
+  <model href="pic_firmware.uml2#_JTHIoJT8EdqAisLNWt58Yg"/>
+  <diagrams position="0,0" size="100,100" name="pic_firmware" viewport="0,0">
+    <property key="org.topcased.modeler.di.typeName" value="Class Diagram"/>
+    <property key="pageFormatName" value="A4"/>
+    <property key="diagramWidth" value="840"/>
+    <property key="diagramHeight" value="1188"/>
+    <property key="pageMarginName" value="Small Margin"/>
+    <property key="diagramTopMargin" value="20"/>
+    <property key="diagramBottomMargin" value="20"/>
+    <property key="diagramLeftMargin" value="20"/>
+    <property key="diagramRightMargin" value="20"/>
+    <property key="orientation" value="landscape"/>
+    <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="org.topcased.modeler.uml2.classdiagram">
+      <element href="pic_firmware.uml2#_JTI90JT8EdqAisLNWt58Yg"/>
+    </semanticModel>
+    <contained xsi:type="di:GraphNode" position="61,68" size="100,80">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_QYCj8JT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="312,80" size="85,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.18"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_R8w0IJT-EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_R8w0IJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_R8w0IJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_TqbP0JT-EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="593,59" size="173,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.18 //@diagrams.0/@contained.19"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_XQAPYJT-EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_XQAPYJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_XQAPYJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_ZpzYUJT-EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_Z8ayUJT-EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_aN91UJT-EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="703,448" size="144,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.5 //@diagrams.0/@contained.7 //@diagrams.0/@contained.11"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_nMorMJT-EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_nMorMJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_nMorMJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="878,199" size="144,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.5 //@diagrams.0/@contained.9 //@diagrams.0/@contained.22"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_xFauMJT-EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="35"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_xFauMJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="36"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_xFauMJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_nXq8YJ2XEdqlAMj6mqyedA"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_y7xL0JT-EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_zSgQ0JT-EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_zkIMUJT-EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.3/@anchorage.0 //@diagrams.0/@contained.4/@anchorage.0">
+      <property key="router" value="Forest"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_3usvUJT-EdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="19,198" size="184,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.7 //@diagrams.0/@contained.15 //@diagrams.0/@contained.16 //@diagrams.0/@contained.17 //@diagrams.0/@contained.19 //@diagrams.0/@contained.21"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_8CCMwJT-EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_8CCMwJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_-nH_sJT-EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_DpSSAJT_EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_GH7CMJUAEdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_FaRugJT_EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_BtpPQJUAEdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_8CCMwJT-EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.3/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_VBFEQJT_EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectUV" id="srcNameEdgeObject" uDistance="68"/>
+      <contained xsi:type="di:EdgeObjectUV" id="srcCountEdgeObject" uDistance="-6" vDistance="-61"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetNameEdgeObject"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="13" vDistance="13"/>
+      <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
+      <waypoints>[-44, -22, 350, 179]</waypoints>
+      <waypoints>[-302, -154, 92, 47]</waypoints>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="900,448" size="100,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.9"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_19bJgJT_EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_19bJgJT_EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_19bJgJT_EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.8/@anchorage.0 //@diagrams.0/@contained.4/@anchorage.0">
+      <property key="router" value="Forest"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_3RBfYJT_EdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="703,566" size="142,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.11"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_MJaqkJUAEdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_MJaqkJUAEdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_MJaqkJUAEdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.3/@anchorage.0 //@diagrams.0/@contained.10/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_PCrWsJUAEdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectUV" id="srcNameEdgeObject" uDistance="11" vDistance="-26"/>
+      <contained xsi:type="di:EdgeObjectUV" id="srcCountEdgeObject" uDistance="5" vDistance="7"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetNameEdgeObject"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="5" vDistance="-12"/>
+      <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="320,301" size="163,25">
+      <anchorage graphEdge="//@diagrams.0/@contained.17"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_8cEgkJUCEdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="236,633" size="175,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.15"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_k-gsoJ2XEdqlAMj6mqyedA"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_k-gsoJ2XEdqlAMj6mqyedA"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_k-gsoJ2XEdqlAMj6mqyedA"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="41,633" size="173,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.16"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_WI1KYJ5eEdqZmcwGBStaDg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_WI1KYJ5eEdqZmcwGBStaDg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_WI1KYJ5eEdqZmcwGBStaDg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.13/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_VAMHUJ5eEdqZmcwGBStaDg"/>
+      </semanticModel>
+      <waypoints>[0, -22, 212, 364]</waypoints>
+      <waypoints>[0, -64, 212, 322]</waypoints>
+      <waypoints>[-212, -64, 0, 322]</waypoints>
+      <waypoints>[-212, -316, 0, 70]</waypoints>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.14/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_i7asEJ5eEdqZmcwGBStaDg"/>
+      </semanticModel>
+      <waypoints>[0, -22, 16, 364]</waypoints>
+      <waypoints>[0, -64, 16, 322]</waypoints>
+      <waypoints>[-16, -64, 0, 322]</waypoints>
+      <waypoints>[-16, -316, 0, 70]</waypoints>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.12/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.2/@anchorage.0 //@diagrams.0/@contained.1/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_SHVagJUAEdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectUV" id="srcNameEdgeObject"/>
+      <contained xsi:type="di:EdgeObjectUV" id="srcCountEdgeObject" uDistance="6" vDistance="-8"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetNameEdgeObject" uDistance="55" vDistance="-5"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="11" vDistance="-7"/>
+      <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
+      <waypoints>[-87, 0, 238, 0]</waypoints>
+      <waypoints>[-187, 0, 138, 0]</waypoints>
+      <waypoints>[-282, 0, 43, 0]</waypoints>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.2/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_M0GaMJ5fEdqZmcwGBStaDg"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectUV" id="srcNameEdgeObject"/>
+      <contained xsi:type="di:EdgeObjectUV" id="srcCountEdgeObject" uDistance="12" vDistance="12"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetNameEdgeObject" uDistance="37" vDistance="-19"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="15" vDistance="-6"/>
+      <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="617,212" size="100,-1">
+      <anchorage graphEdge="//@diagrams.0/@contained.21 //@diagrams.0/@contained.22"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_Yiz_4J5mEdqJWqgWJZgQTA"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="35"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_Yiz_4J5mEdqJWqgWJZgQTA"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="36"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_Yiz_4J5mEdqJWqgWJZgQTA"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.20/@anchorage.0 //@diagrams.0/@contained.6/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_FQl8IJUBEdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectUV" id="srcNameEdgeObject"/>
+      <contained xsi:type="di:EdgeObjectUV" id="srcCountEdgeObject" uDistance="15" vDistance="11"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetNameEdgeObject" uDistance="90" vDistance="-8"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="16" vDistance="-5"/>
+      <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
+      <waypoints>[-51, 5, 505, -20]</waypoints>
+      <waypoints>[-252, 24, 304, -1]</waypoints>
+      <waypoints>[-463, 25, 93, 0]</waypoints>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.0/@contained.20/@anchorage.0 //@diagrams.0/@contained.4/@anchorage.0">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_dnnhEJ5nEdqJWqgWJZgQTA"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectUV" id="srcNameEdgeObject" uDistance="16" vDistance="-20"/>
+      <contained xsi:type="di:EdgeObjectUV" id="srcCountEdgeObject" uDistance="12" vDistance="7"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetNameEdgeObject" uDistance="14" vDistance="16"/>
+      <contained xsi:type="di:EdgeObjectUV" id="targetCountEdgeObject" uDistance="10" vDistance="-9"/>
+      <contained xsi:type="di:EdgeObjectOffset" id="middleNameEdgeObject"/>
+      <waypoints>[51, 5, -232, -20]</waypoints>
+      <waypoints>[208, 24, -75, -1]</waypoints>
+      <waypoints>[211, 24, -72, -1]</waypoints>
+    </contained>
+  </diagrams>
+  <diagrams position="0,0" size="100,100" name="Basic types" viewport="0,0">
+    <property key="org.topcased.modeler.di.typeName" value="Class Diagram"/>
+    <property key="pageFormatName" value="A4"/>
+    <property key="diagramWidth" value="840"/>
+    <property key="diagramHeight" value="1188"/>
+    <property key="pageMarginName" value="Small Margin"/>
+    <property key="diagramTopMargin" value="20"/>
+    <property key="diagramBottomMargin" value="20"/>
+    <property key="diagramLeftMargin" value="20"/>
+    <property key="diagramRightMargin" value="20"/>
+    <property key="orientation" value="portrait"/>
+    <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="org.topcased.modeler.uml2.classdiagram">
+      <element href="pic_firmware.uml2#_QYCj8JT8EdqAisLNWt58Yg"/>
+    </semanticModel>
+    <contained xsi:type="di:GraphNode" position="162,72" size="105,-1">
+      <anchorage graphEdge="//@diagrams.1/@contained.9 //@diagrams.1/@contained.17"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_SE7jkJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="35"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_SE7jkJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="36"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_SE7jkJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="371,72" size="105,-1">
+      <anchorage graphEdge="//@diagrams.1/@contained.10 //@diagrams.1/@contained.20"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_Wuo5oJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="35"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_Wuo5oJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="36"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_Wuo5oJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="162,208" size="105,-1">
+      <anchorage graphEdge="//@diagrams.1/@contained.11 //@diagrams.1/@contained.18"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_YFOSEJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="35"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_YFOSEJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="36"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_YFOSEJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="371,208" size="105,-1">
+      <anchorage graphEdge="//@diagrams.1/@contained.12 //@diagrams.1/@contained.21"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_ZOZgoJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="35"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_ZOZgoJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="36"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_ZOZgoJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="371,340" size="105,-1">
+      <anchorage graphEdge="//@diagrams.1/@contained.14 //@diagrams.1/@contained.22"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_Zr1DgJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="35"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_Zr1DgJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="36"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_Zr1DgJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="162,340" size="105,-1">
+      <anchorage graphEdge="//@diagrams.1/@contained.13 //@diagrams.1/@contained.19"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_aNjQgJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="35"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_aNjQgJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="36"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_aNjQgJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="291,30" size="54,25">
+      <anchorage graphEdge="//@diagrams.1/@contained.9 //@diagrams.1/@contained.10"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_hE3toJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="286,161" size="63,25">
+      <anchorage graphEdge="//@diagrams.1/@contained.11 //@diagrams.1/@contained.12"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_i61wwJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="286,298" size="63,25">
+      <anchorage graphEdge="//@diagrams.1/@contained.13 //@diagrams.1/@contained.14"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_koLcUJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.6/@anchorage.0 //@diagrams.1/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.6/@anchorage.0 //@diagrams.1/@contained.1/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.7/@anchorage.0 //@diagrams.1/@contained.2/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.7/@anchorage.0 //@diagrams.1/@contained.3/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.8/@anchorage.0 //@diagrams.1/@contained.5/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.8/@anchorage.0 //@diagrams.1/@contained.4/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="568,226" size="63,25">
+      <anchorage graphEdge="//@diagrams.1/@contained.20 //@diagrams.1/@contained.21 //@diagrams.1/@contained.22"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_sQWuoJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="1,226" size="79,25">
+      <anchorage graphEdge="//@diagrams.1/@contained.17 //@diagrams.1/@contained.18 //@diagrams.1/@contained.19"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_tXIwgJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.16/@anchorage.0 //@diagrams.1/@contained.0/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.16/@anchorage.0 //@diagrams.1/@contained.2/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.16/@anchorage.0 //@diagrams.1/@contained.5/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.15/@anchorage.0 //@diagrams.1/@contained.1/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.15/@anchorage.0 //@diagrams.1/@contained.3/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" anchor="//@diagrams.1/@contained.15/@anchorage.0 //@diagrams.1/@contained.4/@anchorage.0">
+      <semanticModel xsi:type="di:SimpleSemanticModelElement" typeInfo="CommentLink EditPolicy"/>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="159,486" size="112,-1">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_1clNoJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_1clNoJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_Fo4dIJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_GzoZAJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_ICOTEJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_1clNoJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="380,486" size="87,-1">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_6dqh4JT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_6dqh4JT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_Nv0IAJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_Op_4UJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_QAETYJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_6dqh4JT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" position="380,642" size="87,-1">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_7F7bwJT8EdqAisLNWt58Yg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_7F7bwJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_VZf2MJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_V6Zj0JT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_W2upMJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" position="0,0" size="0,0">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge">
+            <element href="pic_firmware.uml2#_Xp_5MJT9EdqAisLNWt58Yg"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_7F7bwJT8EdqAisLNWt58Yg"/>
+        </semanticModel>
+      </contained>
+    </contained>
+  </diagrams>
+  <diagrams position="0,0" size="100,100" name="boot" viewport="0,0">
+    <property key="org.topcased.modeler.di.typeName" value="Class Diagram"/>
+    <property key="pageFormatName" value="A4"/>
+    <property key="diagramWidth" value="840"/>
+    <property key="diagramHeight" value="1188"/>
+    <property key="pageMarginName" value="Small Margin"/>
+    <property key="diagramTopMargin" value="20"/>
+    <property key="diagramBottomMargin" value="20"/>
+    <property key="diagramLeftMargin" value="20"/>
+    <property key="diagramRightMargin" value="20"/>
+    <property key="orientation" value="portrait"/>
+    <semanticModel xsi:type="di:EMFSemanticModelBridge" presentation="org.topcased.modeler.uml2.classdiagram">
+      <element href="pic_firmware.uml2#_JTI90JT8EdqAisLNWt58Yg"/>
+    </semanticModel>
+    <contained xsi:type="di:GraphNode" position="171,443" size="175,43">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge">
+        <element href="pic_firmware.uml2#_k-gsoJ2XEdqlAMj6mqyedA"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="40"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_k-gsoJ2XEdqlAMj6mqyedA"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode">
+        <property key="eStructuralFeatureID" value="45"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge">
+          <element href="pic_firmware.uml2#_k-gsoJ2XEdqlAMj6mqyedA"/>
+        </semanticModel>
+      </contained>
+    </contained>
+  </diagrams>
+</diagrams:Diagrams>

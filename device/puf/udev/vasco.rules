@@ -1,0 +1,8 @@
+# udev rules file for vasco
+#
+BUS!="usb", ACTION!="add", GOTO="vasco_rules_end"
+
+# Default device
+SYSFS{idVendor}=="a5a5", SYSFS{idProduct}=="0001", MODE="660", GROUP="vasco"
+
+LABEL="vasco_rules_end"

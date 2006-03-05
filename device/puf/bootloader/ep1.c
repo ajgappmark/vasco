@@ -18,6 +18,8 @@
    Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 -------------------------------------------------------------------------*/
 
+/* $Id$ */
+
 //#define _DEBUG true
 
 #include "ep1.h"
@@ -42,10 +44,8 @@ void ep1_init(void)
 
 void ep1_out(void)
 {
-    uchar cnt = EP_OUT_BD(1).Cnt;
-    
     debug("ep1_out\n");
-    if(cnt >= 4)
+    if(EP_OUT_BD(1).Cnt >= 1)
     {
         switch(ep1_OutBuffer[0])
         {
@@ -77,9 +77,19 @@ void ep1_out(void)
                 delay10ktcy(10);
                 Reset();
                 break;
+            case SECTION_DESCRIPTOR_CMD:
+                debug("SECTION_DESCRIPTOR_CMD\n");
+                ep2_num_bytes_to_send = sizeof(section_descriptor);
+                ep2_source_data = (uchar __code *) section_descriptor;
+                prepare_ep2_in();
+                break;
+                
             default:
                 debug("unknown command\n");
-                // TODO Should raise an error
+                // Raise an error
+                EP_OUT_BD(1).Cnt = EP1_BUFFER_SIZE;
+                EP_OUT_BD(1).ADR = (uchar __data *)&ep1_OutBuffer;
+                EP_OUT_BD(1).Stat.uc = BDS_USIE | BDS_BSTALL;
                 break;
         }
         EP_OUT_BD(1).Cnt = EP1_BUFFER_SIZE;

@@ -1,4 +1,6 @@
 #/bin/sh
+# $Id$
+
 /etc/init.d/cupsys stop
 modprobe -r lp
 modprobe ppdev

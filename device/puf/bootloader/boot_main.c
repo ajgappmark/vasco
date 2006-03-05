@@ -18,6 +18,8 @@
    Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 -------------------------------------------------------------------------*/
 
+/* $Id$ */
+
 /* Reserve 255 bytes of stack at 0x200 */
 #pragma stack 0x200 255
 

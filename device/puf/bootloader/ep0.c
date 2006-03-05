@@ -18,6 +18,8 @@
    Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 -------------------------------------------------------------------------*/
 
+/* $Id$ */
+
 #include "ep0.h"
 #include "usb_descriptors.h"
 #include "usb_std_req.h"

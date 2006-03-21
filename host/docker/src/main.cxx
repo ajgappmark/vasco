@@ -170,7 +170,9 @@ int main(int argc, char**argv)
             cerr << argv[optind] << ": " << e.what() << endl;
             return -1;
         }
+        device->erase();
         device->write(buf);
+        //device->verify(buf);
     }
     else if(!strcmp(argv[optind], "erase"))
     {

@@ -94,9 +94,17 @@ void USBDevice::erase(void)
     {
         if((*i)->flags & FLASH_SECTION_WRITE)
         {
-            for(long addr = (*i)->begin; addr <= (*i)->end - 64; addr += 64)
+            cout << "erasing section [" << hex << (*i)->begin <<", " << (*i)->end << "]" << endl;
+            if((*i)->end - (*i)->begin < 64)
             {
-                erase_block(addr);
+                erase_block((*i)->begin);
+            }
+            else
+            {
+                for(long addr = (*i)->begin; addr <= (*i)->end - 63; addr += 64)
+                {
+                    erase_block(addr);
+                }
             }
         }
     }
@@ -109,7 +117,7 @@ void USBDevice::write(DataBuffer& tab)
         if((*i)->flags & FLASH_SECTION_WRITE)
         {
             cout << "writing section [" << hex << (*i)->begin <<", " << (*i)->end << "]" << endl;
-            if((*i)->end - (*i)->begin < 64)
+            if((*i)->end - (*i)->begin < 32)
             {
                 write_block((*i)->begin, tab);
             }
@@ -172,7 +180,7 @@ void USBDevice::erase_block(long address)
     erase_bytes[2] = (address >> 8) & 0xff;
     erase_bytes[3] = (address >> 16) & 0xff;
     
-    cout << "erase block " << hex << address << endl;
+//    cout << "erase block " << hex << address << endl;
     c = usb_bulk_write(dh, EP_FLASH_OUT, erase_bytes, sizeof(erase_bytes), 0);
     if(c <= 0)
     {
@@ -185,10 +193,10 @@ void USBDevice::write_block(long address, DataBuffer& tab)
 {
     int c;
     char write_bytes[] = {WRITE_FLASH_CMD,0x00,0x00,0x00,
-                          0,0,0,0,0,0,0,0, // 8
-                          0,0,0,0,0,0,0,0, // 16
-                          0,0,0,0,0,0,0,0, // 24
-                          0,0,0,0,0,0,0,0  // 32
+                          0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff, // 8
+                          0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff, // 16
+                          0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff, // 24
+                          0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff  // 32
                          };
                          
 //    cout << "write block " << hex << address << endl;

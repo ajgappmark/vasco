@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  ep0.h - USB endpoint 0 callbacks
+  application.h - Application entry points
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -20,16 +20,23 @@
 
 /* $Id$ */
 
-#ifndef EP0_H_
-#define EP0_H_
+#ifndef APPLICATION_H_
+#define APPLICATION_H_
 
-/* EP0 buffer size */
-#define EP0_BUFFER_SIZE 8
+#include "common_types.h"
 
-#include "usb_std_req.h"
+typedef struct {
+    uchar invalid;                   // != 0 when the application is not valid
+    void* device_descriptor;
+    void** configuration_descriptor; // pointer to an array of pointer to configuration descriptors
+    uchar** string_descriptor;       // pointer to an array of pointer to string descriptors
+    void (*** ep_init)(void);
+    void (*** ep_in)(void);
+    void (*** ep_out)(void);
+    void (*** ep_setup)(void);
+    void (*main) (void);
+} ApplicationData;
 
-void ep0_init(void);
-void ep0_in(void);
-void ep0_setup(void);
+extern const ApplicationData __at(0x2000) application_data;
 
-#endif /*EP0_H_*/
+#endif /*APPLICATION_H_*/

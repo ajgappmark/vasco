@@ -20,8 +20,6 @@
 
 /* $Id$ */
 
-//#define _DEBUG true
-
 #include "ep2.h"
 #include "usb.h"
 #include "debug.h"

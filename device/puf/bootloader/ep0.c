@@ -27,9 +27,6 @@
 #include "debug.h"
 #include <pic18fregs.h>
 
-//#define debug(x)
-//#define debug2(x,y)
-
 /* Control Transfer States */
 #define WAIT_SETUP          0
 #define WAIT_IN             1
@@ -87,7 +84,7 @@ uchar ep0_usb_std_request(void)
                     break;
                 default:
                     debug("unknown\n");
-                // This is required to stall the DEVICE_QUALIFIER request
+                    // This is required to stall the DEVICE_QUALIFIER request
                     unknown_request = TRUE;
                     break;
             }
@@ -125,7 +122,7 @@ uchar ep0_usb_std_request(void)
                 }
                 else
                 {
-                    uchar i;
+                    static uchar i;
                 
                     SET_DEVICE_STATE(CONFIGURED_STATE);
                     // reinit EP as described for this new configuration
@@ -212,7 +209,7 @@ void ep0_in(void)
 void ep0_setup(void)
 {
     debug("ep0_setup\n");
-    
+
     ep0_state = WAIT_SETUP;
     num_bytes_to_be_send = 0;
     

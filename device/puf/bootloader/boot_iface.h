@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  application.h - Application entry points
+  boot.h - Boot entry points
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -20,23 +20,9 @@
 
 /* $Id$ */
 
-#ifndef APPLICATION_H_
-#define APPLICATION_H_
+#ifndef BOOT_H_
+#define BOOT_H_
 
-#include "common_types.h"
-
-typedef struct {
-    uchar invalid;                   // != 0 when the application is not valid
-    void* device_descriptor;
-    void** configuration_descriptor; // pointer to an array of pointer to configuration descriptors
-    uchar** string_descriptor;       // pointer to an array of pointer to string descriptors
-    void (*** ep_init)(void);
-    void (*** ep_in)(void);
-    void (*** ep_out)(void);
-    void (*** ep_setup)(void);
-    void (*main) (void);
-} ApplicationData;
-
-extern const ApplicationData __at(0x2030) application_data;
+extern void boot_goto_table(void);
 
 #endif /*APPLICATION_H_*/

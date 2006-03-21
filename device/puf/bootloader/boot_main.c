@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  main.c - Pic boot entry point
+  boot_main.c - Pic boot main function
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -23,14 +23,12 @@
 /* Reserve 255 bytes of stack at 0x200 */
 #pragma stack 0x200 255
 
-//#define _DEBUG true
-
 #include <pic18fregs.h>
 #include "common_types.h"
 #include "debug.h"
 #include "usb.h"
 #include "usb_descriptors.h"
-#include "application.h"
+#include "application_iface.h"
 
 /* Set the PIC config words */
 code char at __CONFIG1L _conf0  = _USBPLL_CLOCK_SRC_FROM_96MHZ_PLL_2_1L & 
@@ -88,7 +86,7 @@ code char at __CONFIG7H _conf11 = _EBTRB_OFF_7H;
 
 void init_boot(void)
 {
-    ulong count;
+    static ulong count;
 
     ADCON1 = 0x0F;
     CMCON  = 0x07;
@@ -104,8 +102,9 @@ void init_boot(void)
     PORTA  = 0x00;
     
     // TODO a material condition should overpass this
-    if(application_data.invalid == 0) 
-    { // use application descriptors
+    if((application_data.invalid == 0) && !PORTAbits.RA1) 
+    { 
+        // use application descriptors
         debug("use application descriptors\n");
         device_descriptor        = application_data.device_descriptor;
         configuration_descriptor = application_data.configuration_descriptor;
@@ -116,15 +115,16 @@ void init_boot(void)
         ep_setup                 = application_data.ep_setup;
     }
     else
-    { // use boot descriptors
+    { 
+        // use boot descriptors
         debug("use boot descriptors\n");
         device_descriptor        = &boot_device_descriptor;
         configuration_descriptor = boot_configuration_descriptor;
         string_descriptor        = boot_string_descriptor;
         ep_init                  = boot_ep_init;
-        ep_in                    = &boot_ep_in;
-        ep_out                   = &boot_ep_out;
-        ep_setup                 = &boot_ep_setup;
+        ep_in                    = boot_ep_in;
+        ep_out                   = boot_ep_out;
+        ep_setup                 = boot_ep_setup;
     }
 }
 
@@ -135,7 +135,7 @@ void main(void)
     init_boot();
     debug("init USB\n");
     init_usb();
-    
+
     while(1)
     {
         usb_sleep();
@@ -143,8 +143,10 @@ void main(void)
         if((application_data.invalid == 0) &&
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {
+            debug2("jumping at %x\n", application_data.main);
             application_data.main();
             INTCON = 0; // Forbid interrupts
         }
     }
 }
+

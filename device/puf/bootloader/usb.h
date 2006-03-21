@@ -62,13 +62,14 @@
 #define IN                  1
 
 /* UEPn Initialization Parameters */
+// Handshake should be disable for isoch
 #define EPHSHK_EN           0x10 // Enable handshake packet
 #define EPCONDIS_EN         0x08
 #define EPOUTEN_EN          0x04
 #define EPINEN_EN           0x02
 #define EPSTALL_EN          0x01
 
-                                    // Handshake should be disable for isoch
+                                    
 /* Buffer Descriptor Status Register Initialization Parameters */
 #define BDS_BSTALL          0x04 //Buffer Stall enable
 #define BDS_DTSEN           0x08 //Data Toggle Synch enable
@@ -139,7 +140,7 @@ typedef union
 /* Buffer descriptors Table */
 extern volatile BufferDescriptorTable __at (0x400) ep_bdt[32];
 
-extern uchar usb_device_state;
+extern uchar __at(0x005f) usb_device_state;
 extern uchar usb_active_cfg;
 extern uchar usb_active_alt_setting;
 

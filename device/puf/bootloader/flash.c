@@ -20,8 +20,6 @@
 
 /* $Id$ */
 
-//#define _DEBUG true
-
 #include "common_types.h"
 #include <pic18fregs.h>
 #include <stdio.h>
@@ -29,22 +27,22 @@
 #include "flash.h"
 
 const uchar section_descriptor [22] = {3,
-                                     FLASH_SECTION_READ,
-                                     0x00, 0x00, 0x00,
-                                     0xff, 0x1f, 0x00,
-                                     FLASH_SECTION_READ | FLASH_SECTION_WRITE,
-                                     0x00, 0x20, 0x00,
-                                     0xff, 0x7f, 0x00,
-                                     FLASH_SECTION_READ,
-                                     0x00, 0x00, 0x30,
-                                     0x0d, 0x00, 0x30};
+                                       FLASH_SECTION_READ,
+                                       0x00, 0x00, 0x00,
+                                       0xff, 0x1f, 0x00,
+                                       FLASH_SECTION_READ | FLASH_SECTION_WRITE,
+                                       0x00, 0x20, 0x00,
+                                       0xff, 0x7f, 0x00,
+                                       FLASH_SECTION_READ,
+                                       0x00, 0x00, 0x30,
+                                       0x0d, 0x00, 0x30};
 
 uint ep2_num_bytes_to_send;
 uchar *ep2_source_data;
 
 void write_block(__data uchar *src)
 {
-    uchar i;
+    static uchar i;
     debug("write_block\n");
 
     __asm

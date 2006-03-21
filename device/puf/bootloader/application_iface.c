@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  application.h - Application entry points
+  application_iface.c - Application interface
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -34,7 +34,7 @@ typedef struct {
     void (*main) (void);
 } ApplicationData;
 
-const ApplicationData __at(0x2030) application_data = {
+const ApplicationData __at(0x2000) application_data = {
     0xFF,           // Application is not valid by default
     NULL,           // no device descriptor
     NULL,           // no configuration descriptor

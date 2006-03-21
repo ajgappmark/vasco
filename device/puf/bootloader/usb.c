@@ -38,8 +38,11 @@ void (*** ep_in)(void);
 void (*** ep_out)(void);
 void (*** ep_setup)(void);
 
-uchar usb_device_state;
+#pragma udata access usb_device_state
+uchar __at(0x005f) usb_device_state;
+#pragma udata access usb_active_cfg
 uchar usb_active_cfg; 
+#pragma udata access usb_active_alt_setting
 uchar usb_active_alt_setting; 
 
 void init_usb(void)
@@ -61,7 +64,7 @@ void init_usb(void)
 
 void reset_usb(void)
 {
-    uchar i;
+    static uchar i;
     
     debug("USB reset\n");
     UIR = 0;
@@ -179,7 +182,6 @@ void dispatch_usb_event(void)
         // Flush transaction
         UIRbits.TRNIF = 0;
     }
-
 }
 
 void fill_in_buffer(uchar EPnum,
@@ -187,8 +189,8 @@ void fill_in_buffer(uchar EPnum,
                   uint buffer_size, 
                   uint *nb_byte)
 {    
-    uint byte_to_send;
-    uchar *dest;
+    static uint byte_to_send;
+    static uchar *dest;
     
     // First, have to figure out how many byte of data to send.
     if(*nb_byte < buffer_size)

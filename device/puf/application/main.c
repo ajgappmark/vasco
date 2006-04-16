@@ -3,19 +3,19 @@
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
-   This library is free software; you can redistribute it and/or modify it
-   under the terms of the GNU Library General Public License as published by the
-   Free Software Foundation; either version 2, or (at your option) any
-   later version.
-   
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU Library General Public License for more details.
-   
-   You should have received a copy of the GNU Library General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------*/
 
 #include <pic18fregs.h>
@@ -29,25 +29,39 @@
 // beware : this is not a C main function, but the application
 // entry point called from the boot.
 
+unsigned long count;
+
 void application_main(void) 
 {
-    static unsigned long count;
     
     PORTA = 0x01;
     init_debug();
-    debug("init application\n");
-
-    count = 100000;    
+    debug("init application\n");  
+    
+    T0CON = 0x86; // TMR0ON, 16bits, CLKO, PSA on, 1:256
+    INTCONbits.TMR0IE = 1;
+    INTCONbits.GIE = 1;
 
     while(1)
     {
+        //usb_sleep();
         dispatch_usb_event();
-
-        count--;
-        if(!count)
-        {
-            toggle_A0();
-            count = 100000;
-        }
     }
 }
+
+/* Interrupt vectors */
+#pragma code high_priority_isr 0x2020
+void high_priority_isr(void) interrupt
+{
+    if(INTCONbits.TMR0IF)
+    {
+        toggle_A0();
+        INTCONbits.TMR0IF = 0;
+    }
+}
+
+#pragma code low_priority_isr 0x4000
+void low_priority_isr(void) interrupt
+{
+}
+

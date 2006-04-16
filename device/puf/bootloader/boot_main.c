@@ -3,19 +3,19 @@
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
-   This library is free software; you can redistribute it and/or modify it
-   under the terms of the GNU Library General Public License as published by the
-   Free Software Foundation; either version 2, or (at your option) any
-   later version.
-   
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU Library General Public License for more details.
-   
-   You should have received a copy of the GNU Library General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------*/
 
 /* $Id$ */
@@ -101,7 +101,7 @@ void init_boot(void)
     
     PORTA  = 0x00;
     
-    // TODO a material condition should overpass this
+    // The RA1 pin is used to force the bootloader only mode
     if((application_data.invalid == 0) && !PORTAbits.RA1) 
     { 
         // use application descriptors
@@ -109,10 +109,11 @@ void init_boot(void)
         device_descriptor        = application_data.device_descriptor;
         configuration_descriptor = application_data.configuration_descriptor;
         string_descriptor        = application_data.string_descriptor;
-        ep_init                  = application_data.ep_init;
-        ep_in                    = application_data.ep_in;
-        ep_out                   = application_data.ep_out;
-        ep_setup                 = application_data.ep_setup;
+
+        ep_init  = application_data.ep_init;
+        ep_in    = application_data.ep_in;
+        ep_out   = application_data.ep_out;
+        ep_setup = application_data.ep_setup;
     }
     else
     { 
@@ -121,10 +122,11 @@ void init_boot(void)
         device_descriptor        = &boot_device_descriptor;
         configuration_descriptor = boot_configuration_descriptor;
         string_descriptor        = boot_string_descriptor;
-        ep_init                  = boot_ep_init;
-        ep_in                    = boot_ep_in;
-        ep_out                   = boot_ep_out;
-        ep_setup                 = boot_ep_setup;
+
+        ep_init  = boot_ep_init;
+        ep_in    = boot_ep_in;
+        ep_out   = boot_ep_out;
+        ep_setup = boot_ep_setup;
     }
 }
 
@@ -145,6 +147,7 @@ void main(void)
         {
             debug2("jumping at %x\n", application_data.main);
             application_data.main();
+
             INTCON = 0; // Forbid interrupts
         }
     }

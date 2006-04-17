@@ -25,6 +25,8 @@
 // This dummy function is in fact a table of goto exported to
 // the application
 
+// TODO The boot version should be a define from config.h
+
 void boot_goto_table(void) __naked
 {
     __asm

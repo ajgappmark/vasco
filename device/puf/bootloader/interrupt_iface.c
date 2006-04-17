@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  ep0.h - USB endpoint 0 callbacks
+  interrupt_iface.c - Interruptions interface
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -20,14 +20,17 @@
 
 /* $Id$ */
 
-#ifndef EP0_H_
-#define EP0_H_
 
-#include "config.h"
-#include "usb_std_req.h"
+/* TODO Interrupt entry points should be defines in config.h */
 
-void ep0_init(void);
-void ep0_in(void);
-void ep0_setup(void);
+/* Interrupt vectors */
+#pragma code high_priority_isr 0x2020
+void high_priority_isr(void) interrupt 1
+{
+}
 
-#endif /*EP0_H_*/
+#pragma code low_priority_isr 0x4000
+void low_priority_isr(void) interrupt 2
+{
+}
+

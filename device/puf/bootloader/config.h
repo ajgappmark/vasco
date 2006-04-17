@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  ep0.h - USB endpoint 0 callbacks
+  config.h - Bootloader configuration
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -20,14 +20,27 @@
 
 /* $Id$ */
 
-#ifndef EP0_H_
-#define EP0_H_
+#ifndef CONFIG_H_
+#define CONFIG_H_
 
-#include "config.h"
-#include "usb_std_req.h"
+#include "common_types.h"
 
-void ep0_init(void);
-void ep0_in(void);
-void ep0_setup(void);
+/* BOOTLOADER VERSION */
+# define BOOTLOADER_VERSION 0x0010
 
-#endif /*EP0_H_*/
+/* EP0 buffer size */
+#define EP0_BUFFER_SIZE 8
+
+/* EP1 buffer size */
+#define EP1_BUFFER_SIZE 64
+
+/* EP2 buffer size */
+#define EP2_BUFFER_SIZE 64
+
+/* Application data address */
+#define APPLICATION_DATA_ADDRESS 0x2000
+
+/* Memory sections for flash operations */
+extern const uchar section_descriptor [22];
+
+#endif /*CONFIG_H_*/

@@ -20,6 +20,7 @@
 
 /* $Id$ */
 
+#include "config.h"
 #include "common_types.h"
 
 typedef struct {
@@ -34,7 +35,7 @@ typedef struct {
     void (*main) (void);
 } ApplicationData;
 
-const ApplicationData __at(0x2000) application_data = {
+const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data = {
     0xFF,           // Application is not valid by default
     NULL,           // no device descriptor
     NULL,           // no configuration descriptor
@@ -45,15 +46,3 @@ const ApplicationData __at(0x2000) application_data = {
     NULL,           // ep_setup
     NULL            // application main
 };
-
-/* Interrupt vectors */
-#pragma code high_priority_isr 0x2020
-void high_priority_isr(void) interrupt 1
-{
-}
-
-#pragma code low_priority_isr 0x4000
-void low_priority_isr(void) interrupt 2
-{
-}
-

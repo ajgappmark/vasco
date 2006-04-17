@@ -23,8 +23,8 @@
 #ifndef USB_STD_REQ_H_
 #define USB_STD_REQ_H_
 
+#include "config.h"
 #include "common_types.h"
-#include "ep0.h"
 
 /* bmRequestType Definitions */
 #define HOST_TO_DEVICE      0

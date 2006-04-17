@@ -23,8 +23,7 @@
 #ifndef EP1_H_
 #define EP1_H_
 
-/* EP1 buffer size */
-#define EP1_BUFFER_SIZE 64
+#include "config.h"
 
 void ep1_init(void);
 void ep1_out(void);

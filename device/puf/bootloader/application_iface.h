@@ -23,6 +23,7 @@
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 
+#include "config.h"
 #include "common_types.h"
 
 typedef struct {
@@ -37,6 +38,6 @@ typedef struct {
     void (*main) (void);
 } ApplicationData;
 
-extern const ApplicationData __at(0x2000) application_data;
+extern const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data;
 
 #endif /*APPLICATION_H_*/

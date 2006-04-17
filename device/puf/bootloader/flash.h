@@ -36,7 +36,6 @@
 #define FLASH_SECTION_READ     0x01
 #define FLASH_SECTION_WRITE    0x02
 
-extern const uchar section_descriptor [22];
 extern uint ep2_num_bytes_to_send;
 extern uchar *ep2_source_data;
 

@@ -20,22 +20,11 @@
 
 /* $Id$ */
 
+#include "config.h"
 #include "common_types.h"
 #include <pic18fregs.h>
-#include <stdio.h>
 #include "debug.h"
 #include "flash.h"
-
-const uchar section_descriptor [22] = {3,
-                                       FLASH_SECTION_READ,
-                                       0x00, 0x00, 0x00,
-                                       0xff, 0x1f, 0x00,
-                                       FLASH_SECTION_READ | FLASH_SECTION_WRITE,
-                                       0x00, 0x20, 0x00,
-                                       0xff, 0x7f, 0x00,
-                                       FLASH_SECTION_READ,
-                                       0x00, 0x00, 0x30,
-                                       0x0d, 0x00, 0x30};
 
 uint ep2_num_bytes_to_send;
 uchar *ep2_source_data;

@@ -28,7 +28,8 @@
 
 static uchar last_send_was_null;
 
-volatile far uchar __at (0x500+EP0_BUFFER_SIZE+EP0_BUFFER_SIZE+EP1_BUFFER_SIZE) ep2_InBuffer[EP2_BUFFER_SIZE];
+#pragma udata usb_buf ep2_InBuffer
+volatile uchar ep2_InBuffer[EP2_BUFFER_SIZE];
 
 void ep2_init(void)
 {

@@ -32,8 +32,11 @@
 #define WAIT_IN             1
 #define WAIT_OUT            2
 
-volatile far StandardRequest __at (0x500) SetupBuffer;
-volatile far uchar __at (0x500+EP0_BUFFER_SIZE) InBuffer[EP0_BUFFER_SIZE];
+#pragma udata usb_buf SetupBuffer
+volatile far StandardRequest SetupBuffer;
+
+#pragma udata usb_buf InBuffer
+volatile far uchar InBuffer[EP0_BUFFER_SIZE];
 
 static uchar ep0_state;
 static uint  num_bytes_to_be_send;

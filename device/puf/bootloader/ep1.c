@@ -29,7 +29,8 @@
 #include <delay.h>
 
 
-volatile far uchar __at (0x500+EP0_BUFFER_SIZE+EP0_BUFFER_SIZE) ep1_OutBuffer[EP1_BUFFER_SIZE];
+#pragma udata usb_buf ep1_OutBuffer
+volatile uchar ep1_OutBuffer[EP1_BUFFER_SIZE];
 
 void ep1_init(void)
 {

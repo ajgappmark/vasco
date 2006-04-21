@@ -43,6 +43,9 @@ void ep1_out(void);
 void ep2_init(void);
 void ep2_in(void);
 
+extern uchar __at(0x005f) usb_device_state;
+extern uchar __at(0x005e) usb_active_cfg;
+extern uchar __at(0x005d) usb_active_alt_setting;
 
 
 

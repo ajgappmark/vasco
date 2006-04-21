@@ -20,6 +20,15 @@
 
 /* $Id$ */
 
+#include "common_types.h"
+
+#pragma udata access usb_device_state
+uchar __at(0x005f) usb_device_state;
+#pragma udata access usb_active_cfg
+uchar __at(0x005e) usb_active_cfg; 
+#pragma udata access usb_active_alt_setting
+uchar __at(0x005d) usb_active_alt_setting; 
+
 #pragma code boot_goto_table 0x1fd2
 
 // This dummy function is in fact a table of goto exported to

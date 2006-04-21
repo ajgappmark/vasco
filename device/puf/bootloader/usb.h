@@ -141,8 +141,8 @@ typedef union
 extern volatile BufferDescriptorTable __at (0x400) ep_bdt[32];
 
 extern uchar __at(0x005f) usb_device_state;
-extern uchar usb_active_cfg;
-extern uchar usb_active_alt_setting;
+extern uchar __at(0x005e) usb_active_cfg;
+extern uchar __at(0x005d) usb_active_alt_setting;
 
 extern const USB_Device_Descriptor *device_descriptor;
 extern const void **configuration_descriptor;

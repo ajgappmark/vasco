@@ -42,7 +42,7 @@ void application_main(void)
     INTCONbits.TMR0IE = 1;
     INTCONbits.GIE = 1;
 
-    while(1)
+    while(usb_active_cfg > 2)
     {
         //usb_sleep();
         dispatch_usb_event();

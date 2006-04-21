@@ -41,9 +41,9 @@ void (*** ep_setup)(void);
 #pragma udata access usb_device_state
 uchar __at(0x005f) usb_device_state;
 #pragma udata access usb_active_cfg
-uchar usb_active_cfg; 
+uchar __at(0x005e) usb_active_cfg; 
 #pragma udata access usb_active_alt_setting
-uchar usb_active_alt_setting; 
+uchar __at(0x005d) usb_active_alt_setting; 
 
 void init_usb(void)
 {

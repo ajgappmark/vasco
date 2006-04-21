@@ -38,10 +38,11 @@ int main(int argc, char**argv)
     string cmd;
     long product_id = 0x0001;
     long vendor_id = 0xa5a5;
+    int cfg_id = 3;
     
     quiet = false;
     
-    while((i = getopt(argc, argv, "v:p:qV")) > 0) {
+    while((i = getopt(argc, argv, "v:p:qVc:")) > 0) {
         switch(i) {
         case 'q':
             quiet = true;
@@ -54,6 +55,9 @@ int main(int argc, char**argv)
             break;
         case 'v':
             vendor_id = strtol(optarg, NULL, 16);
+            break;
+        case 'c':
+            cfg_id = strtol(optarg, NULL, 10);
             break;
         case '?':
         case ':':
@@ -69,7 +73,7 @@ int main(int argc, char**argv)
     busses = usb_get_busses();
 
     // Look for device
-    device = new USBDevice(busses, vendor_id, product_id);
+    device = new USBDevice(busses, vendor_id, product_id, cfg_id);
 
 
 

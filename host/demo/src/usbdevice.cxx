@@ -26,7 +26,7 @@ using namespace std;
 #include "usbdevice.h"
 
 
-USBDevice::USBDevice(struct usb_bus *busses, long vendor, long product)
+USBDevice::USBDevice(struct usb_bus *busses, long vendor, long product, int cfg)
 {
     struct usb_bus *bus;
     int c;
@@ -49,7 +49,7 @@ USBDevice::USBDevice(struct usb_bus *busses, long vendor, long product)
                     abort();
                 }
 
-                c = usb_set_configuration(dh, 3);
+                c = usb_set_configuration(dh, cfg);
                 if(c)
                 {
                     // raise exception

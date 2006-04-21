@@ -21,6 +21,7 @@
 /* $Id$ */
 
 #include "ep0.h"
+#include "application_iface.h"
 #include "usb_descriptors.h"
 #include "usb_std_req.h"
 #include "usb.h"
@@ -117,6 +118,24 @@ uchar ep0_usb_std_request(void)
                 UEP5  = 0; UEP6  = 0; UEP7  = 0; UEP8  = 0;
                 UEP9  = 0; UEP10 = 0; UEP11 = 0; UEP12 = 0;
                 UEP13 = 0; UEP14 = 0; UEP15 = 0;
+                
+                // switch the functions vectors
+                if(GET_ACTIVE_CONFIGURATION() <= FLASH_CONFIGURATION)
+                {
+                    // switch back to the bootloader vectors
+                    ep_init  = boot_ep_init;
+                    ep_in    = boot_ep_in;
+                    ep_out   = boot_ep_out;
+                    ep_setup = boot_ep_setup;
+                }
+                else
+                {
+                    // switch to the application vectors
+                    ep_init  = application_data.ep_init;
+                    ep_in    = application_data.ep_in;
+                    ep_out   = application_data.ep_out;
+                    ep_setup = application_data.ep_setup;
+                }
                 
                 // and set the current device state
                 if(GET_ACTIVE_CONFIGURATION() == 0)

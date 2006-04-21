@@ -49,18 +49,13 @@ void init_boot(void)
     PORTA  = 0x00;
     
     // The RA1 pin is used to force the bootloader only mode
-    if((application_data.invalid == 0) && !PORTAbits.RA1) 
+    if((application_data.invalid == 0) && !PORTAbits.RA1)
     { 
         // use application descriptors
         debug("use application descriptors\n");
         device_descriptor        = application_data.device_descriptor;
         configuration_descriptor = application_data.configuration_descriptor;
         string_descriptor        = application_data.string_descriptor;
-
-        ep_init  = application_data.ep_init;
-        ep_in    = application_data.ep_in;
-        ep_out   = application_data.ep_out;
-        ep_setup = application_data.ep_setup;
     }
     else
     { 
@@ -69,12 +64,17 @@ void init_boot(void)
         device_descriptor        = &boot_device_descriptor;
         configuration_descriptor = boot_configuration_descriptor;
         string_descriptor        = boot_string_descriptor;
-
-        ep_init  = boot_ep_init;
-        ep_in    = boot_ep_in;
-        ep_out   = boot_ep_out;
-        ep_setup = boot_ep_setup;
     }
+
+    // By default always use the booloader vectors
+    // because the device is started in configuration 0
+    // vectors will be switched in ep0.c when the configuration
+    // will become greater than 2
+    ep_init  = boot_ep_init;
+    ep_in    = boot_ep_in;
+    ep_out   = boot_ep_out;
+    ep_setup = boot_ep_setup;
+
 }
 
 void main(void)

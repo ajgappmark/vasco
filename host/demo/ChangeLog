@@ -1,8 +1,9 @@
-PIC USB Framework - host demo application (0.2)
+PIC USB Framework - host demo application (1.0)
 
-  * License updated to LGPL 2.1
+  * License updated to GPL 2
+  * -c <configuration #> can now be used to specify the configuration ID
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Apr 22 12:09:53 CEST 2006
 
 PIC USB Framework - host demo application (0.1)
 

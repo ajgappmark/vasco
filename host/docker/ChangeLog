@@ -1,8 +1,8 @@
-docker (0.2)
+docker (1.0)
 
-  * License updated to LGPL 2.1
+  * License updated to GPL 2
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Apr 22 12:09:53 CEST 2006
 
 docker (0.1)
 

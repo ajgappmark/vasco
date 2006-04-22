@@ -23,6 +23,8 @@
 #include "debug.h"
 #include "boot_iface.h"
 
+#define ftoggle_A0() { PORTAbits.AN0 = !PORTAbits.AN0; }
+
 
 /******************************************************************/
 
@@ -35,16 +37,45 @@ void application_main(void)
 {
     
     PORTA = 0x01;
-    init_debug();
-    debug("init application\n");  
     
+    // Reset the Timer0 value
+    TMR0H = 0;
+    TMR0L = 0;
+    
+    // Configure the Timer0 and unmask ITs
     T0CON = 0x86; // TMR0ON, 16bits, CLKO, PSA on, 1:256
     INTCONbits.TMR0IE = 1;
     INTCONbits.GIE = 1;
 
+    //
+    // Process pending USB requests as soon as possible
+    // because serial communications (when _DEBUG is defined) can hang 
+    // the device for a too long time
+    // It means the host should not send a new 
+    // sequence of USB requests before something like 2s
+    // 
+    // In fact, the serial communication causes a lot of
+    // problem with the 18F4550 when done in parallel 
+    // with USB communication in polling mode.
+    // It should also be verified weither or not the serial com edges 
+    // disturb the USB signal...
+    //
+    // In the current state of this software, AVOID the use 
+    // of the USART if you want something stable...
+    //
+#ifdef _DEBUG
+    while(PORTAbits.AN0)
+    {
+        dispatch_usb_event();
+    }
+#endif // _DEBUG
+    
+    init_debug();
+    debug("init application\n");  
+    
     while(usb_active_cfg > 2)
     {
-        //usb_sleep();
+        usb_sleep();
         dispatch_usb_event();
     }
 }
@@ -55,7 +86,7 @@ void high_priority_isr(void) interrupt
 {
     if(INTCONbits.TMR0IF)
     {
-        toggle_A0();
+        ftoggle_A0();
         INTCONbits.TMR0IF = 0;
     }
 }

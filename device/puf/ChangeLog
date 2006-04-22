@@ -1,8 +1,21 @@
-PIC USB Framework (0.2)
+PIC USB Framework (1.0)
 
-  * License updated to LGPL 2.1
+  * License updated to LGPL 2.1 (close bug #366)
+  * Interrupts are now supported (close feature request #362)
+  * Application code can now access the USB states : device, alt_setting, 
+    configuration (close bug #385)
+  * Configuration of the bootloader is now centralized in config.h (close bug #386)
+  * Bootloader USB functions are now used by default : reflash an application
+    does not crash the device anymore. Functions are switched to the 
+    application ones when switching to application configuration (close
+    bug #387)
+  * EP0, EP1 and EP2 buffers are not anymore at fixed addresses (close bug #389)
+  * DEBUG mode is now disabled by default because it makes USB communications
+    unstable. Moreover, application init has also been modified to improve the USB
+    stability when _DEBUG is defined, even if it does not seem sufficient (close 
+    bug #397)
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Apr 22 12:09:53 CEST 2006
 
 PIC USB Framework (0.1)
 

@@ -1,5 +1,5 @@
 AM_CPPFLAGS=-DDATADIR="\"$(pkgdatadir)\"" -DSYSCONFDIR="\"$(sysconfdir)\""
-CXXFLAGS=-g
+AM_CXXFLAGS=-g
 
 bin_PROGRAMS = docker
 docker_SOURCES = main.cxx DataBuffer.h DataBuffer.cxx HexFile.h \

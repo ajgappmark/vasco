@@ -10,7 +10,6 @@ AC_CONFIG_FILES([Makefile
                  application/Makefile
                  archives/Makefile
                  bootloader/Makefile
-                 picon/Makefile
                  scripts/Makefile
                  udev/Makefile])
 AC_OUTPUT

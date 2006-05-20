@@ -53,7 +53,7 @@ EXTRA_DIST=$(lkr_PIC_TYPE).lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 
-prog: boot.hex
+prog: bootloader.hex
 	(echo "Blanking...";\
 	$(ODYSSEY) $(PIC_TYPE) erase) && \
 	(echo "Writing...";\

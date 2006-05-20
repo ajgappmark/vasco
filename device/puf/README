@@ -55,3 +55,12 @@ Contributions, bug reports and questions are welcome on
 our  mailing list (http://gforge.enseeiht.fr/mail/?group_id=10)
 and on our trackers (http://gforge.enseeiht.fr/tracker/?group_id=10).
 
+
+***********************************
+NOTES REGARDING THE USE OF AUTOMAKE
+***********************************
+
+Due to the cross-compilation process, the automatic dependency tracking of 
+automake has to be disabled. Use : automake -i if you wish to regenerate the
+Makefile.ini files.
+

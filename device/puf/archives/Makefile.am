@@ -39,7 +39,7 @@ odyssey:
 
 sdcc: gputils
 	if [ ! -x "$(TOOLSDIR)/bin/sdcc" ]; then \
-	 tar xvzf sdcc-src-20060316.tar.gz;\
+	 tar xvzf sdcc-src-20060530.tar.gz;\
 	 mkdir -p $(TOOLSDIR);\
 	 (cd sdcc && \
 	 ./configure --disable-z80-port --disable-mcs51-port \

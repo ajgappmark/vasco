@@ -1,11 +1,20 @@
 PIC USB Framework (1.1)
 
+  * The bootloader now exports the intrinsic functions used by the
+    compiler. The mechanism used is the same as for the other shared
+    functions. To improve extensibility of the indirection table,
+    its address is now 0x1c instead of 0x1fd2 (too close to segment
+    limit). sdcc shared functions are : _mullong, _mulint, _gptrget1, _gptrget2,
+    _gptrget3, _gptrget4, _gptrput1, _gptrput2, and _gptrput3. In the case of 
+    picon, 270 program bytes are saved thanks to that method (close feature
+    request #364).
+    
   * The return of the SET_CONFIGURATION bug. Configuration change is now effective
     after the null IN packet aknownledgment. Vectors switch and ep_init calls
     stay in ep0_usb_std_request because something does not work when it is done
-    in ep0_in. I don't know why :-( close bug #397 once more... )
+    in ep0_in. I don't know why :-( close bug #397 once more... ).
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Jun  3 16:23:01 CEST 2006
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Jun  3 17:08:24 CEST 2006
  
  PIC USB Framework (1.0)
 

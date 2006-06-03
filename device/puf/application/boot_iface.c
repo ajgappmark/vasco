@@ -29,7 +29,7 @@ uchar __at(0x005e) usb_active_cfg;
 #pragma udata access usb_active_alt_setting
 uchar __at(0x005d) usb_active_alt_setting; 
 
-#pragma code boot_goto_table 0x1fd2
+#pragma code boot_goto_table 0x1c
 
 // This dummy function is in fact a table of goto exported to
 // the application
@@ -54,21 +54,41 @@ global _ep1_out
 global _ep2_init
 global _ep2_in
 
-_boot_version: res 2
+global __mullong
+global __mulint
+global __gptrget1
+global __gptrget2
+global __gptrget3
+global __gptrget4
+global __gptrput1
+global __gptrput2
+global __gptrput3
+
+_boot_version:       res 2
 _dispatch_usb_event: res 4
-_reset_usb: res 4
-_usb_sleep: res 4
-_fill_in_buffer: res 4
+_reset_usb:          res 4
+_usb_sleep:          res 4
+_fill_in_buffer:     res 4
 
-_ep0_init: res 4
-_ep0_in: res 4
-_ep0_setup: res 4
+_ep0_init:           res 4
+_ep0_in:             res 4
+_ep0_setup:          res 4
 
-_ep1_init: res 4
-_ep1_out: res 4
+_ep1_init:           res 4
+_ep1_out:            res 4
 
-_ep2_init: res 4
-_ep2_in: res 4
+_ep2_init:           res 4
+_ep2_in:             res 4
+
+__mullong:           res 4
+__mulint:            res 4
+__gptrget1:          res 4
+__gptrget2:          res 4
+__gptrget3:          res 4
+__gptrget4:          res 4
+__gptrput1:          res 4
+__gptrput2:          res 4
+__gptrput3:          res 4
 
     __endasm;
 

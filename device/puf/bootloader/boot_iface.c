@@ -20,7 +20,7 @@
 
 /* $Id$ */
 
-#pragma code boot_goto_table 0x1fd2
+#pragma code boot_goto_table 0x1c
 
 // This dummy function is in fact a table of goto exported to
 // the application
@@ -45,6 +45,16 @@ void boot_goto_table(void) __naked
 
     extern _ep2_init
     extern _ep2_in
+    
+    extern __mullong
+    extern __mulint
+    extern __gptrget1
+    extern __gptrget2
+    extern __gptrget3
+    extern __gptrget4
+    extern __gptrput1
+    extern __gptrput2
+    extern __gptrput3
 
 ;--------------------------------
     
@@ -64,7 +74,17 @@ void boot_goto_table(void) __naked
 
     goto _ep2_init
     goto _ep2_in
-    
+
+    goto __mullong
+    goto __mulint
+    goto __gptrget1
+    goto __gptrget2
+    goto __gptrget3
+    goto __gptrget4
+    goto __gptrput1
+    goto __gptrput2
+    goto __gptrput3
+        
     __endasm;
 }
     

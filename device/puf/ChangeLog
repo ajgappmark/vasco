@@ -1,4 +1,13 @@
-PIC USB Framework (1.0)
+PIC USB Framework (1.1)
+
+  * The return of the SET_CONFIGURATION bug. Configuration change is now effective
+    after the null IN packet aknownledgment. Vectors switch and ep_init calls
+    stay in ep0_usb_std_request because something does not work when it is done
+    in ep0_in. I don't know why :-( close bug #397 once more... )
+
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Jun  3 16:23:01 CEST 2006
+ 
+ PIC USB Framework (1.0)
 
   * License updated to LGPL 2.1 (close bug #366)
   * Interrupts are now supported (close feature request #362)

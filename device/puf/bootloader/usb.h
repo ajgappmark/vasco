@@ -27,13 +27,14 @@
 #include "usb_descriptors.h"
 
 /* USB device states */
-#define DETACHED_STATE          0
-#define ATTACHED_STATE          1
-#define POWERED_STATE           2
-#define DEFAULT_STATE           3
-#define ADDRESS_PENDING_STATE   4
-#define ADDRESS_STATE           5
-#define CONFIGURED_STATE        6
+#define DETACHED_STATE              0
+#define ATTACHED_STATE              1
+#define POWERED_STATE               2
+#define DEFAULT_STATE               3
+#define ADDRESS_PENDING_STATE       4
+#define ADDRESS_STATE               5
+#define CONFIGURATION_PENDING_STATE 6
+#define CONFIGURED_STATE            7
 
 /* Device state accessors */
 #define SET_DEVICE_STATE(x)         { usb_device_state = x; }

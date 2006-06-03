@@ -42,6 +42,7 @@ volatile far uchar InBuffer[EP0_BUFFER_SIZE];
 static uchar ep0_state;
 static uint  num_bytes_to_be_send;
 static uchar *sourceData;
+static uchar coming_cfg;
 
 uchar ep0_usb_std_request(void)
 {   
@@ -110,7 +111,7 @@ uchar ep0_usb_std_request(void)
             // is this configuration valid ?
             if(device_descriptor->bNumConfigurations >= SetupBuffer.bConfigurationValue)
             {
-                SET_ACTIVE_CONFIGURATION(SetupBuffer.bConfigurationValue);
+                coming_cfg = SetupBuffer.bConfigurationValue;
                 
                 // First, disable all endpoints.
                 // UEP0 is never disabled
@@ -120,7 +121,7 @@ uchar ep0_usb_std_request(void)
                 UEP13 = 0; UEP14 = 0; UEP15 = 0;
                 
                 // switch the functions vectors
-                if(GET_ACTIVE_CONFIGURATION() <= FLASH_CONFIGURATION)
+                if(coming_cfg <= FLASH_CONFIGURATION)
                 {
                     // switch back to the bootloader vectors
                     ep_init  = boot_ep_init;
@@ -136,22 +137,23 @@ uchar ep0_usb_std_request(void)
                     ep_out   = application_data.ep_out;
                     ep_setup = application_data.ep_setup;
                 }
-                
+        
                 // and set the current device state
-                if(GET_ACTIVE_CONFIGURATION() == 0)
+                if(coming_cfg == 0)
                 {
                     SET_DEVICE_STATE(ADDRESS_STATE);
                 }
                 else
                 {
                     static uchar i;
-                
-                    SET_DEVICE_STATE(CONFIGURED_STATE);
+
+                    SET_DEVICE_STATE(CONFIGURATION_PENDING_STATE);
+
                     // reinit EP as described for this new configuration
                     // EP0 is already configured
                     for(i = 1; i < 16; i++)
                     {
-                        ep_init[GET_ACTIVE_CONFIGURATION()][i]();
+                        ep_init[coming_cfg][i]();
                     }
                 }
             }
@@ -196,17 +198,23 @@ void ep0_in(void)
 {
     debug2("ep0_in %d\n", (uint)num_bytes_to_be_send);
     if(GET_DEVICE_STATE() == ADDRESS_PENDING_STATE)
-        {                                
-            UADDR = SetupBuffer.bAddress;
-            if(UADDR != 0)
-            {
-                SET_DEVICE_STATE(ADDRESS_STATE);
-            }
-            else
-            {
-                SET_DEVICE_STATE(DEFAULT_STATE);
-            }
+    {                                
+        UADDR = SetupBuffer.bAddress;
+        if(UADDR != 0)
+        {
+            SET_DEVICE_STATE(ADDRESS_STATE);
         }
+        else
+        {
+            SET_DEVICE_STATE(DEFAULT_STATE);
+        }
+    }
+        
+   if(GET_DEVICE_STATE() == CONFIGURATION_PENDING_STATE)
+    {
+        SET_ACTIVE_CONFIGURATION(coming_cfg);
+        SET_DEVICE_STATE(CONFIGURED_STATE);
+    }
         
     if(ep0_state == WAIT_IN)
     {

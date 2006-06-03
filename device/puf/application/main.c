@@ -47,29 +47,6 @@ void application_main(void)
     INTCONbits.TMR0IE = 1;
     INTCONbits.GIE = 1;
 
-    //
-    // Process pending USB requests as soon as possible
-    // because serial communications (when _DEBUG is defined) can hang 
-    // the device for a too long time
-    // It means the host should not send a new 
-    // sequence of USB requests before something like 2s
-    // 
-    // In fact, the serial communication causes a lot of
-    // problem with the 18F4550 when done in parallel 
-    // with USB communication in polling mode.
-    // It should also be verified weither or not the serial com edges 
-    // disturb the USB signal...
-    //
-    // In the current state of this software, AVOID the use 
-    // of the USART if you want something stable...
-    //
-#ifdef _DEBUG
-    while(PORTAbits.AN0)
-    {
-        dispatch_usb_event();
-    }
-#endif // _DEBUG
-    
     init_debug();
     debug("init application\n");  
     

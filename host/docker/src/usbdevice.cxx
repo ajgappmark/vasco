@@ -30,6 +30,9 @@ using namespace std;
 #define EP_FLASH_OUT 1
 #define EP_FLASH_IN  2
 
+/* In millisecond. Note that with libusb 0.11 on Linux, a timeout of 0 results
+ * in a immediate return... */
+#define USB_TIMEOUT 5000
 
 USBDevice::USBDevice(struct usb_bus *busses, long vendor, long product)
 {
@@ -159,7 +162,7 @@ void USBDevice::reset(void)
     char cmd = READ_FLASH_CMD;
     int c;
     
-    c = usb_bulk_write(dh, EP_FLASH_OUT, &cmd, sizeof(cmd), 0);
+    c = usb_bulk_write(dh, EP_FLASH_OUT, &cmd, sizeof(cmd), USB_TIMEOUT);
     if(c <= 0)
     {
         // Raise exception
@@ -181,7 +184,7 @@ void USBDevice::erase_block(long address)
     erase_bytes[3] = (address >> 16) & 0xff;
     
 //    cout << "erase block " << hex << address << endl;
-    c = usb_bulk_write(dh, EP_FLASH_OUT, erase_bytes, sizeof(erase_bytes), 0);
+    c = usb_bulk_write(dh, EP_FLASH_OUT, erase_bytes, sizeof(erase_bytes), USB_TIMEOUT);
     if(c <= 0)
     {
         // Raise exception
@@ -220,7 +223,7 @@ void USBDevice::write_block(long address, DataBuffer& tab)
     write_bytes[2] = (address >> 8) & 0xff;
     write_bytes[3] = (address >> 16) & 0xff;
     
-    c = usb_bulk_write(dh, EP_FLASH_OUT, write_bytes, sizeof(write_bytes), 0);
+    c = usb_bulk_write(dh, EP_FLASH_OUT, write_bytes, sizeof(write_bytes), USB_TIMEOUT);
     if(c <= 0)
     {
         // Raise exception
@@ -238,14 +241,14 @@ void USBDevice::read_block(long address, DataBuffer& tab)
     read_bytes[2] = (address >> 8) & 0xff;
     read_bytes[3] = (address >> 16) & 0xff;
 
-    c = usb_bulk_write(dh, EP_FLASH_OUT, read_bytes, sizeof(read_bytes), 0);
+    c = usb_bulk_write(dh, EP_FLASH_OUT, read_bytes, sizeof(read_bytes), USB_TIMEOUT);
     if(c <= 0)
     {
         // Raise exception
         abort();
     }
     
-    c=usb_bulk_read(dh, EP_FLASH_IN, (char*)buffer, sizeof(buffer), 0);
+    c=usb_bulk_read(dh, EP_FLASH_IN, (char*)buffer, sizeof(buffer), USB_TIMEOUT);
     if(c == 64)
     {
         for(long j = 0; j < 64; j++)
@@ -269,14 +272,14 @@ void USBDevice::get_section_descriptors(void)
     long begin, end;
     char flags;
     
-    c = usb_bulk_write(dh, EP_FLASH_OUT, &cmd, sizeof(cmd), 0);
+    c = usb_bulk_write(dh, EP_FLASH_OUT, &cmd, sizeof(cmd), USB_TIMEOUT);
     if(c <= 0)
     {
         // Raise exception
         abort();
     }
 
-    c = usb_bulk_read(dh, EP_FLASH_IN, (char*)buffer, sizeof(buffer), 0);
+    c = usb_bulk_read(dh, EP_FLASH_IN, (char*)buffer, sizeof(buffer), USB_TIMEOUT);
 
     for(int i = 0; i < buffer[0]; i++)
     {

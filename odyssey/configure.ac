@@ -4,7 +4,7 @@ AC_PREREQ(2.50)
 AC_INIT(src/main.cxx)
 AC_REVISION($Id$)
 AC_CONFIG_AUX_DIR(scripts)
-AM_INIT_AUTOMAKE(odyssey, 0.4vasco)
+AM_INIT_AUTOMAKE(odyssey, 0.4)
 AM_CONFIG_HEADER(src/config.h)
 
 
@@ -58,6 +58,18 @@ if test x$check_linux_parport != xno; then
 		AC_MSG_NOTICE([*** Not building Linux ppdev driver]))
 fi
 AM_CONDITIONAL(ENABLE_LINUX_PPDEV, test x$ENABLE_LINUX_PPDEV = x1)
+
+AC_ARG_WITH(directio,
+	[  --without-directio      Don't build the Direct I/O driver],
+	check_sys_io=$withval, check_sys_io=yes)
+ENABLE_DIRECTIO=0
+if test x$check_sys_io != xno; then
+	AC_CHECK_HEADERS(sys/io.h,
+		ENABLE_DIRECTIO=1
+		AC_DEFINE(ENABLE_DIRECTIO,,[Define to build the Direct I/O driver]),
+		AC_MSG_NOTICE([*** Not building Direct I/O driver]))
+fi
+AM_CONDITIONAL(ENABLE_DIRECTIO, test x$ENABLE_DIRECTIO = x1)
 
 
 dnl *** Output files

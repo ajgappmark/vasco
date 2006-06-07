@@ -58,10 +58,10 @@ static int do_test(int argc, char *argv[]);
 
 
 static const struct cmd {
-	char *name;
+	const char *name;
 	int  (*func)(int argc, char *argv[]);
 	bool requires_chiptype;
-	char *desc;
+	const char *desc;
 } commands[] = {
 	{"init", do_init, false, "Prepares the programmer board for use"},
 	{"test", do_test, false, "Enters programmer board test mode"},
@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
 	char ioname[30];
 	int retval, i;
 	long ioport;
-	char *user_configfile="config";
+	const char *user_configfile="config";
 	vector<string> var_override;
 
 	quiet = false;

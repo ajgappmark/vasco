@@ -52,7 +52,7 @@ bool Util::mkdir_p(char *path) {
 }
 
 
-bool Util::regex_match(char *regex, char *string) {
+bool Util::regex_match(const char *regex, char *string) {
 	regex_t regbuf;
 	bool retval;
 	int err;

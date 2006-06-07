@@ -30,7 +30,9 @@ using namespace std;
 #ifdef ENABLE_LINUX_PPDEV
 #  include "LinuxPPDevIO.h"
 #endif
-#include "DirectPPIO.h"
+#ifdef ENABLE_DIRECTIO
+#  include "DirectPPIO.h"
+#endif
 #include "Util.h"
 
 
@@ -42,9 +44,12 @@ IO *IO::acquire(char *name, int port) {
 		io = new LinuxPPDevIO(port);
 	} else
 #endif
+#ifdef ENABLE_DIRECTIO
 	if(strcasecmp(name, "DirectPP") == 0) {
 		io = new DirectPPIO(port);
-	} else {
+	} else
+#endif
+	{
 		throw runtime_error("Unknown IO driver selected");
 	}
 	io->off();

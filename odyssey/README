@@ -52,17 +52,3 @@ Author: Mark Aikens <marka@desert.cx>
 * Setting up:
 
   See doc/setup.txt for more information.
-
-
-* Contributing:
-
-  The following things would be helpful to me:
-    * Creating and testing configurations for other PIC programming hardware.
-    * Testing program/reading/erase/blankcheck of PIC devices that
-      'should work.'
-    * Porting to other OSes, especially FreeBSD.
-    * Crash reporting. Although this is alpha software, it shouldn't crash.
-    * General bug reporting.
-    * Patches for useful features.
-
-Any questions or comments can be sent to Mark Aikens <marka@desert.cx>.

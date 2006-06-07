@@ -1,8 +1,8 @@
 AUTOMAKE_OPTIONS=nostdinc subdir-objects
 AM_CPPFLAGS=-DDATADIR="\"$(pkgdatadir)\"" -DSYSCONFDIR="\"$(sysconfdir)\""
 INCLUDES=-I.
-CFLAGS=-Wall -Werror @CFLAGS@
-AM_CXXFLAGS=-Wall -Werror @CXXFLAGS@
+AM_CXXFLAGS=-Wall -Wundef -Wpointer-arith -Wcast-qual -Wcast-align \
+	-Wwrite-strings -Werror
 
 noinst_LIBRARIES=libcommon.a
 bin_PROGRAMS=odyssey
@@ -15,14 +15,17 @@ libcommon_a_SOURCES=ConfigFile.cxx ConfigFile.h \
 	device/Pic16Device.cxx device/Pic16f8xxDevice.cxx \
 	device/Pic16f7xDevice.cxx device/Pic18Device.cxx \
 	device/Pic12f6xxDevice.cxx device/Pic16f6xx.cxx \
-	device/Pic16f87xADevice.cxx device/Pic18f2xx0Device.cxx\
-	DirectPPIO.cxx DirectPPIO.h
-EXTRA_libcommon_a_SOURCES=LinuxPPDevIO.cxx LinuxPPDevIO.h
+	device/Pic16f87xADevice.cxx device/Pic18f2xx0Device.cxx
+EXTRA_libcommon_a_SOURCES=DirectPPIO.cxx DirectPPIO.h \
+	LinuxPPDevIO.cxx LinuxPPDevIO.h
 
+libcommon_a_LIBADD=
 if ENABLE_LINUX_PPDEV
-libcommon_a_LIBADD=LinuxPPDevIO.o
+libcommon_a_LIBADD+=LinuxPPDevIO.o
 endif
-
+if ENABLE_DIRECTIO
+libcommon_a_LIBADD+=DirectPPIO.o
+endif
 
 odyssey_SOURCES=main.cxx
 odyssey_LDADD=libcommon.a

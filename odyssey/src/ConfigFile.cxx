@@ -27,7 +27,7 @@ using namespace std;
 
 
 ConfigFile::ConfigFile(const char *usercfg, const char *progid, const char *syscfg) {
-	char *dir;
+	const char *dir;
 	int userfilenamelen;
 	bool dot=false;
 

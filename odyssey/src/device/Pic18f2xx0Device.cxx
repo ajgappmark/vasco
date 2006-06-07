@@ -94,6 +94,7 @@ void Pic18f2xx0Device::write_program_memory(DataBuffer& buf, bool verify) {
         }
         
 		if(verify) {
+			cout << endl << "Verifying the memory written..." << endl;
 			/* Verify the memory just written */
 			read_memory(buf, 0x00000, this->codesize, true);
 			}

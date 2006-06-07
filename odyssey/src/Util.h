@@ -60,7 +60,7 @@ public:
 	 *          regular expression.
 	 * \throws logic_error If the regex compilation fails.
 	 */
-	static bool regex_match(char *regex, char *string);
+	static bool regex_match(const char *regex, char *string);
 };
 
 

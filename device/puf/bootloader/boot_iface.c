@@ -55,6 +55,9 @@ void boot_goto_table(void) __naked
     extern __gptrput1
     extern __gptrput2
     extern __gptrput3
+    extern _delay10ktcy
+    extern _delay1ktcy
+    extern _delay10tcy
 
 ;--------------------------------
     
@@ -84,6 +87,9 @@ void boot_goto_table(void) __naked
     goto __gptrput1
     goto __gptrput2
     goto __gptrput3
+    goto _delay10ktcy
+    goto _delay1ktcy
+    goto _delay10tcy
         
     __endasm;
 }

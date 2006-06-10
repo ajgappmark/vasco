@@ -63,6 +63,10 @@ global __gptrget4
 global __gptrput1
 global __gptrput2
 global __gptrput3
+global _delay10ktcy
+global _delay1ktcy
+global _delay10tcy
+
 
 _boot_version:       res 2
 _dispatch_usb_event: res 4
@@ -89,6 +93,9 @@ __gptrget4:          res 4
 __gptrput1:          res 4
 __gptrput2:          res 4
 __gptrput3:          res 4
+_delay10ktcy:        res 4
+_delay1ktcy:         res 4
+_delay10tcy:         res 4
 
     __endasm;
 

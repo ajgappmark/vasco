@@ -27,7 +27,6 @@
 #include "usb.h"
 #include "debug.h"
 #include <pic18fregs.h>
-#include <delay.h>
 
 /* Control Transfer States */
 #define WAIT_SETUP          0
@@ -168,6 +167,24 @@ void ep0_in(void)
         }
     }
         
+    if(ep0_state == WAIT_IN)
+    {
+        fill_in_buffer(0, &sourceData, EP0_BUFFER_SIZE, &num_bytes_to_be_send);
+        
+        if(EP_IN_BD(0).Stat.DTS == 0)
+        {
+            EP_IN_BD(0).Stat.uc = BDS_USIE | BDS_DAT1 | BDS_DTSEN;
+        }
+        else
+        {
+            EP_IN_BD(0).Stat.uc = BDS_USIE | BDS_DAT0 | BDS_DTSEN;
+        }
+    }
+    else
+    {
+        ep0_init();
+    }
+
    if(GET_DEVICE_STATE() == CONFIGURATION_PENDING_STATE)
     {
 
@@ -208,30 +225,13 @@ void ep0_in(void)
 
             // Switch to decrement loop because of a sdcc bug
             for(i = 15; i > 0; i--)
+//            for(i = 1; i < 16; i++)
             {
                 ep_init[coming_cfg][i]();
             }
             
             SET_DEVICE_STATE(CONFIGURED_STATE);
         }
-    }
-
-    if(ep0_state == WAIT_IN)
-    {
-        fill_in_buffer(0, &sourceData, EP0_BUFFER_SIZE, &num_bytes_to_be_send);
-        
-        if(EP_IN_BD(0).Stat.DTS == 0)
-        {
-            EP_IN_BD(0).Stat.uc = BDS_USIE | BDS_DAT1 | BDS_DTSEN;
-        }
-        else
-        {
-            EP_IN_BD(0).Stat.uc = BDS_USIE | BDS_DAT0 | BDS_DTSEN;
-        }
-    }
-    else
-    {
-        ep0_init();
     }
 }
 

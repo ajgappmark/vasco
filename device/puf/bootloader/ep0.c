@@ -27,6 +27,7 @@
 #include "usb.h"
 #include "debug.h"
 #include <pic18fregs.h>
+#include <delay.h>
 
 /* Control Transfer States */
 #define WAIT_SETUP          0
@@ -112,50 +113,7 @@ uchar ep0_usb_std_request(void)
             if(device_descriptor->bNumConfigurations >= SetupBuffer.bConfigurationValue)
             {
                 coming_cfg = SetupBuffer.bConfigurationValue;
-                
-                // First, disable all endpoints.
-                // UEP0 is never disabled
-                UEP1  = 0; UEP2  = 0; UEP3  = 0; UEP4  = 0;
-                UEP5  = 0; UEP6  = 0; UEP7  = 0; UEP8  = 0;
-                UEP9  = 0; UEP10 = 0; UEP11 = 0; UEP12 = 0;
-                UEP13 = 0; UEP14 = 0; UEP15 = 0;
-                
-                // switch the functions vectors
-                if(coming_cfg <= FLASH_CONFIGURATION)
-                {
-                    // switch back to the bootloader vectors
-                    ep_init  = boot_ep_init;
-                    ep_in    = boot_ep_in;
-                    ep_out   = boot_ep_out;
-                    ep_setup = boot_ep_setup;
-                }
-                else
-                {
-                    // switch to the application vectors
-                    ep_init  = application_data.ep_init;
-                    ep_in    = application_data.ep_in;
-                    ep_out   = application_data.ep_out;
-                    ep_setup = application_data.ep_setup;
-                }
-        
-                // and set the current device state
-                if(coming_cfg == 0)
-                {
-                    SET_DEVICE_STATE(ADDRESS_STATE);
-                }
-                else
-                {
-                    static uchar i;
-
-                    SET_DEVICE_STATE(CONFIGURATION_PENDING_STATE);
-
-                    // reinit EP as described for this new configuration
-                    // EP0 is already configured
-                    for(i = 1; i < 16; i++)
-                    {
-                        ep_init[coming_cfg][i]();
-                    }
-                }
+                SET_DEVICE_STATE(CONFIGURATION_PENDING_STATE);
             }
             else // invalid configuration
             {
@@ -212,10 +170,52 @@ void ep0_in(void)
         
    if(GET_DEVICE_STATE() == CONFIGURATION_PENDING_STATE)
     {
-        SET_ACTIVE_CONFIGURATION(coming_cfg);
-        SET_DEVICE_STATE(CONFIGURED_STATE);
-    }
+
+        // First, disable all endpoints.
+        // UEP0 is never disabled
+        UEP1  = 0; UEP2  = 0; UEP3  = 0; UEP4  = 0;
+        UEP5  = 0; UEP6  = 0; UEP7  = 0; UEP8  = 0;
+        UEP9  = 0; UEP10 = 0; UEP11 = 0; UEP12 = 0;
+        UEP13 = 0; UEP14 = 0; UEP15 = 0;
         
+        // switch the functions vectors
+        if(coming_cfg <= FLASH_CONFIGURATION)
+        {
+            // switch back to the bootloader vectors
+            ep_init  = boot_ep_init;
+            ep_in    = boot_ep_in;
+            ep_out   = boot_ep_out;
+            ep_setup = boot_ep_setup;
+        }
+        else
+        {
+            // switch to the application vectors
+            ep_init  = application_data.ep_init;
+            ep_in    = application_data.ep_in;
+            ep_out   = application_data.ep_out;
+            ep_setup = application_data.ep_setup;
+        }
+
+        SET_ACTIVE_CONFIGURATION(coming_cfg);
+
+        if(coming_cfg == 0)
+        {
+            SET_DEVICE_STATE(ADDRESS_STATE);
+        }
+        else
+        {
+            static uchar i;
+
+            // Switch to decrement loop because of a sdcc bug
+            for(i = 15; i > 0; i--)
+            {
+                ep_init[coming_cfg][i]();
+            }
+            
+            SET_DEVICE_STATE(CONFIGURED_STATE);
+        }
+    }
+
     if(ep0_state == WAIT_IN)
     {
         fill_in_buffer(0, &sourceData, EP0_BUFFER_SIZE, &num_bytes_to_be_send);
@@ -233,7 +233,6 @@ void ep0_in(void)
     {
         ep0_init();
     }
-
 }
 
 void ep0_setup(void)

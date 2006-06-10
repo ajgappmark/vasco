@@ -1,1 +1,3 @@
 tools*
+autom4te.cache
+config.status

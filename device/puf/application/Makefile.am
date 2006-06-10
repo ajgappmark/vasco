@@ -31,6 +31,7 @@ ODYSSEY=$(TOOLSDIR)/bin/odyssey
 CRT0=$(TOOLSDIR)/share/sdcc/lib/pic16/crt0.o
 LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4455.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
+#DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
 #DEBUG=-D_DEBUG
 #DEBUG=--obanksel=2 --optimize-df --opt-code-size
 

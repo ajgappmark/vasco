@@ -28,7 +28,7 @@ AM_CFLAGS = -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG)
 LNK = $(TOOLSDIR)/bin/sdcc
 AM_LDFLAGS = 
 ODYSSEY = $(TOOLSDIR)/bin/odyssey
-#DEBUG = --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
+#DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
 #DEBUG = --calltree
 #DEBUG = --stack-auto
 #DEBUG = -D_DEBUG

@@ -1,20 +1,22 @@
 PIC USB Framework (1.1)
 
+  * Upgrade of automake 1.9.6 and autoconf 2.59d
+  * Upgrade to sdcc snapshot 20060630, which produces smaller code.
   * The bootloader now exports the intrinsic functions used by the
     compiler. The mechanism used is the same as for the other shared
     functions. To improve extensibility of the indirection table,
     its address is now 0x1c instead of 0x1fd2 (too close to segment
     limit). sdcc shared functions are : _mullong, _mulint, _gptrget1, _gptrget2,
-    _gptrget3, _gptrget4, _gptrput1, _gptrput2, and _gptrput3. In the case of 
-    picon, 270 program bytes are saved thanks to that method (close feature
-    request #364).
-    
-  * The return of the SET_CONFIGURATION bug. Configuration change is now effective
-    after the null IN packet aknownledgment. Vectors switch and ep_init calls
-    stay in ep0_usb_std_request because something does not work when it is done
-    in ep0_in. I don't know why :-( close bug #397 once more... ).
+    _gptrget3, _gptrget4, _gptrput1, _gptrput2, _gptrput3, _delay10ktcy,
+    _delay1ktcy, and _delay10tcy. In the case of picon, 270 program bytes
+    are saved thanks to that method (close feature request #364).    
+  * The return of the SET_CONFIGURATION bug... Configuration change is now
+    effective after the null IN packet aknownledgment. Include a sdcc work
+    around : for(i=1;i<16;i++) was "optimized" to for(i=14;i>=0;i--). So I 
+    had to change this loop to for(i=15;i>0;i--) : close bug #397 once more... 
+  * Build optimization flags revisited. It still requires some work though.
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Jun  3 17:08:24 CEST 2006
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Wed Jun 14 08:41:19 CEST 2006
  
  PIC USB Framework (1.0)
 

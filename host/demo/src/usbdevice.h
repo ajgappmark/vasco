@@ -26,7 +26,7 @@ using namespace std;
 class USBDevice
 {
     public:
-        USBDevice(struct usb_bus *busses, long vendor, long product, int cfg);
+        USBDevice(struct usb_device *dev, int cfg);
         ~USBDevice();
         
     private:

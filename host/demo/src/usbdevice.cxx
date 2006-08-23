@@ -26,50 +26,30 @@ using namespace std;
 #include "usbdevice.h"
 
 
-USBDevice::USBDevice(struct usb_bus *busses, long vendor, long product, int cfg)
+USBDevice::USBDevice(struct usb_device *dev, int cfg)
 {
-    struct usb_bus *bus;
     int c;
     
-    dh = NULL;
-    for (bus = busses; bus; bus = bus->next) {
-        struct usb_device *dev;
+    dh = usb_open(dev);
+    if(!dh)
+    {
+        throw "Unable to open device.";
+    }
 
-        for (dev = bus->devices; dev; dev = dev->next) {
-            /* Look for Vasco devices */
-            if ((dev->descriptor.idVendor == vendor) && 
-                (dev->descriptor.idProduct == product)) 
-            {
-                // Got one !
-//                cout << "device found\n";
-                dh = usb_open(dev);
-                if(!dh)
-                {
-                    // raise exception
-                    abort();
-                }
+    c = usb_set_configuration(dh, cfg);
+    if(c)
+    {
+        usb_close(dh);
+        dh = NULL;
+        throw "Impossible to change the device configuration.";
+    }
 
-                c = usb_set_configuration(dh, cfg);
-                if(c)
-                {
-                    // raise exception
-                    abort();
-                }
-
-                c = usb_claim_interface(dh, 0);
-                if(c)
-                {
-                    // raise exception
-                    abort();
-                }
-
-                break;
-            }
-        }
-        if(dh)
-        {
-            break;
-        }
+    c = usb_claim_interface(dh, 0);
+    if(c)
+    {
+        usb_close(dh);
+        dh = NULL;
+        throw "Device interface 0 unavailable.";
     }
 }
 
@@ -78,6 +58,7 @@ USBDevice::~USBDevice()
     if(dh)
     {
         usb_close(dh);
+        dh = NULL;
     }
 }
 

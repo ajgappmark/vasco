@@ -30,73 +30,106 @@ using namespace std;
 
 static USBDevice* device;
 
+static void help_msg(void)
+{
+    cout << PACKAGE << " version " << VERSION << endl;
+    cout << PACKAGE << " [-v vendor_id] [-p product_id] [-d device_filename] [-c configuration_id]" << endl;
+    cout << PACKAGE << " [-q] for quiet operations." << endl;
+    cout << PACKAGE << " [-h/V] displays this message." << endl;
+}
+
 int main(int argc, char**argv)
 {    
-    int c, i, a;
-    long val;
-    bool quiet;
+    // arg iterator
+    int    i;
+    
+    // option flags and values
+    bool   quiet        = false;
+    long   product_id   = 0x0000;
+    bool   product_flag = false;
+    long   vendor_id    = 0x0000;
+    bool   vendor_flag  = false;
+    string device_id    = "";
+    int    cfg_id       = 3;
+    
+    // USB busses informations
     struct usb_bus *busses;
-    long product_id = 0x0001;
-    long vendor_id = 0xa5a5;
-    int cfg_id = 3;
-    struct usb_bus *bus;
-    string device_id = "";
     
-    quiet = false;
-    
-    while((i = getopt(argc, argv, "v:p:d:qVc:")) > 0) {
+    while((i = getopt(argc, argv, "v:p:d:qVhc:")) > 0) {
         switch(i) {
         case 'q':
             quiet = true;
             break;
+            
         case 'V':
-            cout << PACKAGE << " version " << VERSION << endl;
+        case 'h':
+            help_msg();
             return 0;
+            
         case 'p':
             product_id = strtol(optarg, NULL, 16);
+            product_flag = true;
             break;
+            
         case 'v':
             vendor_id = strtol(optarg, NULL, 16);
+            vendor_flag = true;
             break;
+            
         case 'd':
+            // The device id is in fact the device filename
+            // i.e. something like 001, 023, etc. with linux
             device_id = optarg;
             break;
+            
         case 'c':
             cfg_id = strtol(optarg, NULL, 10);
             break;
-        case '?':
-        case ':':
+            
         default:;
+            // unknown option : return with an error
+            help_msg();
             return -1;
         }
     }
-
+    
+    
     usb_init();
     usb_find_busses();
     usb_find_devices();
-    
     busses = usb_get_busses();
     
-    for (bus = busses; bus; bus = bus->next) {
+    for (struct usb_bus *bus = busses; bus; bus = bus->next)
+    {
         struct usb_device *dev;
 
-        for (dev = bus->devices; dev; dev = dev->next) {
-            /* Look for Vasco devices */
-            if ((dev->descriptor.idVendor == vendor_id) && 
-                (dev->descriptor.idProduct == product_id)) 
+        for (dev = bus->devices; dev; dev = dev->next)
+        {
+            /* Look for matching devices */
+            if ((!vendor_flag  || (dev->descriptor.idVendor  == vendor_id)) && 
+                (!product_flag || (dev->descriptor.idProduct == product_id))) 
             {
-                // Got one !
                 if((device_id == "") || (device_id == dev->filename))
                 {
-                    cout << "Device " << dev->filename << " matches.\n";
+                    // Got one !
+                    if(!quiet)
+                    {
+                        cout << "Change configuration of device " << dev->filename << endl;
+                    }
+                    
+                    try 
+                    {
+                        device = new USBDevice(dev, cfg_id);
+                    }
+                    catch (char const* msg)
+                    {
+                        cerr << msg << endl; 
+                        return -1;
+                    }
+
+                    delete device;
                 }
             }
         }
     }
-    
-    //device = new USBDevice(busses, vendor_id, product_id, cfg_id);
-
-
-
-    //delete device;
 }

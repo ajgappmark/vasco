@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  usbdevice.cxx - docker USB classes
+  usbdevice.cxx - USB device driver
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -17,6 +17,8 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------*/
+
+/* $Id$ */
 
 using namespace std;
 

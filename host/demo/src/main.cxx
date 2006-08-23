@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  main.c - demo
+  main.c - host side PUF demo (change USB device configuration)
   
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -18,6 +18,8 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------*/
 
+/* $Id$ */
+
 using namespace std;
 
 #include <iostream>
@@ -27,8 +29,6 @@ using namespace std;
 #include <signal.h>
 #include "config.h"
 #include "usbdevice.h"
-
-static USBDevice* device;
 
 static void help_msg(void)
 {
@@ -54,6 +54,9 @@ int main(int argc, char**argv)
     
     // USB busses informations
     struct usb_bus *busses;
+    
+    // device driver
+    USBDevice* device;
     
     while((i = getopt(argc, argv, "v:p:d:qVhc:")) > 0) {
         switch(i) {

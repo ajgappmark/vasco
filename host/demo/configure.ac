@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT(demo, 1.0, vasco-users@lists.gforge.enseeiht.fr)
+AC_INIT(demo, 1.0, vasco-project@lists.gforge.enseeiht.fr)
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/main.cxx])
 AC_CONFIG_HEADER([config.h])

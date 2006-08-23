@@ -21,6 +21,7 @@
 using namespace std;
 
 #include <iostream>
+#include <string>
 #include <usb.h>
 #include <getopt.h>
 #include <signal.h>
@@ -35,14 +36,15 @@ int main(int argc, char**argv)
     long val;
     bool quiet;
     struct usb_bus *busses;
-    string cmd;
     long product_id = 0x0001;
     long vendor_id = 0xa5a5;
     int cfg_id = 3;
+    struct usb_bus *bus;
+    string device_id = "";
     
     quiet = false;
     
-    while((i = getopt(argc, argv, "v:p:qVc:")) > 0) {
+    while((i = getopt(argc, argv, "v:p:d:qVc:")) > 0) {
         switch(i) {
         case 'q':
             quiet = true;
@@ -55,6 +57,9 @@ int main(int argc, char**argv)
             break;
         case 'v':
             vendor_id = strtol(optarg, NULL, 16);
+            break;
+        case 'd':
+            device_id = optarg;
             break;
         case 'c':
             cfg_id = strtol(optarg, NULL, 10);
@@ -71,11 +76,27 @@ int main(int argc, char**argv)
     usb_find_devices();
     
     busses = usb_get_busses();
+    
+    for (bus = busses; bus; bus = bus->next) {
+        struct usb_device *dev;
 
-    // Look for device
-    device = new USBDevice(busses, vendor_id, product_id, cfg_id);
+        for (dev = bus->devices; dev; dev = dev->next) {
+            /* Look for Vasco devices */
+            if ((dev->descriptor.idVendor == vendor_id) && 
+                (dev->descriptor.idProduct == product_id)) 
+            {
+                // Got one !
+                if((device_id == "") || (device_id == dev->filename))
+                {
+                    cout << "Device " << dev->filename << " matches.\n";
+                }
+            }
+        }
+    }
+    
+    //device = new USBDevice(busses, vendor_id, product_id, cfg_id);
 
 
 
-    delete device;
+    //delete device;
 }

@@ -1,9 +1,13 @@
 docker (1.1)
 
+  * error management using exceptions
+  * help message has been added
+  * code clean up
+  * better device selectivity (by vendor id, product id, device filename)
   * USB timeouts set to 5000ms. libusb 0.11 seems to return immediately on Linux
     with a timeout of 0.
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Jun  3 17:57:45 CEST 2006
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Thu Aug 24 22:01:34 CEST 2006
 
 docker (1.0)
 

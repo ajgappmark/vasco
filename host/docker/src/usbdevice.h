@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  usbdevice.h - docker USB accesses
+  usbdevice.h - docker USB device driver
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -17,6 +17,9 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------*/
+
+
+/* $Id$ */
 
 #ifndef USBDEVICE_H
 #define USBDEVICE_H
@@ -48,7 +51,7 @@ using namespace std;
 class USBDevice
 {
     public:
-        USBDevice(struct usb_bus *busses, long vendor, long product);
+        USBDevice(struct usb_device *dev);
         ~USBDevice();
         void erase(void);
         void write(DataBuffer& tab);

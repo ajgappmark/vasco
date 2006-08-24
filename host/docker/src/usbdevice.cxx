@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  usbdevice.cxx - docker USB classes
+  usbdevice.cxx - docker USB device driver
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -18,6 +18,8 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------*/
 
+/* $Id$ */
+
 using namespace std;
 
 #include <iostream>
@@ -34,52 +36,35 @@ using namespace std;
  * in a immediate return... */
 #define USB_TIMEOUT 5000
 
-USBDevice::USBDevice(struct usb_bus *busses, long vendor, long product)
+USBDevice::USBDevice(struct usb_device *dev)
 {
-    struct usb_bus *bus;
     int c;
     
-    dh = NULL;
-    for (bus = busses; bus; bus = bus->next) {
-        struct usb_device *dev;
+    dh = usb_open(dev);
+    if(!dh)
+    {
+        throw "Unable to open device.";
+    }
 
-        for (dev = bus->devices; dev; dev = dev->next) {
-            /* Look for Vasco devices */
-            if ((dev->descriptor.idVendor == vendor) && 
-                (dev->descriptor.idProduct == product)) 
-            {
-                // Got one !
-//                cout << "device found\n";
-                dh = usb_open(dev);
-                if(!dh)
-                {
-                    // raise exception
-                    abort();
-                }
+    c = usb_set_configuration(dh, 2);
+    if(c)
+    {
+        usb_close(dh);
+        dh = NULL;
+        throw "Impossible to change the device configuration.";
+    }
 
-                c = usb_set_configuration(dh, 2);
-                if(c)
-                {
-                    // raise exception
-                    abort();
-                }
+    c = usb_claim_interface(dh, 0);
+    if(c)
+    {
+        usb_close(dh);
+        dh = NULL;
+        throw "Device interface 0 unavailable.";
+    }
 
-                c = usb_claim_interface(dh, 0);
-                if(c)
-                {
-                    // raise exception
-                    abort();
-                }
-
-                break;
-            }
-        }
-        if(dh)
-        {
-            //cout << "get sections descriptors\n";
-            get_section_descriptors();
-            break;
-        }
+    if(dh)
+    {
+        get_section_descriptors();
     }
 }
 
@@ -88,6 +73,7 @@ USBDevice::~USBDevice()
     if(dh)
     {
         usb_close(dh);
+        dh = NULL;
     }
 }
 
@@ -166,7 +152,9 @@ void USBDevice::reset(void)
     if(c <= 0)
     {
         // Raise exception
-        abort();
+        usb_close(dh);
+        dh = NULL;
+        throw "I/O error on device reset command.";
     }
 }
 
@@ -188,7 +176,9 @@ void USBDevice::erase_block(long address)
     if(c <= 0)
     {
         // Raise exception
-        abort();
+        usb_close(dh);
+        dh = NULL;
+        throw "I/O error on device erase command.";
     }
 }
 
@@ -227,7 +217,9 @@ void USBDevice::write_block(long address, DataBuffer& tab)
     if(c <= 0)
     {
         // Raise exception
-        abort();
+        usb_close(dh);
+        dh = NULL;
+        throw "I/O error on device write command.";
     }
 }
 
@@ -245,7 +237,9 @@ void USBDevice::read_block(long address, DataBuffer& tab)
     if(c <= 0)
     {
         // Raise exception
-        abort();
+        usb_close(dh);
+        dh = NULL;
+        throw "I/O error on device read command.";
     }
     
     c=usb_bulk_read(dh, EP_FLASH_IN, (char*)buffer, sizeof(buffer), USB_TIMEOUT);
@@ -259,7 +253,9 @@ void USBDevice::read_block(long address, DataBuffer& tab)
     else
     {
         // Raise an exception
-        abort();
+        usb_close(dh);
+        dh = NULL;
+        throw "I/O error on device read command : impossible to read block.";
     }
     
 }
@@ -276,7 +272,9 @@ void USBDevice::get_section_descriptors(void)
     if(c <= 0)
     {
         // Raise exception
-        abort();
+        usb_close(dh);
+        dh = NULL;
+        throw "I/O error on device get_descriptor command.";
     }
 
     c = usb_bulk_read(dh, EP_FLASH_IN, (char*)buffer, sizeof(buffer), USB_TIMEOUT);

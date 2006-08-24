@@ -33,9 +33,13 @@ using namespace std;
 static void help_msg(void)
 {
     cout << PACKAGE << " version " << VERSION << endl;
-    cout << PACKAGE << " [-v vendor_id] [-p product_id] [-d device_filename] [-c configuration_id]" << endl;
-    cout << PACKAGE << " [-q] for quiet operations." << endl;
-    cout << PACKAGE << " [-h/V] displays this message." << endl;
+    cout << PACKAGE << " [options] [-c configuration_id]" << endl;
+    cout << "Options :\n\t-v vendor_id       : process only devices with this vendor ID" << endl;
+    cout <<            "\t-p product_id      : process only devices with this product ID" << endl;
+    cout <<            "\t-d device_filename : process only this device" << endl;
+    cout <<            "\t-c cfg_id          : set the device configuration to cfg_id (default is 3)" << endl;
+    cout <<            "\t-q for quiet operations" << endl;
+    cout <<            "\t-h/V displays this message" << endl;
 }
 
 int main(int argc, char**argv)
@@ -89,7 +93,7 @@ int main(int argc, char**argv)
             cfg_id = strtol(optarg, NULL, 10);
             break;
             
-        default:;
+        default:
             // unknown option : return with an error
             help_msg();
             return -1;
@@ -123,14 +127,12 @@ int main(int argc, char**argv)
                     try 
                     {
                         device = new USBDevice(dev, cfg_id);
+                        delete device;
                     }
                     catch (char const* msg)
                     {
                         cerr << msg << endl; 
-                        return -1;
                     }
-
-                    delete device;
                 }
             }
         }

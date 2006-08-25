@@ -50,7 +50,6 @@ USBDevice::USBDevice(struct usb_device *dev)
     if(c)
     {
         usb_close(dh);
-        dh = NULL;
         throw "Impossible to change the device configuration.";
     }
 
@@ -58,7 +57,6 @@ USBDevice::USBDevice(struct usb_device *dev)
     if(c)
     {
         usb_close(dh);
-        dh = NULL;
         throw "Device interface 0 unavailable.";
     }
 
@@ -70,11 +68,7 @@ USBDevice::USBDevice(struct usb_device *dev)
 
 USBDevice::~USBDevice()
 {
-    if(dh)
-    {
-        usb_close(dh);
-        dh = NULL;
-    }
+    usb_close(dh);
 }
 
 void USBDevice::erase(void)
@@ -152,8 +146,6 @@ void USBDevice::reset(void)
     if(c <= 0)
     {
         // Raise exception
-        usb_close(dh);
-        dh = NULL;
         throw "I/O error on device reset command.";
     }
 }
@@ -176,8 +168,6 @@ void USBDevice::erase_block(long address)
     if(c <= 0)
     {
         // Raise exception
-        usb_close(dh);
-        dh = NULL;
         throw "I/O error on device erase command.";
     }
 }
@@ -217,8 +207,6 @@ void USBDevice::write_block(long address, DataBuffer& tab)
     if(c <= 0)
     {
         // Raise exception
-        usb_close(dh);
-        dh = NULL;
         throw "I/O error on device write command.";
     }
 }
@@ -237,8 +225,6 @@ void USBDevice::read_block(long address, DataBuffer& tab)
     if(c <= 0)
     {
         // Raise exception
-        usb_close(dh);
-        dh = NULL;
         throw "I/O error on device read command.";
     }
     
@@ -253,8 +239,6 @@ void USBDevice::read_block(long address, DataBuffer& tab)
     else
     {
         // Raise an exception
-        usb_close(dh);
-        dh = NULL;
         throw "I/O error on device read command : impossible to read block.";
     }
     
@@ -272,8 +256,6 @@ void USBDevice::get_section_descriptors(void)
     if(c <= 0)
     {
         // Raise exception
-        usb_close(dh);
-        dh = NULL;
         throw "I/O error on device get_descriptor command.";
     }
 

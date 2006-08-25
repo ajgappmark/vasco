@@ -42,7 +42,6 @@ USBDevice::USBDevice(struct usb_device *dev, int cfg)
     if(c)
     {
         usb_close(dh);
-        dh = NULL;
         throw "Impossible to change the device configuration.";
     }
 
@@ -50,17 +49,12 @@ USBDevice::USBDevice(struct usb_device *dev, int cfg)
     if(c)
     {
         usb_close(dh);
-        dh = NULL;
         throw "Device interface 0 unavailable.";
     }
 }
 
 USBDevice::~USBDevice()
 {
-    if(dh)
-    {
-        usb_close(dh);
-        dh = NULL;
-    }
+    usb_close(dh);
 }
 

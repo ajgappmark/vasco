@@ -139,7 +139,7 @@ void USBDevice::read(DataBuffer& tab)
 
 void USBDevice::reset(void)
 {
-    char cmd = READ_FLASH_CMD;
+    char cmd = RESET_CMD;
     int c;
     
     c = usb_bulk_write(dh, EP_FLASH_OUT, &cmd, sizeof(cmd), USB_TIMEOUT);

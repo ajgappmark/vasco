@@ -224,7 +224,7 @@ int main(int argc, char**argv)
                                 }
                                 device->erase();
                                 device->write(buf);
-                                //device->verify(buf);
+                                device->reset();
                             }
                             else if(!strcmp(argv[optind], "erase"))
                             {

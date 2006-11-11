@@ -1,6 +1,9 @@
 PIC USB Framework (1.1)
 
-  * Upgrade of automake 1.9.6 and autoconf 2.59d
+  * Add a components library to help building user applications : now contains
+    only pic text console (picon).
+  * UML model updated (due to new release of topcased-uml editor).
+  * Upgrade of automake 1.9.6 and autoconf 2.59d.
   * Upgrade to sdcc snapshot 20060630, which produces smaller code.
   * The bootloader now exports the intrinsic functions used by the
     compiler. The mechanism used is the same as for the other shared

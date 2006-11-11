@@ -6,9 +6,11 @@ AC_INIT(puf, 1.1, vasco-project@lists.gforge.enseeiht.fr)
 AM_INIT_AUTOMAKE([no-dependencies no-exeext dist-bzip2])
 AC_CONFIG_SRCDIR([bootloader/boot_main.c])
 
+
 AC_CONFIG_FILES([Makefile
                  application/Makefile
                  archives/Makefile
+                 lib/Makefile
                  bootloader/Makefile
                  scripts/Makefile
                  udev/Makefile])

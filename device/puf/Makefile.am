@@ -1,1 +1,1 @@
-SUBDIRS = archives bootloader application scripts udev
+SUBDIRS = archives lib bootloader application scripts udev

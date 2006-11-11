@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  picon.h - USB endpoint 2 callbacks
+  picon.h - USB endpoint callbacks
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -32,6 +32,5 @@
 void picon_init(void);
 void picon_in(void);
 void prepare_in(void);
-void picon_puts(uchar* s);
 
 #endif /*PICON_H_*/

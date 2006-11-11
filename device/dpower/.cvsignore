@@ -1,0 +1,13 @@
+autom4te.cache
+*.asm
+config.status
+*.lst
+*.cod
+*.hex
+*.map
+.settings
+.cdtproject
+.project
+Makefile
+Makefile.in
+configure

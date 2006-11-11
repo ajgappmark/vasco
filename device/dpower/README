@@ -1,0 +1,29 @@
+DPOWER Installation & Use Instructions
+*************************************************
+
+Copyright (C) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr
+
+This file is free documentation; you have unlimited permission to copy, 
+distribute and modify it.
+
+
+PICON is a USB console based on PUF (PIC USB Framework).
+To build PICON, you will need the PUF cross-compilation tools (or
+a compatible release of sdcc), and docker to flash the application.
+
+Both PUF and docker can be found at http://gforge.enseeiht.fr/frs/?group_id=10.
+
+The typical sequence required to run PICON is (considering that PUF is installed
+in the same directory than PICON) :
+
+./configure --with-sdcc=../puf/tools/bin/sdcc
+make
+docker write picon.hex
+picon
+
+The host side depends on libusb >=0.11.
+
+Contributions, bug reports and questions are welcome on
+our  mailing list (http://gforge.enseeiht.fr/mail/?group_id=10)
+and on our trackers (http://gforge.enseeiht.fr/tracker/?group_id=10).
+

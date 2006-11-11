@@ -3,6 +3,9 @@
 BUS!="usb", ACTION!="add", GOTO="vasco_rules_end"
 
 # Default device
-SYSFS{idVendor}=="a5a5", SYSFS{idProduct}=="0001", MODE="660", GROUP="vasco"
+#SYSFS{idVendor}=="a5a5", SYSFS{idProduct}=="0001", MODE="660", GROUP="vasco"
+
+# All Vasco devices
+SYSFS{idVendor}=="a5a5", MODE="660", GROUP="vasco"
 
 LABEL="vasco_rules_end"

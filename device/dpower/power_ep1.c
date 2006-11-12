@@ -22,6 +22,7 @@
 
 #include "power_ep1.h"
 #include "power_ep2.h"
+#include "power_mgr.h"
 #include "usb.h"
 #include "debug.h"
 #include <pic18fregs.h>
@@ -42,29 +43,38 @@ void power_ep1_init(void)
 
 void power_ep1_out(void)
 {
-    debug("power_ep1_out\n");
     if(EP_OUT_BD(1).Cnt >= 1)
     {
         switch(power_ep1_OutBuffer[0])
         {
             case READ_BATTERY_TENSION_CMD:
                 debug("READ_BATTERY_TENSION_CMD\n");
+                start_read_tension();
+                break;
+            case POWER_SUPPLY_ON_CMD:
+                debug("POWER_SUPPLY_ON_CMD\n");
+                switch_power_supply_on(power_ep1_OutBuffer[1] + 256 * power_ep1_OutBuffer[2]);
                 break;
             case RESET_POWER_SUPPLY_CMD:
                 debug("RESET_POWER_SUPPLY_CMD\n");
+                reset_power_supply(power_ep1_OutBuffer[1] + 256 * power_ep1_OutBuffer[2]);
                 break;
             case SHUTDOWN_POWER_SUPPLY_CMD:
-                debug("RESET_POWER_SUPPLY_CMD\n");
+                debug("SHUTDOWN_POWER_SUPPLY_CMD\n");
+                shutdown_power_supply(power_ep1_OutBuffer[1] + 256 * power_ep1_OutBuffer[2]);
                 break;
             case SET_BATTERY_TENSION_ALERT_CMD:
                 debug("SET_BATTERY_TENSION_ALERT_CMD\n");
+                set_battery_tension_alert(power_ep1_OutBuffer[1] + 256 * power_ep1_OutBuffer[2], 
+                                          power_ep1_OutBuffer[3] + 256 * power_ep1_OutBuffer[4] & 0x3ff);
                 break;
             case UNSET_BATTERY_TENSION_ALERT_CMD:
                 debug("UNSET_BATTERY_TENSION_ALERT_CMD\n");
+                unset_battery_tension_alert();
                 break;
                 
             default:
-                debug("unknown command\n");
+                debug("Unknown power management command\n");
                 // Raise an error
                 EP_OUT_BD(1).Cnt = POWER_EP1_BUFFER_SIZE;
                 EP_OUT_BD(1).ADR = (uchar __data *)&power_ep1_OutBuffer;

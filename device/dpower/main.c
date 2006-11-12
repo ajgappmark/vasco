@@ -22,8 +22,7 @@
 #include "common_types.h"
 #include "debug.h"
 #include "boot_iface.h"
-#include "power_ep1.h"
-#include "power_ep2.h"
+#include "power_mgr.h"
 #include <stdio.h>
 
 #define ftoggle_A0() { PORTAbits.AN0 = !PORTAbits.AN0; }
@@ -34,28 +33,23 @@
 // beware : this is not a C main function, but the application
 // entry point called from the boot.
 
-static ulong counter;
 const uchar picon_ep = 3; // picon EP
 
 void application_main(void) 
 {
     PORTAbits.AN0 = 1;
     stdout = STREAM_USER;
-    counter = 0;
-    debug("init power supply manager\n");  
+    CMCON  = 0x07;
+    TRISE  = 0x07;
+    //UIE    = 0x7b;
+    //PIE2bits.USBIE = 1; 
+    //PIR2bits.USBIF = 0;
+    //INTCON = 0xc0;
+    debug("Power supply manager initialized\n");  
 
     while(usb_active_cfg > 2)
     {
-        counter++;
-        if(counter == 0x4000) {
-            ftoggle_A0();
-        }
-        if(counter == 0x10000) {
-            ftoggle_A0();
-            counter = 0;
-            debug("Power manager is alive.\n");
-        }
-//        usb_sleep();
+        power_supply_mgr();
         dispatch_usb_event();
     }
     PORTAbits.AN0 = 0;
@@ -65,6 +59,8 @@ void application_main(void)
 #pragma code high_priority_isr 0x2020
 void high_priority_isr(void) interrupt
 {
+    //dispatch_usb_event();
+    //PIR2bits.USBIF = 0;
 }
 
 #pragma code low_priority_isr 0x4000

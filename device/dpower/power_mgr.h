@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  power_ep1.h - USB endpoint 1 callbacks
+  power_mgr.h - Power supply manager functions
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -20,21 +20,15 @@
 
 /* $Id$ */
 
-#ifndef POWER_EP1_H_
-#define POWER_EP1_H_
+#ifndef POWER_MGR_H_
+#define POWER_MGR_H_
 
-// Size of the power EP1 buffer
-#define POWER_EP1_BUFFER_SIZE 8
+void power_supply_mgr(void);
+void set_battery_tension_alert(unsigned int period, unsigned int threshold);
+void shutdown_power_supply(unsigned int delay);
+void start_read_tension(void);
+void switch_power_supply_on(unsigned int delay);
+void reset_power_supply(unsigned int delay);
+void unset_battery_tension_alert(void);
 
-// Power manager commands
-#define READ_BATTERY_TENSION_CMD        1
-#define RESET_POWER_SUPPLY_CMD          2
-#define SHUTDOWN_POWER_SUPPLY_CMD       3
-#define SET_BATTERY_TENSION_ALERT_CMD   4
-#define UNSET_BATTERY_TENSION_ALERT_CMD 5
-#define POWER_SUPPLY_ON_CMD             6
-
-void power_ep1_init(void);
-void power_ep1_out(void);
-
-#endif /*POWER_EP1_H_*/
+#endif /*POWER_MGR_H_*/

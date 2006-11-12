@@ -46,7 +46,7 @@ void power_ep2_init(void)
 
 void power_prepare_ep2_in(void)
 {
-    debug("power_prepare_ep2_in\n");
+    debug("pwr_prep_ep2_in\n");
     last_send_was_null = (power_ep2_num_bytes_to_send < POWER_EP2_BUFFER_SIZE);
     EP_IN_BD(2).Cnt = power_ep2_num_bytes_to_send;
     EP_IN_BD(2).ADR = (uchar __data *)&power_ep2_InBuffer;

@@ -45,11 +45,15 @@ dpower_hex_SOURCES = usb_descriptors.h application_iface.h \
                           application_iface.c boot_iface.c main.c \
                           usb_descriptors.c usb.h usb.c power_ep1.c \
                           power_ep1.h power_ep2.c power_ep2.h \
-                          picon.h
+                          picon.h power_mgr.c power_mgr.h
 
 EXTRA_DIST=$(lkr_PIC_TYPE).lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 
 
-power_ep1.o power_ep2.o usb.o application_iface.o main.o usb_descriptors.o boot_iface.o : usb_descriptors.h application_iface.h common_types.h debug.h boot_iface.h power_ep1.h power_ep2.h usb.h
+power_mgr.o power_ep1.o power_ep2.o usb.o application_iface.o main.o \
+usb_descriptors.o boot_iface.o : usb_descriptors.h application_iface.h \
+                                 common_types.h debug.h boot_iface.h \
+                                 power_ep1.h power_ep2.h usb.h power_mgr.c \
+                                 power_mgr.h

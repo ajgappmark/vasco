@@ -20,7 +20,7 @@
 
 OBJEXT=o
 PIC_TYPE=PIC18F4550
-sdcc_PIC_TYPE=18f4455
+sdcc_PIC_TYPE=18f4550
 lkr_PIC_TYPE=18f4550
 TOOLSDIR=$(shell dirname `pwd`)/tools
 CC=$(TOOLSDIR)/bin/sdcc
@@ -29,7 +29,7 @@ GLNK=$(TOOLSDIR)/bin/gplink
 LNK=$(TOOLSDIR)/bin/sdcc
 ODYSSEY=$(TOOLSDIR)/bin/odyssey
 CRT0=$(TOOLSDIR)/share/sdcc/lib/pic16/crt0.o
-LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4455.lib
+LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4550.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
 #DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
 #DEBUG=-D_DEBUG

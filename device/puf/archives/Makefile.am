@@ -39,7 +39,7 @@ odyssey:
 
 sdcc: gputils
 	if [ ! -x "$(TOOLSDIR)/bin/sdcc" ]; then \
-	 tar xvzf sdcc-src-20060530.tar.gz;\
+	 tar xvjf sdcc-src-20061112-4471.tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
 	 (cd sdcc && \
 	 ./configure --disable-z80-port --disable-mcs51-port \
@@ -54,9 +54,9 @@ sdcc: gputils
 	
 gputils:
 	if [ ! -x "$(TOOLSDIR)/bin/gpasm" ]; then \
-	 tar xvzf gputils-051219.tar.gz;\
+	 tar xvjf gputils-0.13.4.tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
-	 (cd gputils-051219 && \
+	 (cd gputils-0.13.4 && \
 	 ./configure --prefix=$(TOOLSDIR) && \
 	 make && \
 	 make install);\
@@ -64,7 +64,7 @@ gputils:
 	
 clean:
 	rm -fr $(TOOLSDIR)
-	rm -fr gputils-051219
+	rm -fr gputils-0.13.4
 	rm -fr sdcc
 	rm -fr odyssey-0.4vasco
 	

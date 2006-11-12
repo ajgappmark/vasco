@@ -20,7 +20,7 @@
 
 OBJEXT=o
 PIC_TYPE = PIC18F4550
-sdcc_PIC_TYPE = 18f4455
+sdcc_PIC_TYPE = 18f4550
 lkr_PIC_TYPE = 18f4550
 TOOLSDIR = $(shell dirname `pwd`)/tools
 CC = $(TOOLSDIR)/bin/sdcc

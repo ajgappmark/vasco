@@ -3,3 +3,5 @@
 *.cod
 *.hex
 *.map
+Makefile.in
+Makefile

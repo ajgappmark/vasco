@@ -27,7 +27,8 @@
 #define PICON_PACKET_SIZE 8
 
 // Size of the circular string buffer
-#define PICON_BUFFER_SIZE 64
+// TODO Should be tunable in the application code
+#define PICON_BUFFER_SIZE 128
 
 void picon_init(void);
 void picon_in(void);

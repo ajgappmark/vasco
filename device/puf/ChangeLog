@@ -1,5 +1,6 @@
 PIC USB Framework (1.1)
 
+  * udev rule modified to take into account any Vasco device
   * Add a components library to help building user applications : now contains
     only pic text console (picon).
   * UML model updated (due to new release of topcased-uml editor).

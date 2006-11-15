@@ -41,16 +41,13 @@ void application_main(void)
     stdout = STREAM_USER;
     CMCON  = 0x07;
     TRISE  = 0x07;
-    //UIE    = 0x7b;
-    //PIE2bits.USBIE = 1; 
-    //PIR2bits.USBIF = 0;
-    //INTCON = 0xc0;
+    PIE2bits.USBIE = 1; 
+    INTCON = 0xc0;
     debug("Power supply manager initialized\n");  
 
     while(usb_active_cfg > 2)
     {
         power_supply_mgr();
-        dispatch_usb_event();
     }
     PORTAbits.AN0 = 0;
 }
@@ -59,8 +56,14 @@ void application_main(void)
 #pragma code high_priority_isr 0x2020
 void high_priority_isr(void) interrupt
 {
-    //dispatch_usb_event();
-    //PIR2bits.USBIF = 0;
+    if(PIR2bits.USBIF)
+    {
+        dispatch_usb_event();
+        UIRbits.SOFIF = 0;
+        UIRbits.URSTIF = 0;
+        PIR2bits.USBIF = 0;
+        UEIR = 0;
+    }
 }
 
 #pragma code low_priority_isr 0x4000

@@ -48,9 +48,12 @@ COMPILE=$(CC) $(AM_CFLAGS) $(CFLAGS) -c
 
 noinst_PROGRAMS = libpuf.lib
 
-libpuf.lib: picon.o
+libpuf.lib: picon.o sequencer.o usb.o boot_iface.o
 	$(GPLIB) -c $@ $+
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 
-picon.o : picon.c ../include/picon.h
+picon.o sequencer.o usb.o boot_iface.o: picon.c boot_iface.c usb.c sequencer.c \
+	../include/usb.h ../include/picon.h sequencer.c ../include/sequencer.h  \
+	../include/application_iface.h ../include/boot_iface.h
+	

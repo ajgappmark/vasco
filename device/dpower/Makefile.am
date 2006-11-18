@@ -31,7 +31,7 @@ LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4455.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
 LIBPUF=@PUF@/lib/libpuf.lib
 #DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
-DEBUG=-D_DEBUG
+#DEBUG=-D_DEBUG
 #DEBUG=--obanksel=2 --optimize-df --opt-code-size
 
 COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -Iinclude -I$(PUF)/include -c
@@ -40,20 +40,19 @@ LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s$(lkr_PIC_TYPE).lkr,-m \
 
 
 bin_PROGRAMS = dpower.hex
-dpower_hex_SOURCES = usb_descriptors.h application_iface.h \
-                          common_types.h debug.h boot_iface.h \
-                          application_iface.c boot_iface.c main.c \
-                          usb_descriptors.c usb.h usb.c power_ep1.c \
+dpower_hex_SOURCES = usb_descriptors.h \
+                          application_iface.c main.c \
+                          usb_descriptors.c power_ep1.c \
                           power_ep1.h power_ep2.c power_ep2.h \
-                          picon.h power_mgr.c power_mgr.h
+                          picon.h power_mgr.c power_mgr.h \
+                          rtjobs.c
 
 EXTRA_DIST=$(lkr_PIC_TYPE).lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 
 
-power_mgr.o power_ep1.o power_ep2.o usb.o application_iface.o main.o \
-usb_descriptors.o boot_iface.o : usb_descriptors.h application_iface.h \
-                                 common_types.h debug.h boot_iface.h \
-                                 power_ep1.h power_ep2.h usb.h power_mgr.c \
+power_mgr.o power_ep1.o power_ep2.o application_iface.o main.o \
+usb_descriptors.o rtjobs.o: usb_descriptors.h \
+                                 power_ep1.h power_ep2.h power_mgr.c \
                                  power_mgr.h

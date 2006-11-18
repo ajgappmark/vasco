@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
-  common_types.h - Common declarations and types
+  usb.c - Main USB functions
 
-             (c) 2005 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2005-2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -18,53 +18,16 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------*/
 
-#ifndef VASCO_H_
-#define VASCO_H_
+/* $Id$ */
 
-/* 8 bits */
-typedef unsigned char uchar;
-typedef signed char schar;
-typedef union
+#include <pic18fregs.h>
+#include "usb.h"
+
+/* Buffer descriptors Table */
+volatile BufferDescriptorTable __at (0x400) ep_bdt[32];
+
+#pragma code dummy_function 0x500
+void dummy_function(void)
 {
-    uchar uc;
-    schar sc;
-    struct
-    {
-        unsigned b0:1;
-        unsigned b1:1;
-        unsigned b2:1;
-        unsigned b3:1;
-        unsigned b4:1;
-        unsigned b5:1;
-        unsigned b6:1;
-        unsigned b7:1;
-    };
-} Char;
-
-/* 16 bits */
-typedef unsigned int uint;
-typedef signed int sint;
-typedef union
-{
-    uint ui;
-    sint si;
-    Char c[2];
-} Int;
-
-
-/* 32 bits */
-typedef unsigned long ulong;
-typedef signed long slong;
-typedef union
-{
-    ulong ul;
-    slong sl;
-    Int   i[2];
-    Char  c[4];
-} Long;
-
-#define TRUE 1
-#define FALSE 0
-#define NULL 0
-
-#endif /*VASCO_H_*/
+    ep_bdt[0].Cnt; // makes the compiler happy !
+}

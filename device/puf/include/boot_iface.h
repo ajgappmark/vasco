@@ -23,6 +23,8 @@
 #ifndef BOOT_H_
 #define BOOT_H_
 
+#include "common_types.h"
+
 void boot_goto_table(void);
 
 void dispatch_usb_event(void);

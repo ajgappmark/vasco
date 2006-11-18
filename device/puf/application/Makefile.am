@@ -29,21 +29,21 @@ GLNK=$(TOOLSDIR)/bin/gplink
 LNK=$(TOOLSDIR)/bin/sdcc
 ODYSSEY=$(TOOLSDIR)/bin/odyssey
 CRT0=$(TOOLSDIR)/share/sdcc/lib/pic16/crt0.o
+LIBPUF=../lib/libpuf.lib
 LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4550.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
 #DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
 #DEBUG=-D_DEBUG
 #DEBUG=--obanksel=2 --optimize-df --opt-code-size
 
-COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -Iinclude -c
+COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -I../include -c
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s$(lkr_PIC_TYPE).lkr,-m \
-	-mpic16 -p$(sdcc_PIC_TYPE) -llibio$(sdcc_PIC_TYPE).lib -llibc18f.lib
+	-mpic16 -p$(sdcc_PIC_TYPE) -l$(LIBPUF) -llibio$(sdcc_PIC_TYPE).lib -llibc18f.lib
 
 
 bin_PROGRAMS = application.hex
-application_hex_SOURCES = usb_descriptors.h application_iface.h \
-                          common_types.h debug.h boot_iface.h \
-                          application_iface.c boot_iface.c main.c \
+application_hex_SOURCES = usb_descriptors.h  \
+                          application_iface.c main.c \
                           usb_descriptors.c
 
 EXTRA_DIST=$(lkr_PIC_TYPE).lkr
@@ -51,4 +51,4 @@ EXTRA_DIST=$(lkr_PIC_TYPE).lkr
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 
 
-application_iface.o main.o usb_descriptors.o boot_iface.o : usb_descriptors.h application_iface.h common_types.h debug.h boot_iface.h
+application_iface.o main.o usb_descriptors.o: usb_descriptors.h 

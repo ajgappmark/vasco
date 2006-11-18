@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  application_iface.h - Application data
+  rtjobs.h - Real Time jobs
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -18,23 +18,27 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------*/
 
-#ifndef APPLICATION_H_
-#define APPLICATION_H_
+/* $Id$ */
 
-#include "common_types.h"
+#ifndef RTJOBS_H_
+#define RTJOBS_H_
 
-typedef struct {
-    uchar invalid;                   // != 0 when the application is not valid
-    void* device_descriptor;
-    void** configuration_descriptor; // pointer to an array of pointer to configuration descriptors
-    uchar** string_descriptor;       // pointer to an array of pointer to string descriptors
-    void (*** ep_init)(void);
-    void (*** ep_in)(void);
-    void (*** ep_out)(void);
-    void (*** ep_setup)(void);
-    void (*main) (void);
-} ApplicationData;
+void rt_base_job(void);
+void rt_basex2_job(void);
+void rt_basex4_job(void);
+void rt_basex8_job(void);
+void rt_basex16_job(void);
+void rt_basex32_job(void);
+void rt_basex64_job(void);
+void rt_basex128_job(void);
+void rt_basex256_job(void);
+void rt_basex512_job(void);
+void rt_basex1024_job(void);
+void rt_basex2048_job(void);
+void rt_basex4096_job(void);
+void rt_basex8192_job(void);
+void rt_basex16384_job(void);
+void rt_basex32768_job(void);
+void rt_basex65536_job(void);
 
-extern const ApplicationData __at(0x2000) application_data;
-
-#endif /*APPLICATION_H_*/
+#endif // RTJOBS_H_

@@ -38,19 +38,30 @@ static void pmgr_adc_open()
 {
   /* setup channel */
   ADCON0 = 0x14;
-  /* setup reference and pins */
+  
+  /* setup reference and pins. Beware : it disables also other
+   * digital I/O (AN0 -> AN4) */
   ADCON1 = 0x09;
 
-  /* setup fosc */
+  /* setup fosc to RTC */
   ADCON2 = 0xff;
   
   /* enable the A/D module */
   ADCON0bits.ADON = 1;
 }
 
+static void pmgr_adc_close()
+{
+    adc_close();
+    // Re-activate digital pins
+    ADCON1 = 0x0f;
+}
+
 void start_read_tension(void)
 {
+    // Enable ADC module
     pmgr_adc_open();
+    // Begin conversion
     adc_conv();
     power_mgr_state = PMGR_READ_TENSION;
 }
@@ -62,8 +73,12 @@ void power_supply_mgr(void)
         case PMGR_READ_TENSION:
             if(!ADCON0bits.GO) // Is the current conversion finished ?
             {
-                int a = adc_read() & 0x3ff;
-                adc_close();
+                int a;
+                // Get the result and close the ADC module
+                a = adc_read() & 0x3ff;
+                pmgr_adc_close();
+                
+                // Send the result
                 power_ep2_num_bytes_to_send = 2;
                 power_ep2_source_data = (uchar __data *) &a;
                 power_prepare_ep2_in();

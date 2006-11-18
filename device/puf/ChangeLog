@@ -1,8 +1,12 @@
 PIC USB Framework (1.1)
 
+  * Add timer2 related functions to libpuf
+  * Move boot_iface.[hc], usb.[hc], application_iface.h, common_types.h
+    and debug.h to libpuf
+  * Add a periodic tasks sequencer to libpuf
   * udev rule modified to take into account any Vasco device
-  * Add a components library to help building user applications : now contains
-    only pic text console (picon).
+  * Add picon (text console through USB) to lipuf.
+  * Add a components library to help building user applications
   * UML model updated (due to new release of topcased-uml editor).
   * Upgrade of automake 1.9.6 and autoconf 2.59d.
   * Upgrade to sdcc snapshot 4471 and gputils 0.13.4.

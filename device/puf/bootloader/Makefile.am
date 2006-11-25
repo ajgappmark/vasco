@@ -28,13 +28,8 @@ AM_CFLAGS = -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG)
 LNK = $(TOOLSDIR)/bin/sdcc
 AM_LDFLAGS = 
 ODYSSEY = $(TOOLSDIR)/bin/odyssey
-#DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
-#DEBUG = --calltree
-#DEBUG = --stack-auto
+DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
 #DEBUG = -D_DEBUG
-#DEBUG = --obanksel=1 --optimize-df --opt-code-size
-#DEBUG = --ivt-loc=0x2000 --fstack --opt-code-size --obanksel=2 --optimize-df --optimize-cmp
-#DEBUG = --extended
 
 COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -Iinclude -c
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=crt0.o -Wl-s$(lkr_PIC_TYPE).lkr,-m \

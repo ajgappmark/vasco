@@ -32,9 +32,8 @@ CRT0=$(TOOLSDIR)/share/sdcc/lib/pic16/crt0.o
 LIBPUF=../lib/libpuf.lib
 LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4550.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
-#DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
+DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
 #DEBUG=-D_DEBUG
-#DEBUG=--obanksel=2 --optimize-df --opt-code-size
 
 COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -I../include -c
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s$(lkr_PIC_TYPE).lkr,-m \

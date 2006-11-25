@@ -1,5 +1,6 @@
 PIC USB Framework (1.1)
 
+  * sdcc optimization flags switched on by default
   * Add timer2 related functions to libpuf
   * Move boot_iface.[hc], usb.[hc], application_iface.h, common_types.h
     and debug.h to libpuf
@@ -9,7 +10,7 @@ PIC USB Framework (1.1)
   * Add a components library to help building user applications
   * UML model updated (due to new release of topcased-uml editor).
   * Upgrade of automake 1.9.6 and autoconf 2.59d.
-  * Upgrade to sdcc snapshot 4471 and gputils 0.13.4.
+  * Upgrade to sdcc snapshot 4482 and gputils 0.13.4.
   * The bootloader now exports the intrinsic functions used by the
     compiler. The mechanism used is the same as for the other shared
     functions. To improve extensibility of the indirection table,

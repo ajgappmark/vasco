@@ -30,20 +30,12 @@ TOOLSDIR = $(shell dirname `pwd`)/tools
 CC = $(TOOLSDIR)/bin/sdcc
 GPLIB = $(TOOLSDIR)/bin/gplib
 AM_CFLAGS = -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG) -I../include
-LNK = $(TOOLSDIR)/bin/sdcclib
 AM_LDFLAGS = 
 ODYSSEY = $(TOOLSDIR)/bin/odyssey
-#DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
-#DEBUG = --calltree
-#DEBUG = --stack-auto
+DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
 #DEBUG = -D_DEBUG
-#DEBUG = --obanksel=1 --optimize-df --opt-code-size
-#DEBUG = --ivt-loc=0x2000 --fstack --opt-code-size --obanksel=2 --optimize-df --optimize-cmp
-#DEBUG = --extended
 
 COMPILE=$(CC) $(AM_CFLAGS) $(CFLAGS) -c
-#LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) -Wl-m \
-#	-mpic16 -p$(sdcc_PIC_TYPE) -llibio$(sdcc_PIC_TYPE).lib -llibc18f.lib
 
 
 noinst_PROGRAMS = libpuf.lib

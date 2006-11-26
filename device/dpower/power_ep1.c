@@ -66,7 +66,7 @@ void power_ep1_out(void)
             case SET_BATTERY_TENSION_ALERT_CMD:
                 debug("SET_BATTERY_TENSION_ALERT_CMD\n");
                 set_battery_tension_alert(power_ep1_OutBuffer[1] + 256 * power_ep1_OutBuffer[2], 
-                                          power_ep1_OutBuffer[3] + 256 * power_ep1_OutBuffer[4] & 0x3ff);
+                                          (power_ep1_OutBuffer[3] + 256 * power_ep1_OutBuffer[4]) & 0x3ff);
                 break;
             case UNSET_BATTERY_TENSION_ALERT_CMD:
                 debug("UNSET_BATTERY_TENSION_ALERT_CMD\n");

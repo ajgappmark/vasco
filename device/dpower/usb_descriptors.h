@@ -136,10 +136,10 @@ typedef struct
 typedef struct                        
 {   USB_Configuration_Descriptor  cd;                   
     USB_Interface_Descriptor      i0; 
-    USB_Endpoint_Descriptor       ep_dsc0[2];                
+    USB_Endpoint_Descriptor       ep_dsc0[3];                
     USB_Interface_Descriptor      i1; 
     USB_Endpoint_Descriptor       ep_dsc1;                
-} USB_3EP_Composite_Descriptor;
+} USB_4EP_Composite_Descriptor;
 
 
 /******************************************************************************

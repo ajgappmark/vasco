@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  power_mgr.h - Power supply manager functions
+  power_ep3.h - USB endpoint 3 callbacks
 
              (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 
@@ -20,18 +20,20 @@
 
 /* $Id$ */
 
-#ifndef POWER_MGR_H_
-#define POWER_MGR_H_
+#ifndef POWER_EP3_H_
+#define POWER_EP3_H_
 
 #include "common_types.h"
 
-void power_supply_mgr(void);
-void set_battery_tension_alert(uint a_period, uint a_threshold);
-void shutdown_power_supply(uint a_delay);
-void start_read_tension(void);
-void switch_power_supply_on(uint a_delay);
-void reset_power_supply(uint a_delay);
-void unset_battery_tension_alert(void);
-void init_power_mgr();
+// Size of the power EP3 buffer
+#define POWER_EP3_BUFFER_SIZE 2
 
-#endif /*POWER_MGR_H_*/
+extern uint power_ep3_num_bytes_to_send;
+extern uchar *power_ep3_source_data;
+extern uchar ep3_send_in_progress;     // TRUE when the buffer is being sent
+
+void power_ep3_init(void);
+void power_ep3_in(void);
+void power_prepare_ep3_in(void);
+
+#endif /*POWER_EP3_H_*/

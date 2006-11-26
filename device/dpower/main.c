@@ -36,7 +36,7 @@
 // entry point called from the boot.
 
 // picon EP
-const uchar picon_ep = 3;
+const uchar picon_ep = 4;
 
 // RT sequencer counter
 static volatile uint counter;
@@ -45,7 +45,7 @@ static volatile uchar seq_flag;
 
 void application_main(void) 
 {
-    PORTAbits.AN0 = 1;
+    PORTAbits.RA0 = 1;
     
     // Init picon
     init_debug();
@@ -56,6 +56,10 @@ void application_main(void)
     // Prepare Analogic input
     CMCON  = 0x07;
     TRISE  = 0x07;
+    
+    // Prepare digital outputs
+    PORTB = 0x10; // power supplies (+5V and +12v) on
+    TRISB = 0x14; // RB3 and RB4
     
     // Program timer2 for 5ms period
     timer2_set_period(250);
@@ -69,6 +73,8 @@ void application_main(void)
     // Init sequencer counter
     counter = 0;
     
+    // Init power manager
+    init_power_mgr();
     debug("Power supply manager initialized\n");  
 
     while(usb_active_cfg > 2)

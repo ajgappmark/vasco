@@ -22,6 +22,7 @@
 #include "boot_iface.h"
 #include "power_ep1.h"
 #include "power_ep2.h"
+#include "power_ep3.h"
 #include "picon.h"
 
 #define EP0_BUFFER_SIZE 8
@@ -106,7 +107,7 @@ const USB_2EP_Composite_Descriptor flash_cfg = {
      0}}   // not used for full speed bulk EP
 };
 
-const USB_3EP_Composite_Descriptor application_cfg = {
+const USB_4EP_Composite_Descriptor application_cfg = {
     // Configuration Descriptor 
     {sizeof(USB_Configuration_Descriptor),    // Size of this descriptor in bytes
     CONFIGURATION_DESCRIPTOR,                 // CONFIGURATION descriptor type
@@ -122,7 +123,7 @@ const USB_3EP_Composite_Descriptor application_cfg = {
     INTERFACE_DESCRIPTOR,                // Interface descriptor type
     0,                      // Interface Number
     0,                      // Alternate Setting Number
-    2,                      // Number of endpoints in this interface
+    3,                      // Number of endpoints in this interface
     0xff,                   // Class code
     0x02,                   // Subclass code
     0xff,                   // Protocol code
@@ -133,14 +134,21 @@ const USB_3EP_Composite_Descriptor application_cfg = {
       EP(1) | OUT_EP,
       INTERRUPT,
       8,   // 8 bytes max
-      1}, 
+      100}, 
       
     {sizeof(USB_Endpoint_Descriptor),
      ENDPOINT_DESCRIPTOR,
      EP(2) | IN_EP,
      INTERRUPT,
      8,   // 8 bytes max
-     1}},
+     100}, 
+      
+    {sizeof(USB_Endpoint_Descriptor),
+     ENDPOINT_DESCRIPTOR,
+     EP(3) | IN_EP,
+     INTERRUPT,
+     8,   // 8 bytes max
+     100}},
        
     // PICON Interface Descriptor
     {sizeof(USB_Interface_Descriptor),   // Size of this descriptor in bytes
@@ -155,7 +163,7 @@ const USB_3EP_Composite_Descriptor application_cfg = {
     // PICON Endpoint Descriptors
     {sizeof(USB_Endpoint_Descriptor),
       ENDPOINT_DESCRIPTOR,
-      EP(3) | IN_EP,
+      EP(4) | IN_EP,
       INTERRUPT,
       8,   // 8 bytes max
       1}  
@@ -300,8 +308,8 @@ static void (* const ep_init_cfg2 [])(void) = {
                                         ep0_init,       // 0
                                         power_ep1_init, // 1
                                         power_ep2_init, // 2
-                                        picon_init,     // 3
-                                        null_function,  // 4
+                                        power_ep3_init, // 3
+                                        picon_init,     // 4
                                         null_function,  // 5
                                         null_function,  // 6
                                         null_function,  // 7
@@ -366,8 +374,8 @@ static void (* const ep_in_cfg2 [])(void) = {
                                         ep0_in,        // 0
                                         null_function, // 1
                                         power_ep2_in,  // 2
-                                        picon_in,      // 3
-                                        null_function, // 4
+                                        power_ep3_in,  // 3
+                                        picon_in,      // 4
                                         null_function, // 5
                                         null_function, // 6
                                         null_function, // 7

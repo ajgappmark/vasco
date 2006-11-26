@@ -20,19 +20,18 @@
 
 OBJEXT=o
 PIC_TYPE=PIC18F4550
-sdcc_PIC_TYPE=18f4455
+sdcc_PIC_TYPE=18f4550
 lkr_PIC_TYPE=18f4550
 TOOLSDIR=@PUF@/tools
 CC=$(TOOLSDIR)/bin/sdcc
 LNK=$(TOOLSDIR)/bin/sdcc
 ODYSSEY=$(TOOLSDIR)/bin/odyssey
 CRT0=$(TOOLSDIR)/share/sdcc/lib/pic16/crt0.o
-LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4455.lib
+LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4550.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
 LIBPUF=@PUF@/lib/libpuf.lib
-#DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
+DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df --fstack 
 #DEBUG=-D_DEBUG
-#DEBUG=--obanksel=2 --optimize-df --opt-code-size
 
 COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -Iinclude -I$(PUF)/include -c
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s$(lkr_PIC_TYPE).lkr,-m \
@@ -45,14 +44,14 @@ dpower_hex_SOURCES = usb_descriptors.h \
                           usb_descriptors.c power_ep1.c \
                           power_ep1.h power_ep2.c power_ep2.h \
                           picon.h power_mgr.c power_mgr.h \
-                          rtjobs.c
+                          rtjobs.c power_ep3.h power_ep3.c
 
 EXTRA_DIST=$(lkr_PIC_TYPE).lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 
 
-power_mgr.o power_ep1.o power_ep2.o application_iface.o main.o \
+power_mgr.o power_ep1.o power_ep2.o power_ep3.o application_iface.o main.o \
 usb_descriptors.o rtjobs.o: usb_descriptors.h \
-                                 power_ep1.h power_ep2.h power_mgr.c \
+                                 power_ep1.h power_ep2.h power_ep3.h power_mgr.c \
                                  power_mgr.h

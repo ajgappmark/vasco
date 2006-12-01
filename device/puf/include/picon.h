@@ -26,9 +26,13 @@
 // Size of the End point packets in bytes
 #define PICON_PACKET_SIZE 8
 
-// Size of the circular string buffer
-// TODO Should be tunable in the application code
-#define PICON_BUFFER_SIZE 128
+/* EP USB buffer */
+#define DEFINE_PICON_BUFFER(size) _Pragma("udata usb_buf Picon_InBuffer_tab") volatile uchar Picon_InBuffer_tab[size]; \
+volatile uchar* const Picon_InBuffer = Picon_InBuffer_tab;\
+const uint picon_buffer_size = size; 
+
+/* EP # */
+#define DEFINE_PICON_EP(number) const uchar picon_ep = number;
 
 void picon_init(void);
 void picon_in(void);

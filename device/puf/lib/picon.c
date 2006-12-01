@@ -27,7 +27,6 @@
 #include <pic18fregs.h>
 #include <stdio.h>
 
-extern const uchar picon_ep;
 static uchar last_packet_was_void; // Has the last packet been sent ?
 static uint num_bytes_to_send;     // Number of bytes to be send (linear)
 static uchar num_bytes;            // Number of bytes to be send (circular)
@@ -38,9 +37,12 @@ static uchar* bottom;         // Point to the next char to be sent
 static uchar* top;            // Point to the first free char in the buffer
 static uchar* tmp_bottom;     // Value to be used for bottom after the current packet
 
-/* EP USB buffer */
-#pragma udata usb_buf InBuffer
-volatile uchar InBuffer[PICON_BUFFER_SIZE];
+/* EP buffer has to be defined on the application side
+ * using DEFINE_PICON_BUFFER(size)
+ */
+extern const uint picon_buffer_size;
+extern volatile uchar* const Picon_InBuffer;
+extern const uchar picon_ep;
 
 /*
  *    -------------++++++++++++++++++++++++----------------------
@@ -64,8 +66,8 @@ void picon_init(void)
     // In this interface, PICON EP is used as an interrupt EP
 
     // Init circular pointers, counter and semaphore
-    bottom           = InBuffer;
-    top              = InBuffer;
+    bottom           = Picon_InBuffer;
+    top              = Picon_InBuffer;
     num_bytes        = 0;
     send_in_progress = FALSE;
     
@@ -101,10 +103,10 @@ void prepare_next_packet(void)
     tmp_bottom = bottom;
     fill_in_buffer(picon_ep, &tmp_bottom, PICON_PACKET_SIZE, &num_bytes_to_send);
     
-    if(tmp_bottom >= (InBuffer + PICON_BUFFER_SIZE))
+    if(tmp_bottom >= (Picon_InBuffer + picon_buffer_size))
     {
         // cycling the buffer
-        tmp_bottom -= PICON_BUFFER_SIZE;
+        tmp_bottom -= picon_buffer_size;
     }
 
     // Gives control of the buffer to the SIE
@@ -130,7 +132,7 @@ void prepare_in(void)
     if((top <= bottom) && (num_bytes > 0))
     {
         // cycling the buffer
-        top_send_buffer = InBuffer + PICON_BUFFER_SIZE;
+        top_send_buffer = Picon_InBuffer + picon_buffer_size;
     }
     else
     {
@@ -155,7 +157,7 @@ void picon_in(void)
 
     bottom = tmp_bottom; // Flush the sent chars
     
-    if((bottom == InBuffer) && (num_bytes != 0))
+    if((bottom == Picon_InBuffer) && (num_bytes != 0))
     {
         num_bytes_to_send = num_bytes;
     }
@@ -194,9 +196,9 @@ PUTCHAR(c)
     ib = INTCONbits.GIE;
     INTCONbits.GIE = 0;
 
-    if(top >= (InBuffer + PICON_BUFFER_SIZE))
+    if(top >= (Picon_InBuffer + picon_buffer_size))
     {
-        top = InBuffer;
+        top = Picon_InBuffer;
     }
     
     if((top == bottom) && (num_bytes != 0))

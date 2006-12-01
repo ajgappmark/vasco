@@ -25,6 +25,7 @@
 #include "power_mgr.h"
 #include "sequencer.h"
 #include "timer2.h"
+#include "picon.h"
 #include <stdio.h>
 
 #define ftoggle_A0() { PORTAbits.AN0 = !PORTAbits.AN0; }
@@ -35,8 +36,9 @@
 // beware : this is not a C main function, but the application
 // entry point called from the boot.
 
-// picon EP
-const uchar picon_ep = 4;
+// picon EP# and buffer
+DEFINE_PICON_EP(4)
+DEFINE_PICON_BUFFER(200)
 
 // RT sequencer counter
 static volatile uint counter;

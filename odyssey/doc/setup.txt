@@ -23,6 +23,7 @@ There are currently 2 I/O drivers available:
       Make sure no other parallel port 'consumers' are loaded. This includes
       lp and gamecon. Do a "modprobe ppdev". If you don't have the module
       then you'll need to recompile your kernel or use the "directpp" driver.
+      The init_parport.sh script could help you to set up your ppdev module.
     Pros:
       Doesn't need root access. Safer than direct hardware access.
     Cons:

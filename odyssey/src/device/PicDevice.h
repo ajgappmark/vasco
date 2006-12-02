@@ -668,11 +668,6 @@ public:
 	/* PIC18* commands */
 	const static int
 		COMMAND_TABLE_WRITE_START_POSTINC=0x0e;/**< Table Write, start programming, post-inc by 2 */
-
-	const static unsigned long
-		WRITE_BUFFER_SIZE=32; /* TODO generalize to a pic.conf parameter : 32 is for 18f4550 */
-	const static unsigned long
-		ERASE_BUFFER_SIZE=64; /* TODO idem */
 	
 	Pic18f2xx0Device(char *name);	/**< Constructor */
 	virtual ~Pic18f2xx0Device();		/**< Destructor */
@@ -694,6 +689,9 @@ protected:
 	
 	virtual void program_wait(void);
 
+	// Write and erase buffers sizes
+    unsigned long write_buffer_size;
+	unsigned long erase_buffer_size;
 };
 
 

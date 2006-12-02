@@ -31,6 +31,15 @@ using namespace std;
  */
 
 Pic18f2xx0Device::Pic18f2xx0Device(char *name) : Pic18Device(name) {
+	long value;
+
+	if(! pic_config->get_integer(name, "writebuffersize", &value))
+		throw runtime_error(string(name) + " should have a writebuffersize entry");
+	this->write_buffer_size = value;
+
+	if(! pic_config->get_integer(name, "erasebuffersize", &value))
+		throw runtime_error(string(name) + " should have an erasebuffersize entry");
+	this->erase_buffer_size = value;
 }
 
 
@@ -78,7 +87,7 @@ void Pic18f2xx0Device::write_program_memory(DataBuffer& buf, bool verify) {
         while(address < this->codesize)
         {
 			set_tblptr(2*address);
-			for(offset=0; offset < WRITE_BUFFER_SIZE-2; offset+=2) {
+			for(offset=0; offset < this->write_buffer_size - 2; offset+=2) {
 				/* Give byte addresses to progress() to match datasheet. */
 				progress(2*address);
 				/* Step 2, 3: Load write buffer */

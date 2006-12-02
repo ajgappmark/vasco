@@ -67,11 +67,14 @@ public:
 		COMMAND_READ_PROG_DATA=0x04,/**< Read Data from Program Memory */
 		COMMAND_INC_ADDRESS=0x06,	/**< Increment Address */
 		COMMAND_BEGIN_PROG=0x08,	/**< Begin Erase/Programming */
+		COMMAND_BEGIN_PROG_ONLY=0x18,	/**< Begin Programming only (for 16F81x) */
 		COMMAND_END_PROG=0x0e,		/**< End Programming */
+		COMMAND_END_PROG_16F81X=0x17,	/**< End Programming for 16F81x */
 		COMMAND_LOAD_DATA_DATA=0x03,/**< Load Data for Data Memory */
 		COMMAND_READ_DATA_DATA=0x05,/**< Read Data from Data Memory */
 		COMMAND_ERASE_PROG_MEM=0x09,/**< Bulk Erase Program Memory */
-		COMMAND_ERASE_DATA_MEM=0x0b;/**< Bulk Erase Data Memory */
+		COMMAND_ERASE_DATA_MEM=0x0b,/**< Bulk Erase Data Memory */
+		COMMAND_CHIP_ERASE=0x1F;    /**< Chip Erase (for 16F81x) */
 
 	/** Values for the different types of PIC memory and their algorithms */
 	typedef enum {
@@ -385,6 +388,24 @@ protected:
 
 	/** Data protection bits. */
 	unsigned int cpd_mask, cpd_on, cpd_off;
+};
+
+
+/** A class which implements device-specific functions for PIC16F81x devices.
+ */
+class Pic16f81xDevice : public Pic16Device {
+public:
+	Pic16f81xDevice(char *name);	/**< Constructor */
+	~Pic16f81xDevice();				/**< Destructor */
+
+protected:
+        void erase(void);
+	void write_program_memory(DataBuffer& buf, long base=0);
+        void write_data_memory(DataBuffer& buf, long base);
+        void write_id_memory(DataBuffer& buf, long base);
+
+        bool program_cycle(uint32_t data, uint32_t mask);
+        bool program4_cycle(uint32_t data[4]);
 };
 
 

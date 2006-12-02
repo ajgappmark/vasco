@@ -13,6 +13,7 @@ libcommon_a_SOURCES=ConfigFile.cxx ConfigFile.h \
 	ParallelPort.cxx ParallelPort.h IO.cxx IO.h \
 	Device.cxx Device.h device/PicDevice.h device/PicDevice.cxx \
 	device/Pic16Device.cxx device/Pic16f8xxDevice.cxx \
+	device/Pic16f81xDevice.cxx \
 	device/Pic16f7xDevice.cxx device/Pic18Device.cxx \
 	device/Pic12f6xxDevice.cxx device/Pic16f6xx.cxx \
 	device/Pic16f87xADevice.cxx device/Pic18f2xx0Device.cxx

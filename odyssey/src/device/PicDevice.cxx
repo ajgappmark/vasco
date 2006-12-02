@@ -56,6 +56,8 @@ Device *PicDevice::load(char *name) {
 
 	if(Util::regex_match("^PIC16F87[3467]A", name)) {
 		return new Pic16f87xADevice(name);
+	} else if(Util::regex_match("^PIC16F81[89]", name)) {
+		return new Pic16f81xDevice(name);
 	} else if(Util::regex_match("^PIC16F8", name) ||
 	         (strcmp(name, "PIC16C84") == 0)) {
 		return new Pic16f8xxDevice(name);

@@ -1,5 +1,11 @@
 Version 0.5:
- * Support now PIC16F84A with id 0x540 (PIC16F84A_OLD_ID) and
+ * Added experimental support for :
+     - PIC12F683, PIC16F818, PIC16F819 (Andrew M. Bishop),
+     - PIC18F1320 (Chris Thompson),
+     - PIC18F2450 (Adam Goldman),
+     - PIC18F2525, PIC18F2620, PIC18F4525, PIC18F4620 (Jason Modisette),
+     - PIC18F4455 (Pierre Gaufillet).
+ * Supports now PIC16F84A with id 0x540 (PIC16F84A_OLD_ID) and
    0x560 (PIC16F84A).
 
 Version 0.4:
@@ -20,7 +26,7 @@ Version 0.3.1:
   * Fix EEPROM data writing & reading for the pic18f252
 
 Version 0.3:
-  * Mark PIC18F452 and PIC18F252 as tested. (Fernando Rodr?guez)
+  * Mark PIC18F452 and PIC18F252 as tested. (Fernando Rodriguez)
   * Added a programmer configuration for the ProPIC programmer.
     (Fernando Rodr?guez)
   * Added a programmer configuration for the EPE Toolkit v3. (David Bean)

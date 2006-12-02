@@ -4,3 +4,4 @@ build-stamp
 patch-stamp
 Makefile
 .settings
+config.status

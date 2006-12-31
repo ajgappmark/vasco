@@ -8,6 +8,7 @@ Version 0.5:
  * Supports now PIC16F84A with id 0x540 (PIC16F84A_OLDID) and
    0x560 (PIC16F84A).
  * Added simple example for signaldelay section in odyssey.conf
+ * Updated man pages
 
 Version 0.4:
  * Compile fixes for GCC 4.2 (Fernando Rodriguez)

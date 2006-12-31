@@ -43,7 +43,7 @@ void Pic16f81xDevice::erase(void) {
 		/*   Wait erase_time to complete bulk erase. */
 		this->set_program_mode();
 		this->write_command(COMMAND_LOAD_CONFIG);
-		this->io->shift_bits_out(0x7ffe, 16, 1);
+		this->io->shift_bits_out(0x7ffe, 16);
 		this->io->usleep(1);
 		this->write_command(COMMAND_CHIP_ERASE);
 		this->io->usleep(10000); // Internally timed, must be 8 ms, allow 10 ms

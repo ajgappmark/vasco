@@ -39,7 +39,7 @@ void Pic16f87xADevice::disable_codeprotect(void) {
 		/* Set PC to configuration memory so the test row (ID locations) are
 		 * erased. */
 		this->write_command(COMMAND_LOAD_CONFIG);
-		this->io->shift_bits_out(0x7ffe, 16, 1);
+		this->io->shift_bits_out(0x7ffe, 16);
 		this->io->usleep(1);
 
 		this->write_command(COMMAND_CHIP_ERASE);

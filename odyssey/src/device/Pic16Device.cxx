@@ -545,7 +545,7 @@ uint32_t Pic16Device::read_deviceid(void) {
 
 	/* Enter config memory space. The device ID is at address 0x2006 */
 	this->write_command(COMMAND_LOAD_CONFIG);
-	this->io->shift_bits_out(0x7ffe, 16, 1);	/* Dummy write of all 1's */
+	this->io->shift_bits_out(0x7ffe, 16);	/* Dummy write of all 1's */
 	this->io->usleep(1);
 
 	/* Increment up to 0x2006 */

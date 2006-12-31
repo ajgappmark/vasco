@@ -39,7 +39,7 @@ void Pic16f8xxDevice::bulk_erase(void) {
 
 		/* This clears program memory and the config word. */
 		this->write_command(COMMAND_LOAD_CONFIG);
-		this->io->shift_bits_out(0x7ffe, 16, 1);
+		this->io->shift_bits_out(0x7ffe, 16);
 		this->io->usleep(1);
 		for(int i=0; i<7; i++)
 			this->write_command(COMMAND_INC_ADDRESS);
@@ -74,7 +74,7 @@ void Pic16f8xxDevice::disable_codeprotect(void) {
 		this->set_program_mode();
 
 		this->write_command(COMMAND_LOAD_CONFIG);
-		this->io->shift_bits_out(0x7ffe, 16, 1);
+		this->io->shift_bits_out(0x7ffe, 16);
 		this->io->usleep(1);
 		for(int i=0; i<7; i++)
 			this->write_command(COMMAND_INC_ADDRESS);

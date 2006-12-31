@@ -38,7 +38,7 @@ void Pic16f6xxDevice::bulk_erase(void) {
 
 		/* This clears the config word. XXX: TESTME */
 		this->write_command(COMMAND_LOAD_CONFIG);
-		this->io->shift_bits_out(0x7ffe, 16, 1);
+		this->io->shift_bits_out(0x7ffe, 16);
 		this->io->usleep(1);
 		for(int i=0; i<7; i++)
 			this->write_command(COMMAND_INC_ADDRESS);

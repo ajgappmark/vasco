@@ -221,7 +221,7 @@ void PicDevice::pic_off(void) {
 
 
 void PicDevice::write_command(uint32_t command) {
-	this->io->shift_bits_out(command, 6, 1, 1);
+	this->io->shift_bits_out(command, 6);
 	this->io->usleep(1);
 }
 
@@ -229,7 +229,7 @@ void PicDevice::write_command(uint32_t command) {
 void PicDevice::write_prog_data(uint32_t data) {
 	data = (data & this->wordmask) << 1;
 	this->write_command(COMMAND_LOAD_PROG_DATA);
-	this->io->shift_bits_out(data, 16, 1);
+	this->io->shift_bits_out(data, 16);
 	this->io->usleep(1);
 }
 
@@ -238,7 +238,7 @@ uint32_t PicDevice::read_prog_data(void) {
 	uint32_t data;
 
 	this->write_command(COMMAND_READ_PROG_DATA);
-	data = this->io->shift_bits_in(16, 1);
+	data = this->io->shift_bits_in(16);
 	this->io->usleep(1);
 	return (data >> 1) & this->wordmask;
 }

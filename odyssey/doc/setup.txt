@@ -18,7 +18,7 @@ in the future.
 
 There are currently 2 I/O drivers available:
 
-  linuxppdev - Accesses the parallel port using the Linux 2.4 ppdev driver.
+  linuxppdev - Accesses the parallel port using the Linux ppdev driver.
     Setting up:
       Make sure no other parallel port 'consumers' are loaded. This includes
       lp and gamecon. Do a "modprobe ppdev". If you don't have the module
@@ -27,7 +27,7 @@ There are currently 2 I/O drivers available:
     Pros:
       Doesn't need root access. Safer than direct hardware access.
     Cons:
-      Linux 2.4 specific.
+      Linux >=2.4 specific.
 
   directpp - Accesses the parallel port using direct I/O.
     Setting up:

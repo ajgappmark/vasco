@@ -10,6 +10,7 @@ AC_CONFIG_SRCDIR([bootloader/boot_main.c])
 AC_CONFIG_FILES([Makefile
                  application/Makefile
                  archives/Makefile
+                 include/Makefile
                  lib/Makefile
                  bootloader/Makefile
                  scripts/Makefile

@@ -18,7 +18,7 @@
 #    $Id$
 #
 
-EXTRA_DIST=odyssey-0.4vasco.tar.gz sdcc-src-20061125-4482.tar.bz2 gputils-0.13.4.tar.bz2
+EXTRA_DIST=odyssey-0.5.tar.gz sdcc-src-20061125-4482.tar.bz2 gputils-0.13.4.tar.bz2
 
 TOOLSDIR=$(shell dirname `pwd`)/tools
 
@@ -28,9 +28,9 @@ all: gputils odyssey sdcc
 
 odyssey:
 	if [ ! -x "$(TOOLSDIR)/bin/odyssey" ]; then \
-	 tar xvzf odyssey-0.4vasco.tar.gz;\
+	 tar xvzf odyssey-0.5.tar.gz;\
 	 mkdir -p $(TOOLSDIR);\
-	 (cd odyssey-0.4vasco && \
+	 (cd odyssey-0.5 && \
 	 ./configure --prefix=$(TOOLSDIR) && \
 	 make && \
 	 make install);\
@@ -66,6 +66,6 @@ clean:
 	rm -fr $(TOOLSDIR)
 	rm -fr gputils-0.13.4
 	rm -fr sdcc
-	rm -fr odyssey-0.4vasco
+	rm -fr odyssey-0.5
 	
 .PHONY: all sdcc odyssey gputils

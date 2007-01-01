@@ -1,5 +1,6 @@
 PIC USB Framework (1.1)
 
+  * Upgrade to odyssey 0.5
   * sdcc optimization flags switched on by default
   * Add timer2 related functions to libpuf
   * Move boot_iface.[hc], usb.[hc], application_iface.h, common_types.h
@@ -23,7 +24,7 @@ PIC USB Framework (1.1)
     effective after the null IN packet aknownledgment. Include a sdcc work
     around : for(i=1;i<16;i++) was "optimized" to for(i=14;i>=0;i--). So I 
     had to change this loop to for(i=15;i>0;i--) : close bug #397 once more... 
-  * Build optimization flags revisited. It still requires some work though.
+  * Build optimization flags revisited.
 
  -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Wed Jun 14 08:41:19 CEST 2006
  

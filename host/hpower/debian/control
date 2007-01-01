@@ -1,0 +1,14 @@
+Source: hpower
+Section: unknown
+Priority: extra
+Maintainer: Pierre GAUFILLET <pierre.gaufillet@magic.fr>
+Build-Depends: debhelper (>= 5), autotools-dev
+Standards-Version: 3.7.2
+
+Package: hpower
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Vasco power supply manager
+ hpower is the host-side of the Vasco power manager.
+ It monitors batteries level and control the power supply.
+ hpower device counterpart is dpower.

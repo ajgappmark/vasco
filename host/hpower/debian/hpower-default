@@ -1,0 +1,10 @@
+# Defaults for hpower initscript
+# sourced by /etc/init.d/hpower
+# installed at /etc/default/hpower by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS=""

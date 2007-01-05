@@ -103,18 +103,18 @@ const USB_Flash_Composite_Descriptor flash_cfg = {
      0}}   // not used for full speed bulk EP
 };
 
-const USB_Default_Composite_Descriptor application_cfg = {
+const USB_Application_Composite_Descriptor application_cfg = {
     // Configuration Descriptor 
     {sizeof(USB_Configuration_Descriptor),    // Size of this descriptor in bytes
     CONFIGURATION_DESCRIPTOR,                 // CONFIGURATION descriptor type
-    sizeof(default_cfg),          // Total length of data for this configuration
+    sizeof(application_cfg),          // Total length of data for this configuration
     1,                      // Number of interfaces in this configuration
     3,                      // Index value of this configuration
     4,                      // Configuration string index
     DEFAULT | SELF_POWERED, // Attributes
     0},                     // Max power consumption (2X mA)
     
-    // Boot Interface Descriptor
+    // Application Interface Descriptor
     {sizeof(USB_Interface_Descriptor),   // Size of this descriptor in bytes
     INTERFACE_DESCRIPTOR,                // Interface descriptor type
     0,                      // Interface Number

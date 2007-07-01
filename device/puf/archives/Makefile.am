@@ -18,7 +18,7 @@
 #    $Id$
 #
 
-EXTRA_DIST=odyssey-0.5.tar.gz sdcc-src-20061125-4482.tar.bz2 gputils-0.13.4.tar.bz2
+EXTRA_DIST=odyssey-0.5.tar.gz sdcc-src-2.7.0.tar.bz2 gputils-0.13.4.tar.bz2
 
 TOOLSDIR=$(shell dirname `pwd`)/tools
 
@@ -39,7 +39,7 @@ odyssey:
 
 sdcc: gputils
 	if [ ! -x "$(TOOLSDIR)/bin/sdcc" ]; then \
-	 tar xvjf sdcc-src-20061125-4482.tar.bz2;\
+	 tar xvjf sdcc-src-2.7.0.tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
 	 (cd sdcc && \
 	 ./configure --disable-z80-port --disable-mcs51-port \

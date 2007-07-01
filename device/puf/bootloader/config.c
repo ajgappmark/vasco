@@ -53,16 +53,18 @@ code char at __CONFIG4L _conf5  = _BACKBUG_OFF_4L &
 
 code char at __CONFIG5L _conf6  = _CP_0_OFF_5L & 
                                   _CP_1_OFF_5L & 
-                                  _CP_2_OFF_5L;// & 
-// 4550 specific                  _CP_3_OFF_5L;
+                                  _CP_2_OFF_5L & 
+// 4550 specific
+                                  _CP_3_OFF_5L;
 
 code char at __CONFIG5H _conf7  = _CPB_OFF_5H & 
                                   _CPD_OFF_5H;
 
 code char at __CONFIG6L _conf8  = _WRT_0_ON_6L & 
                                   _WRT_1_OFF_6L & 
-                                  _WRT_2_OFF_6L;// & 
-// 4550 specific                  _WRT_3_OFF_6L;
+                                  _WRT_2_OFF_6L & 
+// 4550 specific
+                                  _WRT_3_OFF_6L;
 
 code char at __CONFIG6H _conf9  = _WRTB_ON_6H & 
                                   _WRTC_ON_6H & 
@@ -70,12 +72,14 @@ code char at __CONFIG6H _conf9  = _WRTB_ON_6H &
 
 code char at __CONFIG7L _conf10 = _EBTR_0_OFF_7L & 
                                   _EBTR_1_OFF_7L & 
-                                  _EBTR_2_OFF_7L;// & 
-// 4550 specific                  _EBTR_3_OFF_7L;
+                                  _EBTR_2_OFF_7L & 
+// 4550 specific
+                                  _EBTR_3_OFF_7L;
 
 code char at __CONFIG7H _conf11 = _EBTRB_OFF_7H;
 
 /* Memory sections for flash operations */
+// TODO add caution and explainations
 const uchar section_descriptor [22] = {3,
                                      FLASH_SECTION_READ,
                                      0x00, 0x00, 0x00,

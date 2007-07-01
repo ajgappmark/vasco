@@ -26,7 +26,7 @@
 #include "common_types.h"
 
 /* BOOTLOADER VERSION */
-# define BOOTLOADER_VERSION 0x0010
+# define BOOTLOADER_VERSION 0x0120
 
 /* EP0 buffer size */
 #define EP0_BUFFER_SIZE 8

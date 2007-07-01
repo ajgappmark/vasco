@@ -1,3 +1,10 @@
+PIC USB Framework (1.2)
+
+  * Upgrade to sdcc 2.7.0 (_DEBUG sdcc bug still there :-( )
+  * Implement preliminary GET_STATUS setup command.
+
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Apr 22 12:09:53 CEST 2006
+ 
 PIC USB Framework (1.1)
 
   * Upgrade to odyssey 0.5

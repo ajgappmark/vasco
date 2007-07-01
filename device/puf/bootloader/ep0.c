@@ -43,6 +43,7 @@ static uchar ep0_state;
 static uint  num_bytes_to_be_send;
 static uchar *sourceData;
 static uchar coming_cfg;
+static uint  ret_status;
 
 uchar ep0_usb_std_request(void)
 {   
@@ -100,7 +101,19 @@ uchar ep0_usb_std_request(void)
             break;
         case GET_STATUS:
             debug("GET_STATUS\n");
-            // TODO not implemented
+            // TODO To be completed
+            ret_status = 0;
+            switch(SetupBuffer.recipient)
+            {
+                case RECIPIENT_DEVICE:
+                case RECIPIENT_INTERFACE:
+                case RECIPIENT_ENDPOINT:
+                    sourceData = &ret_status;
+                    num_bytes_to_be_send = sizeof(ret_status);
+                    break;
+                default:
+                    break;
+            }
             break;
         case SET_ADDRESS:
             debug("SET_ADDRESS\n");

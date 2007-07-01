@@ -117,11 +117,11 @@ void usb_sleep(void)
 void dispatch_usb_event(void)
 {
     // USB activity interrupt
-    if(UIEbits.ACTIVIE && UIRbits.ACTIVIF)
+    if(UIEbits.ACTVIE && UIRbits.ACTVIF)
     {
         UCONbits.SUSPND = 0;
-        UIEbits.ACTIVIE = 0;
-        UIRbits.ACTIVIF = 0;
+        UIEbits.ACTVIE = 0;
+        UIRbits.ACTVIF = 0;
     }
             
     // USB Reset interrupt
@@ -134,7 +134,7 @@ void dispatch_usb_event(void)
     if(UIEbits.IDLEIE && UIRbits.IDLEIF)
     {
         debug("Idle\n");
-        UIEbits.ACTIVIE = 1;
+        UIEbits.ACTVIE = 1;
         UIRbits.IDLEIF  = 0;
         UCONbits.SUSPND = 1;
     }

@@ -18,7 +18,8 @@
  */
 using namespace std;
 
-#include <stdio.h>
+#include <cstdio>
+#include <cstring>
 #include <stdexcept>
 #include "config.h"
 #include "PicDevice.h"

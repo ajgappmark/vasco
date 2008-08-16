@@ -18,8 +18,8 @@
  */
 using namespace std;
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/select.h>
 #include <sys/time.h>

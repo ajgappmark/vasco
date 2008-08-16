@@ -18,10 +18,10 @@
  */
 using namespace std;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cerrno>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>

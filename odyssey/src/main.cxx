@@ -18,12 +18,13 @@
  */
 using namespace std;
 
-#include <stdio.h>
-#include <string.h>
-#include <signal.h>
+#include <cstdio>
+#include <cstring>
+#include <csignal>
 #include <unistd.h>
-#include <ctype.h>
+#include <cctype>
 #include <getopt.h>
+#include <cstdlib>
 #include <exception>
 #include <iterator>
 #include <vector>

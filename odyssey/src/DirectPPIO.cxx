@@ -18,9 +18,9 @@
  */
 using namespace std;
 
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
+#include <cstdio>
+#include <cstring>
+#include <cerrno>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/io.h>

@@ -19,7 +19,7 @@
  */
 using namespace std;
 
-#include <stdio.h>
+#include <cstdio>
 #include <stdexcept>
 #include "PicDevice.h"
 #include "Util.h"

@@ -19,9 +19,9 @@
 using namespace std;
 
 #include <stdexcept>
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
+#include <cstdio>
+#include <cerrno>
+#include <cstring>
 #include "HexFile.h"
 
 

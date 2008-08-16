@@ -18,7 +18,7 @@
  */
 using namespace std;
 
-#include <stdio.h>
+#include <cstdio>
 #include <stdexcept>
 #include "ParallelPort.h"
 #include "ConfigFile.h"

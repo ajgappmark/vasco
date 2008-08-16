@@ -18,7 +18,7 @@
  */
 using namespace std;
 
-#include <string.h>
+#include <cstring>
 #include <stdexcept>
 #include "Device.h"
 #include "device/PicDevice.h"

@@ -5,3 +5,5 @@ patch-stamp
 Makefile
 .settings
 config.status
+configure
+Makefile.in

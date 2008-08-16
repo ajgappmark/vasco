@@ -4,3 +4,4 @@ Makefile
 stamp-h1
 odyssey
 libcommon.a
+Makefile.in

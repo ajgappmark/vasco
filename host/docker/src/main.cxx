@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   main.c - docker main function
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,9 +25,10 @@ using namespace std;
 #include <iostream>
 #include <exception>
 #include <string>
+#include <cstring>
 #include <usb.h>
 #include <getopt.h>
-#include <signal.h>
+#include <csignal>
 #include "config.h"
 #include "DataBuffer.h"
 #include "HexFile.h"
@@ -65,7 +66,7 @@ static void sighandler(int sig) {
 }
 
 int main(int argc, char**argv)
-{    
+{
     int    i;
     bool   quiet = false;
     long   product_id   = 0x0000;
@@ -73,33 +74,33 @@ int main(int argc, char**argv)
     long   vendor_id    = 0x0000;
     bool   vendor_flag  = false;
     string device_id    = "";
-    
+
     // USB busses informations
     struct usb_bus *busses;
 
     while((i = getopt(argc, argv, "v:p:qVhd:")) > 0)
     {
-        switch(i) 
+        switch(i)
         {
         case 'q':
             quiet = true;
             break;
-            
+
         case 'V':
         case 'h':
             help_msg();
             return 0;
-            
+
         case 'p':
             product_id = strtol(optarg, NULL, 16);
             product_flag = true;
             break;
-            
+
         case 'v':
             vendor_id = strtol(optarg, NULL, 16);
             vendor_flag = true;
             break;
-            
+
         case 'd':
             // The device id is in fact the device filename
             // i.e. something like 001, 023, etc. with linux
@@ -123,7 +124,7 @@ int main(int argc, char**argv)
     signal(SIGQUIT, sighandler);
     signal(SIGPIPE, sighandler);
     signal(SIGTERM, sighandler);
-        
+
     usb_init();
     usb_find_busses();
     usb_find_devices();
@@ -136,8 +137,8 @@ int main(int argc, char**argv)
         for (dev = bus->devices; dev; dev = dev->next)
         {
             /* Look for matching devices */
-            if ((!vendor_flag  || (dev->descriptor.idVendor  == vendor_id)) && 
-                (!product_flag || (dev->descriptor.idProduct == product_id))) 
+            if ((!vendor_flag  || (dev->descriptor.idVendor  == vendor_id)) &&
+                (!product_flag || (dev->descriptor.idProduct == product_id)))
             {
                 if((device_id == "") || (device_id == dev->filename))
                 {
@@ -146,51 +147,51 @@ int main(int argc, char**argv)
                     {
                         cout << "Processing device " << dev->filename << endl;
                     }
-                    
-                    try 
+
+                    try
                     {
                         device = new USBDevice(dev);
-                        
-                        try 
+
+                        try
                         {
                             if(!strcmp(argv[optind], "read"))
                             {
                                 DataBuffer buf(8);
                                 HexFile *hf;
-                        
+
                                 optind++;
                                 if(optind == argc)
                                 {
                                     cerr << argv[0] << "not enough arguments.\n";
                                     return usage();
                                 }
-                        
+
                                 device->read(buf);
-                                
-                                try 
+
+                                try
                                 {
                                     /* Open the hex file */
                                     hf = new HexFile_ihx8(argv[optind]);
-                                } 
-                                catch(std::exception& e) 
+                                }
+                                catch(std::exception& e)
                                 {
                                     cerr << argv[0] << " : " << e.what();
                                     return -1;
                                 }
-                            
-                                try 
+
+                                try
                                 {
                                     /* Get the device memory map so we know what parts of the buffer
                                      * are valid and save those parts to the hex file. */
                                     for(USBDevice::RangeVector::iterator n = device->device_mmap.begin(); n != device->device_mmap.end(); n++)
-                                    {            
+                                    {
                                         if((*n)->flags & FLASH_SECTION_READ)
                                         {
                                             hf->write(buf, (*n)->begin, ((*n)->end - (*n)->begin) + 1);
                                         }
                                     }
-                                } 
-                                catch(std::exception& e) 
+                                }
+                                catch(std::exception& e)
                                 {
                                     delete hf;
                                     cerr << argv[0] << " : " << e.what();
@@ -206,14 +207,14 @@ int main(int argc, char**argv)
                                     cerr << argv[0] << "not enough arguments.\n";
                                     return usage();
                                 }
-                                
+
                                 // Load the HEX file
                                 DataBuffer buf(8);
                                 try
                                 {
                                     /* Read the hex file into the data buffer */
                                     HexFile *hf = HexFile::load(argv[optind]);
-                            
+
                                     hf->read(buf);
                                     delete hf;
                                 }
@@ -238,7 +239,7 @@ int main(int argc, char**argv)
                                     cerr << argv[0] << "not enough arguments.\n";
                                     return usage();
                                 }
-                                
+
                                 // Load the HEX file
                                 DataBuffer bufh(8);
                                 DataBuffer bufd(8);
@@ -246,7 +247,7 @@ int main(int argc, char**argv)
                                 {
                                     /* Read the hex file into the data buffer */
                                     HexFile *hf = HexFile::load(argv[optind]);
-                            
+
                                     hf->read(bufh);
                                     delete hf;
                                 }
@@ -257,7 +258,7 @@ int main(int argc, char**argv)
                                 }
                                 device->read(bufd);
                                 for(USBDevice::RangeVector::iterator n = device->device_mmap.begin(); n != device->device_mmap.end(); n++)
-                                {            
+                                {
                                     if((*n)->flags & FLASH_SECTION_READ)
                                     {
                                         for(long i = (*n)->begin; i<=(*n)->end; i++)
@@ -275,7 +276,7 @@ int main(int argc, char**argv)
                             {
                                 cerr << "Unknown command" << endl;
                             }
-                        
+
                             if(optind == argc)
                             {
                                 cerr << argv[0] << "not enough arguments.\n";
@@ -284,14 +285,14 @@ int main(int argc, char**argv)
                         }
                         catch (char const* msg)
                         {
-                            cerr << msg << endl; 
+                            cerr << msg << endl;
                         }
-    
+
                         delete device;
                     }
                     catch (char const* msg)
                     {
-                        cerr << msg << endl; 
+                        cerr << msg << endl;
                     }
                 }
             }

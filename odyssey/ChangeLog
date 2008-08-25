@@ -1,6 +1,7 @@
 Version 0.5.1:
  * Fixed GCC 4.3 compatibility issue
  * Added support for PIC16F627A, PIC16F628A and PIC16F648A (Renato Barbosa Santiago).
+ * Fix file name schema : Pic16f6xx.cxx becomes Pic16f6xxDevice.cxx.
  
 Version 0.5:
  * Added experimental support for :

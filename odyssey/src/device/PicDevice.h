@@ -67,14 +67,12 @@ public:
 		COMMAND_READ_PROG_DATA=0x04,/**< Read Data from Program Memory */
 		COMMAND_INC_ADDRESS=0x06,	/**< Increment Address */
 		COMMAND_BEGIN_PROG=0x08,	/**< Begin Erase/Programming */
-		COMMAND_BEGIN_PROG_ONLY=0x18,	/**< Begin Programming only (for 16F81x) */
 		COMMAND_END_PROG=0x0e,		/**< End Programming */
-		COMMAND_END_PROG_16F81X=0x17,	/**< End Programming for 16F81x */
 		COMMAND_LOAD_DATA_DATA=0x03,/**< Load Data for Data Memory */
 		COMMAND_READ_DATA_DATA=0x05,/**< Read Data from Data Memory */
 		COMMAND_ERASE_PROG_MEM=0x09,/**< Bulk Erase Program Memory */
-		COMMAND_ERASE_DATA_MEM=0x0b,/**< Bulk Erase Data Memory */
-		COMMAND_CHIP_ERASE=0x1F;    /**< Chip Erase (for 16F81x) */
+		COMMAND_ERASE_DATA_MEM=0x0b;/**< Bulk Erase Data Memory */
+
 
 	/** Values for the different types of PIC memory and their algorithms */
 	typedef enum {
@@ -159,18 +157,18 @@ protected:
 	 */
 	virtual uint32_t read_prog_data(void);
 
-	/** Read the device ID from the device. 
+	/** Read the device ID from the device.
 	 * \pre The device has just been put into program mode.
 	 * \post The device is in an undetermined state. Programming may not
 	 *       be possible unless program mode is exited and re-entered.
 	 * \returns The value of the device ID word.
 	 */
 	virtual uint32_t read_deviceid(void);
-	
+
 	/** Prepare the default value of the configuration registers.
 	 */
 	virtual void set_config_default(DataBuffer& buf);
-	
+
 /* Protected data: */
 	/** The calculated bitmask for clearing upper bits of a word. */
 	uint32_t wordmask;
@@ -395,17 +393,23 @@ protected:
  */
 class Pic16f81xDevice : public Pic16Device {
 public:
+	/* PIC commands */
+	const static int
+		COMMAND_END_PROG_16F81X=0x17,	/**< End Programming for 16F81x */
+		COMMAND_BEGIN_PROG_ONLY=0x18,	/**< Begin Programming only (for 16F81x) */
+		COMMAND_CHIP_ERASE=0x1F;    /**< Chip Erase (for 16F81x) */
+
 	Pic16f81xDevice(char *name);	/**< Constructor */
 	~Pic16f81xDevice();				/**< Destructor */
 
 protected:
-        void erase(void);
+    void erase(void);
 	void write_program_memory(DataBuffer& buf, long base=0);
-        void write_data_memory(DataBuffer& buf, long base);
-        void write_id_memory(DataBuffer& buf, long base);
+    void write_data_memory(DataBuffer& buf, long base);
+    void write_id_memory(DataBuffer& buf, long base);
 
-        bool program_cycle(uint32_t data, uint32_t mask);
-        bool program4_cycle(uint32_t data[4]);
+    bool program_cycle(uint32_t data, uint32_t mask);
+    bool program4_cycle(uint32_t data[4]);
 };
 
 
@@ -446,11 +450,36 @@ protected:
  */
 class Pic16f6xxDevice : public Pic16Device {
 public:
+	const static int
+		COMMAND_BULK_ERASE_SETUP1=0x01,	/**< Begin Programming Only (no erase) */
+		COMMAND_BULK_ERASE_SETUP2=0x07;	/**< End Programming */
+
 	Pic16f6xxDevice(char *name);	/**< Constructor */
 	~Pic16f6xxDevice();				/**< Destructor */
 
 protected:
 	void bulk_erase(void);
+	void disable_codeprotect(void);
+};
+
+/** A class for device-specific methods of the PIC16F6XXA devices.
+	Contributed by Renato Barbosa Santiago (rbsanti@iconect.com.br)
+ */
+class Pic16f6xxADevice : public Pic16Device {
+public:
+	const static int
+		COMMAND_BEGIN_PROG_ONLY=0x08; /**< Begin Programming Only (this family don't have Begin Erase/Program command */
+
+	Pic16f6xxADevice(char *name);	/** Constructor */
+	~Pic16f6xxADevice();			/** Destructor */
+
+protected:
+	void set_program_mode(void);
+
+	bool program_cycle(uint32_t data, uint32_t mask);
+
+	void bulk_erase(void);
+	void program(DataBuffer& buf);
 	void disable_codeprotect(void);
 };
 
@@ -676,7 +705,7 @@ protected:
 	virtual unsigned int write_command_read_data(unsigned int command);
 
 	virtual uint32_t read_deviceid(void);
-	
+
 	virtual void set_config_default(DataBuffer& buf);
 
 /* Protected Data: */
@@ -689,7 +718,7 @@ public:
 	/* PIC18* commands */
 	const static int
 		COMMAND_TABLE_WRITE_START_POSTINC=0x0e;/**< Table Write, start programming, post-inc by 2 */
-	
+
 	Pic18f2xx0Device(char *name);	/**< Constructor */
 	virtual ~Pic18f2xx0Device();		/**< Destructor */
 
@@ -707,7 +736,7 @@ protected:
 	virtual void read_data_memory(DataBuffer& buf, unsigned long addr, bool verify);
 
 	void load_write_buffer(unsigned int word, bool last);
-	
+
 	virtual void program_wait(void);
 
 	// Write and erase buffers sizes

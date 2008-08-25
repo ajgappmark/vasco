@@ -1,3 +1,7 @@
+Version 0.5.1:
+ * Fixed GCC 4.3 compatibility issue
+ * Added support for PIC16F627A, PIC16F628A and PIC16F648A (Renato Barbosa Santiago).
+ 
 Version 0.5:
  * Added experimental support for :
      - PIC12F683, PIC16F818, PIC16F819 (Andrew M. Bishop),

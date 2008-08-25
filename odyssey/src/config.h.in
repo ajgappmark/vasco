@@ -6,6 +6,24 @@
 /* Define to build the LinuxPPDev driver */
 #undef ENABLE_LINUX_PPDEV
 
+/* Define to 1 if you have the <cctype> header file. */
+#undef HAVE_CCTYPE
+
+/* Define to 1 if you have the <cerrno> header file. */
+#undef HAVE_CERRNO
+
+/* Define to 1 if you have the <csignal> header file. */
+#undef HAVE_CSIGNAL
+
+/* Define to 1 if you have the <cstdio> header file. */
+#undef HAVE_CSTDIO
+
+/* Define to 1 if you have the <cstdlib> header file. */
+#undef HAVE_CSTDLIB
+
+/* Define to 1 if you have the <cstring> header file. */
+#undef HAVE_CSTRING
+
 /* Define to 1 if you have the <errno.h> header file. */
 #undef HAVE_ERRNO_H
 
@@ -14,6 +32,9 @@
 
 /* Define to 1 if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H
+
+/* Define to 1 if you have the <getopt.h> header file. */
+#undef HAVE_GETOPT_H
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H

@@ -4,7 +4,7 @@ AC_PREREQ(2.50)
 AC_INIT(src/main.cxx)
 AC_REVISION($Id$)
 AC_CONFIG_AUX_DIR(scripts)
-AM_INIT_AUTOMAKE(odyssey, 0.5)
+AM_INIT_AUTOMAKE(odyssey, 0.5.1)
 AM_CONFIG_HEADER(src/config.h)
 
 
@@ -25,12 +25,12 @@ dnl *** Checks for libraries
 
 dnl *** Checks for header files
 AC_STDC_HEADERS
-AC_CHECK_HEADERS(stdio.h errno.h signal.h fcntl.h sys/select.h sys/ioctl.h \
+AC_CHECK_HEADERS(stdio.h errno.h signal.h fcntl.h unistd.h getopt.h sys/select.h sys/ioctl.h \
 	sys/time.h,,
 	AC_MSG_ERROR(missing the required C header file $ac_header)
 )
 AC_LANG_PUSH(C++)
-AC_CHECK_HEADERS(new exception stdexcept iterator string map vector,,
+AC_CHECK_HEADERS(new exception stdexcept iterator string map vector cstring cstdio cstdlib cerrno csignal cctype,,
 	AC_MSG_ERROR(missing the required C++ header file $ac_header)
 )
 AC_LANG_POP(C++)

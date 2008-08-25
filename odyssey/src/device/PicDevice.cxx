@@ -59,11 +59,12 @@ Device *PicDevice::load(char *name) {
 		return new Pic16f87xADevice(name);
 	} else if(Util::regex_match("^PIC16F81[89]", name)) {
 		return new Pic16f81xDevice(name);
-	} else if(Util::regex_match("^PIC16F8", name) ||
-	         (strcmp(name, "PIC16C84") == 0)) {
+	} else if(Util::regex_match("^PIC16F8", name) || (strcmp(name, "PIC16C84") == 0)) {
 		return new Pic16f8xxDevice(name);
 	} else if(Util::regex_match("^PIC16F7[3467]$", name)) {
 		return new Pic16f7xDevice(name);
+	} else if( Util::regex_match("^PIC16L?F6((27)|(28)|(48))A", name)){
+		return new Pic16f6xxADevice(name);
 	} else if(Util::regex_match("^PIC16F6.*", name)) {
 		return new Pic16f6xxDevice(name);
 	} else if(Util::regex_match("^PIC12F6.*", name)) {

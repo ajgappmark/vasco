@@ -42,12 +42,12 @@ void Pic16f6xxDevice::bulk_erase(void) {
 		this->io->usleep(1);
 		for(int i=0; i<7; i++)
 			this->write_command(COMMAND_INC_ADDRESS);
-		this->write_command(0x01);	/* Bulk Erase Setup1 */
-		this->write_command(0x07);	/* Bulk Erase Setup2 */
+		this->write_command(COMMAND_BULK_ERASE_SETUP1);
+		this->write_command(COMMAND_BULK_ERASE_SETUP2);
 		this->write_command(COMMAND_BEGIN_PROG);
 		this->io->usleep(this->erase_time + this->program_time);
-		this->write_command(0x01);
-		this->write_command(0x07);
+		this->write_command(COMMAND_BULK_ERASE_SETUP1);
+		this->write_command(COMMAND_BULK_ERASE_SETUP2);
 
 		/* This should erase the ID & program memory */
 		this->write_prog_data(0x3fff);

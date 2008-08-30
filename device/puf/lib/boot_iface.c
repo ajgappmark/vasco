@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------
   boot_iface.c - Boot API
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -25,9 +25,9 @@
 #pragma udata access usb_device_state
 uchar __at(0x005f) usb_device_state;
 #pragma udata access usb_active_cfg
-uchar __at(0x005e) usb_active_cfg; 
+uchar __at(0x005e) usb_active_cfg;
 #pragma udata access usb_active_alt_setting
-uchar __at(0x005d) usb_active_alt_setting; 
+uchar __at(0x005d) usb_active_alt_setting;
 
 #pragma code boot_goto_table 0x1c
 
@@ -37,7 +37,7 @@ uchar __at(0x005d) usb_active_alt_setting;
 void boot_goto_table(void) __naked
 {
     __asm
- 
+
 global _boot_version
 global _dispatch_usb_event
 global _reset_usb
@@ -99,4 +99,4 @@ _delay10tcy:         res 4
     __endasm;
 
 }
-    
+

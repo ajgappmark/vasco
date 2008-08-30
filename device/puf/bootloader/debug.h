@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   debug.h - Debug functions and macros
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public

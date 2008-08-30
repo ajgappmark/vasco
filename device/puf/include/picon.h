@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   picon.h - USB endpoint callbacks
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -29,7 +29,7 @@
 /* EP USB buffer */
 #define DEFINE_PICON_BUFFER(size) _Pragma("udata usb_buf Picon_InBuffer_tab") volatile uchar Picon_InBuffer_tab[size]; \
 volatile uchar* const Picon_InBuffer = Picon_InBuffer_tab;\
-const uint picon_buffer_size = size; 
+const uint picon_buffer_size = size;
 
 /* EP # */
 #define DEFINE_PICON_EP(number) const uchar picon_ep = number;

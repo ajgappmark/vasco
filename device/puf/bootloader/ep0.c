@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   ep0.c - USB endpoint 0 callbacks
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -46,17 +46,17 @@ static uchar coming_cfg;
 static uint  ret_status;
 
 uchar ep0_usb_std_request(void)
-{   
+{
     // hack to avoid register allocation bug in sdcc
-    static uchar unknown_request; 
-    
+    static uchar unknown_request;
+
     unknown_request = FALSE;
 
-    if(SetupBuffer.request_type != STANDARD) 
+    if(SetupBuffer.request_type != STANDARD)
     {
         return FALSE;
     }
-    
+
     switch(SetupBuffer.bRequest)
     {
         case CLEAR_FEATURE:
@@ -72,7 +72,7 @@ uchar ep0_usb_std_request(void)
             debug("GET_DESCRIPTOR\n");
             switch(SetupBuffer.bDescType)
             {
-             
+
                 case DEVICE_DESCRIPTOR:
                     debug("device\n");
                     sourceData = (uchar *) device_descriptor;
@@ -108,7 +108,7 @@ uchar ep0_usb_std_request(void)
                 case RECIPIENT_DEVICE:
                 case RECIPIENT_INTERFACE:
                 case RECIPIENT_ENDPOINT:
-                    sourceData = &ret_status;
+                    sourceData = (uchar *) &ret_status;
                     num_bytes_to_be_send = sizeof(ret_status);
                     break;
                 default:
@@ -133,7 +133,7 @@ uchar ep0_usb_std_request(void)
                 // Reply with a request error (STALL)
                 unknown_request = TRUE;
             }
-            
+
             break;
         case SET_FEATURE:
             debug("SET_FEATURE\n");
@@ -168,7 +168,7 @@ void ep0_in(void)
 {
     debug2("ep0_in %d\n", (uint)num_bytes_to_be_send);
     if(GET_DEVICE_STATE() == ADDRESS_PENDING_STATE)
-    {                                
+    {
         UADDR = SetupBuffer.bAddress;
         if(UADDR != 0)
         {
@@ -179,11 +179,11 @@ void ep0_in(void)
             SET_DEVICE_STATE(DEFAULT_STATE);
         }
     }
-        
+
     if(ep0_state == WAIT_IN)
     {
         fill_in_buffer(0, &sourceData, EP0_BUFFER_SIZE, &num_bytes_to_be_send);
-        
+
         if(EP_IN_BD(0).Stat.DTS == 0)
         {
             EP_IN_BD(0).Stat.uc = BDS_USIE | BDS_DAT1 | BDS_DTSEN;
@@ -207,7 +207,7 @@ void ep0_in(void)
         UEP5  = 0; UEP6  = 0; UEP7  = 0; UEP8  = 0;
         UEP9  = 0; UEP10 = 0; UEP11 = 0; UEP12 = 0;
         UEP13 = 0; UEP14 = 0; UEP15 = 0;
-        
+
         // switch the functions vectors
         if(coming_cfg <= FLASH_CONFIGURATION)
         {
@@ -242,7 +242,7 @@ void ep0_in(void)
             {
                 ep_init[coming_cfg][i]();
             }
-            
+
             SET_DEVICE_STATE(CONFIGURED_STATE);
         }
     }
@@ -254,18 +254,18 @@ void ep0_setup(void)
 
     ep0_state = WAIT_SETUP;
     num_bytes_to_be_send = 0;
-    
+
     if(ep0_usb_std_request())
     {
         UCONbits.PKTDIS = 0;
         if(SetupBuffer.data_transfer_direction == DEVICE_TO_HOST)
         {
             ep0_state = WAIT_IN;
-    
+
             EP_OUT_BD(0).Cnt = EP0_BUFFER_SIZE;
-            EP_OUT_BD(0).ADR = (uchar __data *)&SetupBuffer;            
+            EP_OUT_BD(0).ADR = (uchar __data *)&SetupBuffer;
             EP_OUT_BD(0).Stat.uc = BDS_USIE;
-    
+
             EP_IN_BD(0).ADR = (uchar __data *)InBuffer;
             if(SetupBuffer.wLength < num_bytes_to_be_send)
                 {
@@ -273,12 +273,12 @@ void ep0_setup(void)
                 }
             fill_in_buffer(0, &sourceData, EP0_BUFFER_SIZE, &num_bytes_to_be_send);
             EP_IN_BD(0).Stat.uc = BDS_USIE | BDS_DAT1 | BDS_DTSEN;
-            
+
         }
         else // HOST_TO_DEVICE
         {
             ep0_state = WAIT_OUT;
-    
+
             EP_OUT_BD(0).Cnt = EP0_BUFFER_SIZE;
             EP_OUT_BD(0).ADR = (uchar __data *)InBuffer;
             EP_OUT_BD(0).Stat.uc = BDS_USIE | BDS_DAT1 | BDS_DTSEN;

@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   usb_descriptors.h - USB device, interface, class, ep, string descriptors
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -82,7 +82,7 @@ typedef struct
 /******************************************************************************
  * USB Configuration Descriptor (table 9-10)
  *****************************************************************************/
-typedef struct 
+typedef struct
 {
     uchar bLength;
     uchar bDescriptorType;
@@ -127,15 +127,15 @@ typedef struct
 /******************************************************************************
  * USB Composite Descriptors (used for GET_DSC/CFG request)
  *****************************************************************************/
-typedef struct                        
-{   USB_Configuration_Descriptor  cd;                   
-    USB_Interface_Descriptor      i0; 
+typedef struct
+{   USB_Configuration_Descriptor  cd;
+    USB_Interface_Descriptor      i0;
 } USB_Default_Composite_Descriptor;
 
-typedef struct                        
-{   USB_Configuration_Descriptor  cd;                   
-    USB_Interface_Descriptor      i0; 
-    USB_Endpoint_Descriptor       ep_dsc[2];                
+typedef struct
+{   USB_Configuration_Descriptor  cd;
+    USB_Interface_Descriptor      i0;
+    USB_Endpoint_Descriptor       ep_dsc[2];
 } USB_Flash_Composite_Descriptor;
 
 

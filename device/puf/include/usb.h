@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   usb.h - Main USB functions
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -68,7 +68,7 @@
 #define EPINEN_EN           0x02
 #define EPSTALL_EN          0x01
 
-                                    
+
 /* Buffer Descriptor Status Register Initialization Parameters */
 #define BDS_BSTALL          0x04 //Buffer Stall enable
 #define BDS_DTSEN           0x08 //Data Toggle Synch enable
@@ -111,7 +111,7 @@ typedef union
 } BDStat;
 
 /* Buffer Descriptor Table */
-typedef union 
+typedef union
 {
     struct
     {

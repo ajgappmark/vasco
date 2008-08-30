@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   boot_main.c - Pic boot main function
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -39,18 +39,18 @@ void init_boot(void)
     CMCON  = 0x07;
     TRISA  = 0xFE;
     PORTA  = 0x01;
-    
+
     count = 0x80000;
     while(count)
     {
         count--;
     }
-    
+
     PORTA  = 0x00;
-    
+
     // The RA1 pin is used to force the bootloader only mode
     if((application_data.invalid == 0) && !PORTAbits.RA1)
-    { 
+    {
         // use application descriptors
         debug("use application descriptors\n");
         device_descriptor        = application_data.device_descriptor;
@@ -58,7 +58,7 @@ void init_boot(void)
         string_descriptor        = application_data.string_descriptor;
     }
     else
-    { 
+    {
         // use boot descriptors
         debug("use boot descriptors\n");
         device_descriptor        = &boot_device_descriptor;
@@ -74,7 +74,6 @@ void init_boot(void)
     ep_in    = boot_ep_in;
     ep_out   = boot_ep_out;
     ep_setup = boot_ep_setup;
-
 }
 
 void main(void)
@@ -92,7 +91,8 @@ void main(void)
         if((application_data.invalid == 0) &&
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {
-            debug2("jumping at %x\n", application_data.main);
+        	// (void*) avoids sdcc crash when _DEBUG is defined
+            debug2("jumping at %x\n", (void *)application_data.main);
             application_data.main();
 
             INTCON = 0; // Forbid interrupts

@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   sequencer.c - Real Time sequencer
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -24,10 +24,10 @@
 
 /******************************************************************/
 
-void rt_sequencer(uint counter) 
+void rt_sequencer(uint counter)
 {
     rt_base_job();
-    
+
     if(counter & 0x0001)
     {
         rt_basex2_job();

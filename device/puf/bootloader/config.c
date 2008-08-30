@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   config.c - PIC configuration words
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -24,10 +24,10 @@
 #include "flash.h"
 
 /* Set the PIC config words */
-code char at __CONFIG1L _conf0  = _USBPLL_CLOCK_SRC_FROM_96MHZ_PLL_2_1L & 
+code char at __CONFIG1L _conf0  = _USBPLL_CLOCK_SRC_FROM_96MHZ_PLL_2_1L &
                                   _CPUDIV__OSC1_OSC2_SRC___1__96MHZ_PLL_SRC___2__1L &
                                   _PLLDIV_NO_DIVIDE__4MHZ_INPUT__1L;
-                                  
+
 code char at __CONFIG1H _conf1  = _IESO_OFF_1H &
                                   _FCMEN_OFF_1H &
                                   _OSC_HS__HS_PLL__USB_HS_1H;
@@ -46,33 +46,33 @@ code char at __CONFIG3H _conf4  = _MCLRE_MCLR_ON_RE3_OFF_3H &
                                   _CCP2MUX_RB3_3H;
 
 code char at __CONFIG4L _conf5  = _BACKBUG_OFF_4L &
-                                  _ENHCPU_OFF_4L & 
-                                  _ENICPORT_OFF_4L & 
-                                  _LVP_OFF_4L & 
+                                  _ENHCPU_OFF_4L &
+                                  _ENICPORT_OFF_4L &
+                                  _LVP_OFF_4L &
                                   _STVR_OFF_4L;
 
-code char at __CONFIG5L _conf6  = _CP_0_OFF_5L & 
-                                  _CP_1_OFF_5L & 
-                                  _CP_2_OFF_5L & 
+code char at __CONFIG5L _conf6  = _CP_0_OFF_5L &
+                                  _CP_1_OFF_5L &
+                                  _CP_2_OFF_5L &
 // 4550 specific
                                   _CP_3_OFF_5L;
 
-code char at __CONFIG5H _conf7  = _CPB_OFF_5H & 
+code char at __CONFIG5H _conf7  = _CPB_OFF_5H &
                                   _CPD_OFF_5H;
 
-code char at __CONFIG6L _conf8  = _WRT_0_ON_6L & 
-                                  _WRT_1_OFF_6L & 
-                                  _WRT_2_OFF_6L & 
+code char at __CONFIG6L _conf8  = _WRT_0_ON_6L &
+                                  _WRT_1_OFF_6L &
+                                  _WRT_2_OFF_6L &
 // 4550 specific
                                   _WRT_3_OFF_6L;
 
-code char at __CONFIG6H _conf9  = _WRTB_ON_6H & 
-                                  _WRTC_ON_6H & 
+code char at __CONFIG6H _conf9  = _WRTB_ON_6H &
+                                  _WRTC_ON_6H &
                                   _WRTD_OFF_6H;
 
-code char at __CONFIG7L _conf10 = _EBTR_0_OFF_7L & 
-                                  _EBTR_1_OFF_7L & 
-                                  _EBTR_2_OFF_7L & 
+code char at __CONFIG7L _conf10 = _EBTR_0_OFF_7L &
+                                  _EBTR_1_OFF_7L &
+                                  _EBTR_2_OFF_7L &
 // 4550 specific
                                   _EBTR_3_OFF_7L;
 

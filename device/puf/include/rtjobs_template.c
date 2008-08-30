@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   rtjobs.c - Real Time jobs
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -32,7 +32,7 @@ void rt_base_job(void) __naked
         return
     __endasm;
 }
-    
+
 void rt_basex2_job(void) __naked
 {
     // TODO Add here a call to your applicative function

@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   picon.c - USB PIC console
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -48,17 +48,17 @@ extern const uchar picon_ep;
  *    -------------++++++++++++++++++++++++----------------------
  *    ^            ^                       ^                     ^
  *  InBuffer    bottom                    top             InBuffer + PICON_BUFFER_SIZE
- * 
+ *
  * so, the buffer is full or void when top == bottom
  * num_bytes can be used to differentiate these 2 cases
- * 
+ *
  * send_in_progress is used as a semaphore. putchar will only
  * prepare the send if nothing is in progress. picon_in
  * is responsible for releasing send_in_progress.
- * 
+ *
  * Each train of packets must be finished with a incomplete or void packet.
  * last_packet_sent indicates if the previous sent was the last one.
- * 
+ *
  */
 
 void picon_init(void)
@@ -70,7 +70,7 @@ void picon_init(void)
     top              = Picon_InBuffer;
     num_bytes        = 0;
     send_in_progress = FALSE;
-    
+
     // Configuration of the end point
 
     // Set DAT1 so that the first call to prepare_in
@@ -85,7 +85,7 @@ void picon_init(void)
 void prepare_next_packet(void)
 {
     last_packet_was_void = (num_bytes_to_send < PICON_PACKET_SIZE);
-        
+
     // Set the number of bytes to be send in the coming packet
     if(last_packet_was_void)
     {
@@ -95,14 +95,14 @@ void prepare_next_packet(void)
     {
         num_bytes -= PICON_PACKET_SIZE;
     }
-    
+
     // Move the start address of the buffer
     EP_IN_BD(picon_ep).ADR = (uchar __data *) bottom;
 
     // Prepare the EP buffer
     tmp_bottom = bottom;
     fill_in_buffer(picon_ep, &tmp_bottom, PICON_PACKET_SIZE, &num_bytes_to_send);
-    
+
     if(tmp_bottom >= (Picon_InBuffer + picon_buffer_size))
     {
         // cycling the buffer
@@ -124,11 +124,11 @@ void prepare_in(void)
 {
     uchar* top_send_buffer;
     char ib;
-    
+
     // Critical section
     ib = INTCONbits.GIE;
     INTCONbits.GIE = 0;
-    
+
     if((top <= bottom) && (num_bytes > 0))
     {
         // cycling the buffer
@@ -138,30 +138,30 @@ void prepare_in(void)
     {
         top_send_buffer = top;
     }
-    
+
     // Set the total number of bytes to be sent
     num_bytes_to_send = top_send_buffer - bottom;
-    
+
     prepare_next_packet();
-    
+
     INTCONbits.GIE = ib;
 }
 
 void picon_in(void)
 {
     char ib;
-    
+
     // Critical section
     ib = INTCONbits.GIE;
     INTCONbits.GIE = 0;
 
     bottom = tmp_bottom; // Flush the sent chars
-    
+
     if((bottom == Picon_InBuffer) && (num_bytes != 0))
     {
         num_bytes_to_send = num_bytes;
     }
-    
+
     if((num_bytes_to_send == 0) && last_packet_was_void)
     {
         // Arms the SIE if there is still something in the buffer
@@ -171,27 +171,27 @@ void picon_in(void)
         }
         else
         {
-           
+
             // There is nothing more to send, so keep
             // the EP buffer under the CPU responsability
             // Release the semaphore
             send_in_progress = FALSE;
         }
-        
-    
+
+
         INTCONbits.GIE = ib;
         return;
     }
-        
+
     prepare_next_packet();
-    
+
     INTCONbits.GIE = ib;
 }
 
 PUTCHAR(c)
 {
     char ib;
-    
+
     // Critical section
     ib = INTCONbits.GIE;
     INTCONbits.GIE = 0;
@@ -200,11 +200,11 @@ PUTCHAR(c)
     {
         top = Picon_InBuffer;
     }
-    
+
     if((top == bottom) && (num_bytes != 0))
     {
         // Buffer full
-    
+
         INTCONbits.GIE = ib;
         return;
     }
@@ -219,6 +219,6 @@ PUTCHAR(c)
         send_in_progress = TRUE;
         prepare_in();
     }
-    
+
     INTCONbits.GIE = ib;
 }

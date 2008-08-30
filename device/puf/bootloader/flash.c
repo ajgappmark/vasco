@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   flash.c - Program memory flashing process
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -35,33 +35,33 @@ void write_block(__data uchar *src)
     debug("write_block\n");
 
     __asm
-    
+
     tblrd*-
 
     __endasm;
-    
+
     for(i = 0; i < 32; i++)
     {
         TABLAT = *src;
         debug2("%uhx ", TABLAT);
         src++;
         __asm
-        
+
         tblwt+*
 
         __endasm;
-    } 
+    }
     debug("\n");
     // Beware : when WR is set, TBLPTR have to be inside the 32 byte range to be written
     // so it should be decremented...
-    
+
     __asm
-    
+
     bsf     _EECON1, 7 // EEPGD
     bcf     _EECON1, 6 // CFGS
     bsf     _EECON1, 2 // WREN
     bcf     _INTCON, 7 // GIE
-    
+
     // required erase sequence
     movlw   0x55
     movwf   _EECON2
@@ -79,7 +79,7 @@ void erase_block()
 {
     // Erase a 64 bytes block
     __asm
-    // address set by the caller 
+    // address set by the caller
 
     // Point to flash program memory
     bsf     _EECON1, 7 // EEPGD
@@ -87,15 +87,15 @@ void erase_block()
     bsf     _EECON1, 2 // WREN
     bsf     _EECON1, 4 // FREE
     bcf     _INTCON, 7 // GIE
-    
+
     // required erase sequence
     movlw   0x55
     movwf   _EECON2
     movlw   0xaa
     movwf   _EECON2
     bsf     _EECON1, 1 // WR
-    
+
     // stall here for 2ms
-    
+
     __endasm;
 }

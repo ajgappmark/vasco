@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   timer2.h - timer 2 functions
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,7 @@
 #define TIMER2_PRESCALER_4  1
 #define TIMER2_PRESCALER_16 2
 
-#define TIMER2_POSTSCALER(x) (x-1) 
+#define TIMER2_POSTSCALER(x) (x-1)
 
 #define TIMER2_ON  1
 #define TIMER2_OFF 0
@@ -36,7 +36,7 @@
 #define timer2_set_control(prescaler, postscaler, state) { T2CON = prescaler | (state << 2) | (postscaler << 3); }
 #define timer2_on() { T2CONbits.TMR2ON = 1;}
 #define timer2_off() { T2CONbits.TMR2ON = 0;}
- 
+
 
 
 #endif /*TIMER2_H_*/

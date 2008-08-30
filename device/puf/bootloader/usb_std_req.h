@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   usb_std_req.h - USB Standard SETUP requests
-  
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -63,12 +63,12 @@ typedef union
     {
         uchar uc[EP0_BUFFER_SIZE];
     };
-    
+
     /* Standard Device Requests */
     struct
     {
         uchar bmRequestType;
-        uchar bRequest;    
+        uchar bRequest;
         uint  wValue;
         uint  wIndex;
         uint  wLength;
@@ -86,19 +86,19 @@ typedef union
         unsigned :8;
         unsigned :8;
     };
-    
+
     // Get Descriptor
     struct
     {
         unsigned :8;
         unsigned :8;
         uchar bDescIndex;                // For Configuration and String DSC Only
-        uchar bDescType;                 // Device, Configuration, String, 
+        uchar bDescType;                 // Device, Configuration, String,
         uint wLanguageID;                // Language ID
         unsigned :8;
         unsigned :8;
     };
-    
+
     // Set Address
     struct
     {
@@ -111,7 +111,7 @@ typedef union
         unsigned :8;
         unsigned :8;
     };
-    
+
     // Set Configuration
     struct
     {
@@ -124,7 +124,7 @@ typedef union
         unsigned :8;
         unsigned :8;
     };
-    
+
     // Set Interface
     struct
     {
@@ -137,7 +137,7 @@ typedef union
         unsigned :8;
         unsigned :8;
     };
-    
+
 } StandardRequest;
 
 

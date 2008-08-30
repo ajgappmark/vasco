@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   application.h - Application entry points
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -29,7 +29,7 @@
 typedef struct {
     uchar invalid;                   // != 0 when the application is not valid
     void* device_descriptor;
-    void** configuration_descriptor; // pointer to an array of pointer to configuration descriptors
+    const uchar * const *configuration_descriptor; // pointer to an array of pointer to configuration descriptors
     uchar** string_descriptor;       // pointer to an array of pointer to string descriptors
     void (*** ep_init)(void);
     void (*** ep_in)(void);

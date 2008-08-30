@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   boot_iface.h - Boot API
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -32,9 +32,9 @@ void reset_usb(void);
 void usb_sleep(void);
 void fill_in_buffer(uchar EPnum,
                     uchar **source,
-                    uint buffer_size, 
+                    uint buffer_size,
                     uint *nb_byte);
-                    
+
 void ep0_init(void);
 void ep0_in(void);
 void ep0_setup(void);

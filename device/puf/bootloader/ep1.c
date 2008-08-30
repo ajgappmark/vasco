@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   ep1.c - USB endpoint 1 callbacks
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -83,7 +83,7 @@ void ep1_out(void)
                 ep2_source_data = (uchar __code *) section_descriptor;
                 prepare_ep2_in();
                 break;
-                
+
             default:
                 debug("unknown command\n");
                 // Raise an error

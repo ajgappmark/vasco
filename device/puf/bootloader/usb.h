@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   usb.h - Main USB functions
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -70,7 +70,7 @@
 #define EPINEN_EN           0x02
 #define EPSTALL_EN          0x01
 
-                                    
+
 /* Buffer Descriptor Status Register Initialization Parameters */
 #define BDS_BSTALL          0x04 //Buffer Stall enable
 #define BDS_DTSEN           0x08 //Data Toggle Synch enable
@@ -113,7 +113,7 @@ typedef union
 } BDStat;
 
 /* Buffer Descriptor Table */
-typedef union 
+typedef union
 {
     struct
     {
@@ -146,7 +146,7 @@ extern uchar __at(0x005e) usb_active_cfg;
 extern uchar __at(0x005d) usb_active_alt_setting;
 
 extern const USB_Device_Descriptor *device_descriptor;
-extern const void **configuration_descriptor;
+extern const uchar * const *configuration_descriptor;
 extern const uchar* const *string_descriptor;
 extern void (*** ep_init)(void);
 extern void (*** ep_in)(void);
@@ -159,7 +159,7 @@ void usb_sleep(void);
 void dispatch_usb_event(void);
 void fill_in_buffer(uchar EPnum,
                     uchar **source,
-                    uint buffer_size, 
+                    uint buffer_size,
                     uint *nb_byte);
 
 #endif /*USB_H_*/

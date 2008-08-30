@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------
   boot_iface.c - Boot interface for applications
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,7 @@
 void boot_goto_table(void) __naked
 {
     __asm
-    
+
     extern _dispatch_usb_event
     extern _reset_usb
     extern _usb_sleep
@@ -45,7 +45,7 @@ void boot_goto_table(void) __naked
 
     extern _ep2_init
     extern _ep2_in
-    
+
     extern __mullong
     extern __mulint
     extern __gptrget1
@@ -60,7 +60,7 @@ void boot_goto_table(void) __naked
     extern _delay10tcy
 
 ;--------------------------------
-    
+
     DW 0x0010 ; Boot Version in BCD format
 
     goto _dispatch_usb_event
@@ -90,7 +90,7 @@ void boot_goto_table(void) __naked
     goto _delay10ktcy
     goto _delay1ktcy
     goto _delay10tcy
-        
+
     __endasm;
 }
-    
+

@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   usb_descriptors.c - USB device, interface, class, ep, string descriptors
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@
 #include "usb_descriptors.h"
 
 const USB_Device_Descriptor boot_device_descriptor =
-{    
+{
     sizeof(USB_Device_Descriptor),    // Size of this descriptor in bytes
     DEVICE_DESCRIPTOR,                // Device descriptor type
     0x0200,                 // USB Spec Release Number in BCD format
@@ -42,7 +42,7 @@ const USB_Device_Descriptor boot_device_descriptor =
 
 /* Configurations Descriptor */
 const USB_Default_Composite_Descriptor boot_default_cfg = {
-    // Configuration Descriptor 
+    // Configuration Descriptor
     {sizeof(USB_Configuration_Descriptor),    // Size of this descriptor in bytes
     CONFIGURATION_DESCRIPTOR,                 // CONFIGURATION descriptor type
     sizeof(boot_default_cfg),          // Total length of data for this configuration
@@ -51,7 +51,7 @@ const USB_Default_Composite_Descriptor boot_default_cfg = {
     4,                      // Configuration string index
     DEFAULT | SELF_POWERED, // Attributes
     0},                     // Max power consumption (2X mA)
-    
+
     // Boot Interface Descriptor
     {sizeof(USB_Interface_Descriptor),   // Size of this descriptor in bytes
     INTERFACE_DESCRIPTOR,                // Interface descriptor type
@@ -65,7 +65,7 @@ const USB_Default_Composite_Descriptor boot_default_cfg = {
 };
 
 const USB_Flash_Composite_Descriptor boot_flash_cfg = {
-    // Configuration Descriptor 
+    // Configuration Descriptor
     {sizeof(USB_Configuration_Descriptor),    // Size of this descriptor in bytes
     CONFIGURATION_DESCRIPTOR,                 // CONFIGURATION descriptor type
     sizeof(boot_flash_cfg),          // Total length of data for this configuration
@@ -74,7 +74,7 @@ const USB_Flash_Composite_Descriptor boot_flash_cfg = {
     5,                      // Configuration string index
     DEFAULT | SELF_POWERED, // Attributes
     0},                     // Max power consumption (2X mA)
-    
+
     // Flash Interface Descriptor
     {sizeof(USB_Interface_Descriptor),   // Size of this descriptor in bytes
     INTERFACE_DESCRIPTOR,               // Interface descriptor type
@@ -85,7 +85,7 @@ const USB_Flash_Composite_Descriptor boot_flash_cfg = {
     0xff,                   // Subclass code
     0xff,                   // Protocol code
     5},                     // Interface string index
-    
+
     // Flash Endpoint Descriptors
     {{sizeof(USB_Endpoint_Descriptor),
       ENDPOINT_DESCRIPTOR,
@@ -93,7 +93,7 @@ const USB_Flash_Composite_Descriptor boot_flash_cfg = {
       BULK,
       EP1_BUFFER_SIZE,   // USB 2.0 says : 64 bytes max
       0}, // not used for full speed bulk EP
-      
+
     {sizeof(USB_Endpoint_Descriptor),
      ENDPOINT_DESCRIPTOR,
      EP(2) | IN_EP,
@@ -125,7 +125,7 @@ const uchar str1[] = {sizeof(str1),  STRING_DESCRIPTOR,
                                               'e',0x00,
                                               'c',0x00,
                                               't',0x00};
-                                              
+
 const uchar str2[] = {sizeof(str2),  STRING_DESCRIPTOR,
                                               'P',0x00,
                                               'e',0x00,
@@ -144,7 +144,7 @@ const uchar str2[] = {sizeof(str2),  STRING_DESCRIPTOR,
                                               'u',0x00,
                                               'l',0x00,
                                               'e',0x00};
-                                              
+
 const uchar str3[] = {sizeof(str3), STRING_DESCRIPTOR, '1',0x00};
 
 const uchar str4[] = {sizeof(str4),  STRING_DESCRIPTOR,
@@ -155,7 +155,7 @@ const uchar str4[] = {sizeof(str4),  STRING_DESCRIPTOR,
                                               'u',0x00,
                                               'l',0x00,
                                               't',0x00};
-                                              
+
 const uchar str5[] = {sizeof(str5),  STRING_DESCRIPTOR,
                                               'F',0x00,
                                               'l',0x00,
@@ -212,8 +212,8 @@ static void (* const boot_ep_init_cfg1 [])(void) = {
                                         null_function};// 15
 
 /*
- *  boot_ep_init_cfg0 is duplicated so it is used on cfg 0 (device not configured) 
- * and 1 (device configured) 
+ *  boot_ep_init_cfg0 is duplicated so it is used on cfg 0 (device not configured)
+ * and 1 (device configured)
  */
 
 void (** const boot_ep_init[])(void) = {
@@ -221,7 +221,7 @@ void (** const boot_ep_init[])(void) = {
                                          boot_ep_init_cfg0,
                                          boot_ep_init_cfg1
                                        };
-           
+
 static void (* const boot_ep_in_cfg0 [])(void) = {
                                         ep0_in,       // 0
                                         null_function, // 1
@@ -263,7 +263,7 @@ void (** const boot_ep_in[])(void) =   {
                                         boot_ep_in_cfg0,
                                         boot_ep_in_cfg1
                                        };
-                                        
+
 static void (* const boot_ep_out_cfg0 [])(void) = {
                                         ep0_init,      // 0
                                         null_function, // 1
@@ -305,7 +305,7 @@ void (** const boot_ep_out[])(void) =  {
                                         boot_ep_out_cfg0,
                                         boot_ep_out_cfg1
                                        };
-                                        
+
 static void (* const boot_ep_setup_cfg [])(void) = {
                                         ep0_setup,     // 0
                                         null_function, // 1

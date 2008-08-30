@@ -18,7 +18,7 @@
 #    $Id$
 #
 
-EXTRA_DIST=odyssey-0.5.tar.gz sdcc-src-2.7.0.tar.bz2 gputils-0.13.4.tar.bz2
+EXTRA_DIST=odyssey-0.5.1.tar.gz sdcc-src-2.8.0.tar.bz2 gputils-0.13.6.tar.bz2
 
 TOOLSDIR=$(shell dirname `pwd`)/tools
 
@@ -28,9 +28,9 @@ all: gputils odyssey sdcc
 
 odyssey:
 	if [ ! -x "$(TOOLSDIR)/bin/odyssey" ]; then \
-	 tar xvzf odyssey-0.5.tar.gz;\
+	 tar xvjf odyssey-0.5.1.tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
-	 (cd odyssey-0.5 && \
+	 (cd odyssey-0.5.1 && \
 	 ./configure --prefix=$(TOOLSDIR) && \
 	 make && \
 	 make install);\
@@ -39,7 +39,7 @@ odyssey:
 
 sdcc: gputils
 	if [ ! -x "$(TOOLSDIR)/bin/sdcc" ]; then \
-	 tar xvjf sdcc-src-2.7.0.tar.bz2;\
+	 tar xvjf sdcc-src-2.8.0.tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
 	 (cd sdcc && \
 	 ./configure --disable-z80-port --disable-mcs51-port \
@@ -54,18 +54,18 @@ sdcc: gputils
 	
 gputils:
 	if [ ! -x "$(TOOLSDIR)/bin/gpasm" ]; then \
-	 tar xvjf gputils-0.13.4.tar.bz2;\
+	 tar xvjf gputils-0.13.6.tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
-	 (cd gputils-0.13.4 && \
+	 (cd gputils-0.13.6 && \
 	 ./configure --prefix=$(TOOLSDIR) && \
 	 make && \
 	 make install);\
 	fi
 	
-clean:
+distclean clean:
 	rm -fr $(TOOLSDIR)
-	rm -fr gputils-0.13.4
+	rm -fr gputils-0.13.6
 	rm -fr sdcc
-	rm -fr odyssey-0.5
+	rm -fr odyssey-0.5.1
 	
 .PHONY: all sdcc odyssey gputils

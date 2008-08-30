@@ -1,6 +1,10 @@
 PIC USB Framework (1.2)
 
-  * Upgrade to sdcc 2.7.0 (_DEBUG sdcc bug still there :-( )
+  * Clean up trailing white chars
+  * Upgrade to sdcc 2.8.0 (more strict pointer type checking,
+    _DEBUG sdcc bug still there so introduce a workaround :-( )
+  * Upgrade to odyssey 0.5.1 (bzipped to reduce archive size)
+  * Upgrade to gputils 0.13.6
   * Implement preliminary GET_STATUS setup command.
 
  -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Apr 22 12:09:53 CEST 2006

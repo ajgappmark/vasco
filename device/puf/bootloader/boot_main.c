@@ -30,29 +30,32 @@
 #include "usb_descriptors.h"
 #include "application_iface.h"
 
+static uchar safe_boot;
+static ulong counter;
 
 void init_boot(void)
 {
-    static ulong count;
-
     ADCON1 = 0x0F;
     CMCON  = 0x07;
     TRISA  = 0xFE;
     PORTA  = 0x01;
 
-    count = 0x80000;
-    while(count)
+    counter = 0x80000;
+    while(counter)
     {
-        count--;
+        counter--;
     }
 
     PORTA  = 0x00;
+    counter = 0x60000;
 
     // The RA1 pin is used to force the bootloader only mode
-    if((application_data.invalid == 0) && !PORTAbits.RA1)
+    safe_boot = (application_data.invalid != 0) || PORTAbits.RA1;
+
+    if(!safe_boot)
     {
         // use application descriptors
-        debug("use application descriptors\n");
+        debug("Use application descriptors\n");
         device_descriptor        = application_data.device_descriptor;
         configuration_descriptor = application_data.configuration_descriptor;
         string_descriptor        = application_data.string_descriptor;
@@ -60,7 +63,7 @@ void init_boot(void)
     else
     {
         // use boot descriptors
-        debug("use boot descriptors\n");
+        debug("Use boot descriptors\n");
         device_descriptor        = &boot_device_descriptor;
         configuration_descriptor = boot_configuration_descriptor;
         string_descriptor        = boot_string_descriptor;
@@ -76,27 +79,65 @@ void init_boot(void)
     ep_setup = boot_ep_setup;
 }
 
+void toggle_led(ulong* counter)
+{
+    *counter--;
+    if(!*counter)
+    {
+    	if(PORTAbits.RA0)
+    	{
+    		*counter = 0x60000;
+    	}
+    	else
+    	{
+    		*counter = 0x20000;
+    	}
+    	PORTAbits.RA0 = !PORTAbits.RA0;
+    }
+}
+
 void main(void)
 {
     init_debug();
-    debug("init boot\n");
+    debug("Init boot\n");
     init_boot();
-    debug("init USB\n");
-    init_usb();
+
+    if(safe_boot)
+    {
+    	debug("Safe boot mode\n");
+    	debug("Init USB\n");
+    	init_usb();
+
+    	while(1)
+        {
+            usb_sleep();
+            dispatch_usb_event();
+            toggle_led(&counter);
+        }
+    }
+
+    // init_usb() has to be called by the application
+    debug2("Starting application at %x\n", (void *)application_data.main);
+    application_data.main();
+
+    INTCON = 0; // Forbid interrupts
+    debug("Switch back to bootloader\n");
 
     while(1)
     {
-        usb_sleep();
-        dispatch_usb_event();
         if((application_data.invalid == 0) &&
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {
         	// (void*) avoids sdcc crash when _DEBUG is defined
-            debug2("jumping at %x\n", (void *)application_data.main);
+            debug2("Starting application at %x\n", (void *)application_data.main);
             application_data.main();
 
             INTCON = 0; // Forbid interrupts
+            debug("Switch back to bootloader\n");
         }
+        usb_sleep();
+        dispatch_usb_event();
+        toggle_led(&counter);
     }
 }
 

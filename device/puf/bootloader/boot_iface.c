@@ -32,6 +32,7 @@ void boot_goto_table(void) __naked
     __asm
 
     extern _dispatch_usb_event
+    extern _init_usb
     extern _reset_usb
     extern _usb_sleep
     extern _fill_in_buffer
@@ -61,9 +62,10 @@ void boot_goto_table(void) __naked
 
 ;--------------------------------
 
-    DW 0x0010 ; Boot Version in BCD format
+    DW 0x0120 ; Boot Version in BCD format
 
     goto _dispatch_usb_event
+    goto _init_usb
     goto _reset_usb
     goto _usb_sleep
     goto _fill_in_buffer

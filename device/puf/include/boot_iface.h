@@ -28,6 +28,7 @@
 void boot_goto_table(void);
 
 void dispatch_usb_event(void);
+void init_usb(void);
 void reset_usb(void);
 void usb_sleep(void);
 void fill_in_buffer(uchar EPnum,

@@ -40,6 +40,7 @@ void boot_goto_table(void) __naked
 
 global _boot_version
 global _dispatch_usb_event
+global _init_usb
 global _reset_usb
 global _usb_sleep
 global _fill_in_buffer
@@ -69,6 +70,7 @@ global _delay10tcy
 
 _boot_version:       res 2
 _dispatch_usb_event: res 4
+_init_usb:           res 4
 _reset_usb:          res 4
 _usb_sleep:          res 4
 _fill_in_buffer:     res 4

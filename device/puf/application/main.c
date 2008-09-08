@@ -53,7 +53,8 @@ void application_main(void)
 	debug("Init USB\n");
 	init_usb();
 
-    while(GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION)
+    while((GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION) ||
+    		(GET_DEVICE_STATE() != CONFIGURED_STATE))
     {
         usb_sleep();
         dispatch_usb_event();

@@ -28,6 +28,9 @@
 /* BOOTLOADER VERSION */
 # define BOOTLOADER_VERSION 0x0120
 
+/* SAFEBOOT BUTTON */
+#define SAFE_BOOT_BUTTON (PORTBbits.RB5)
+
 /* EP0 buffer size */
 #define EP0_BUFFER_SIZE 8
 

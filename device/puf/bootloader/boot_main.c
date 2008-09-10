@@ -49,8 +49,9 @@ void init_boot(void)
     PORTA  = 0x00;
     counter = 0x60000;
 
-    // The RA1 pin is used to force the bootloader only mode
-    safe_boot = (application_data.invalid != 0) || PORTAbits.RA1;
+    // SAFEBOOT_BUTTON pin is used to force the bootloader only mode
+    // SAFEBOOT_BUTTON is set in config.h
+    safe_boot = (application_data.invalid != 0) || SAFEBOOT_BUTTON;
 
     if(!safe_boot)
     {

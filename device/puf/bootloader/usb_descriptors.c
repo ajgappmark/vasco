@@ -176,7 +176,7 @@ void null_function() __naked
 }
 
 static void (* const boot_ep_init_cfg0 [])(void) = {
-                                        ep0_init,     // 0
+                                        ep0_init,      // 0
                                         null_function, // 1
                                         null_function, // 2
                                         null_function, // 3
@@ -191,7 +191,7 @@ static void (* const boot_ep_init_cfg0 [])(void) = {
                                         null_function, // 12
                                         null_function, // 13
                                         null_function, // 14
-                                        null_function};
+                                        null_function};// 15
 
 static void (* const boot_ep_init_cfg1 [])(void) = {
                                         ep0_init,      // 0

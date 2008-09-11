@@ -22,18 +22,20 @@ OBJEXT=o
 PIC_TYPE=PIC18F4550
 sdcc_PIC_TYPE=18f4550
 lkr_PIC_TYPE=18f4550
-TOOLSDIR=$(shell dirname `pwd`)/tools
-CC=$(TOOLSDIR)/bin/sdcc
-ASM=$(TOOLSDIR)/bin/gpasm
-GLNK=$(TOOLSDIR)/bin/gplink
-LNK=$(TOOLSDIR)/bin/sdcc
-ODYSSEY=$(TOOLSDIR)/bin/odyssey
+TOOLSDIR=$(abspath ../tools)
+CC=sdcc
+ASM=gpasm
+GLNK=gplink
+LNK=sdcc
+ODYSSEY=odyssey
 CRT0=$(TOOLSDIR)/share/sdcc/lib/pic16/crt0.o
 LIBPUF=../lib/libpuf.lib
 LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4550.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
 DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df
 #DEBUG=-D_DEBUG
+
+export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
 COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -I../include -c
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s$(lkr_PIC_TYPE).lkr,-m \

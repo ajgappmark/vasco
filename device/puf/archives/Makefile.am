@@ -18,9 +18,14 @@
 #    $Id$
 #
 
-EXTRA_DIST=odyssey-0.5.1.tar.gz sdcc-src-2.8.0.tar.bz2 gputils-0.13.6.tar.bz2
+ODYSSEY=odyssey-0.5.1
+SDCC=sdcc
+SDCCARCH=$(SDCC)-src-2.8.0
+GPUTILS=gputils-0.13.6
 
-TOOLSDIR=$(shell dirname `pwd`)/tools
+EXTRA_DIST=$(ODYSSEY).tar.gz $(SDCCARCH).tar.bz2 $(GPUTILS).tar.bz2
+
+TOOLSDIR=$(abspath ../tools)
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
@@ -28,9 +33,9 @@ all: gputils odyssey sdcc
 
 odyssey:
 	if [ ! -x "$(TOOLSDIR)/bin/odyssey" ]; then \
-	 tar xvjf odyssey-0.5.1.tar.bz2;\
+	 tar xvjf $(ODYSSEY).tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
-	 (cd odyssey-0.5.1 && \
+	 (cd $(ODYSSEY) && \
 	 ./configure --prefix=$(TOOLSDIR) && \
 	 make && \
 	 make install);\
@@ -39,9 +44,9 @@ odyssey:
 
 sdcc: gputils
 	if [ ! -x "$(TOOLSDIR)/bin/sdcc" ]; then \
-	 tar xvjf sdcc-src-2.8.0.tar.bz2;\
+	 tar xvjf $(SDCCARCH).tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
-	 (cd sdcc && \
+	 (cd $(SDCC) && \
 	 ./configure --disable-z80-port --disable-mcs51-port \
 	             --disable-gbz80-port --disable-avr-port \
 	             --disable-ds390-port --disable-ds400-port \
@@ -54,9 +59,9 @@ sdcc: gputils
 	
 gputils:
 	if [ ! -x "$(TOOLSDIR)/bin/gpasm" ]; then \
-	 tar xvjf gputils-0.13.6.tar.bz2;\
+	 tar xvjf $(GPUTILS).tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
-	 (cd gputils-0.13.6 && \
+	 (cd $(GPUTILS) && \
 	 ./configure --prefix=$(TOOLSDIR) && \
 	 make && \
 	 make install);\
@@ -64,8 +69,8 @@ gputils:
 	
 distclean clean:
 	rm -fr $(TOOLSDIR)
-	rm -fr gputils-0.13.6
-	rm -fr sdcc
-	rm -fr odyssey-0.5.1
+	rm -fr $(GPUTILS)
+	rm -fr $(SDCC)
+	rm -fr $(ODYSSEY)
 	
 .PHONY: all sdcc odyssey gputils

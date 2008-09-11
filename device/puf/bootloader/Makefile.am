@@ -22,14 +22,16 @@ OBJEXT=o
 PIC_TYPE = PIC18F4550
 sdcc_PIC_TYPE = 18f4550
 lkr_PIC_TYPE = 18f4550
-TOOLSDIR = $(shell dirname `pwd`)/tools
-CC = $(TOOLSDIR)/bin/sdcc
+TOOLSDIR = $(abspath ../tools)
+CC = sdcc
 AM_CFLAGS = -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG) 
-LNK = $(TOOLSDIR)/bin/sdcc
+LNK = sdcc
 AM_LDFLAGS = 
-ODYSSEY = $(TOOLSDIR)/bin/odyssey
+ODYSSEY = odyssey
 DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df
 #DEBUG = -D_DEBUG
+
+export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
 COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -Iinclude -c
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=crt0.o -Wl-s$(lkr_PIC_TYPE).lkr,-m \
@@ -42,7 +44,7 @@ bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \
                          ep1.h ep2.h application_iface.h \
                          usb_std_req.h common_types.h \
-                         debug.h flash.h boot_iface.h config.h
+                         debug.h flash.h boot_iface.h config.h flashmap.c
 
 EXTRA_DIST=$(lkr_PIC_TYPE).lkr
 

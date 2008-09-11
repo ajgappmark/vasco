@@ -26,14 +26,16 @@ OBJEXT=o
 PIC_TYPE = PIC18F4550
 sdcc_PIC_TYPE = 18f4550
 lkr_PIC_TYPE = 18f4550
-TOOLSDIR = $(shell dirname `pwd`)/tools
-CC = $(TOOLSDIR)/bin/sdcc
-GPLIB = $(TOOLSDIR)/bin/gplib
+TOOLSDIR = $(abspath ../tools)
+CC = sdcc
+GPLIB = gplib
 AM_CFLAGS = -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG) -I../include
 AM_LDFLAGS = 
-ODYSSEY = $(TOOLSDIR)/bin/odyssey
+ODYSSEY = odyssey
 DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df 
 #DEBUG = -D_DEBUG
+
+export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
 COMPILE=$(CC) $(AM_CFLAGS) $(CFLAGS) -c
 

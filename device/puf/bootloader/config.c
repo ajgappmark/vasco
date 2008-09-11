@@ -21,7 +21,6 @@
 /* $Id$ */
 
 #include <pic18fregs.h>
-#include "flash.h"
 
 /* Set the PIC config words */
 code char at __CONFIG1L _conf0  = _USBPLL_CLOCK_SRC_FROM_96MHZ_PLL_2_1L &
@@ -77,17 +76,3 @@ code char at __CONFIG7L _conf10 = _EBTR_0_OFF_7L &
                                   _EBTR_3_OFF_7L;
 
 code char at __CONFIG7H _conf11 = _EBTRB_OFF_7H;
-
-/* Memory sections for flash operations */
-// TODO add caution and explainations
-const uchar section_descriptor [22] = {3,
-                                     FLASH_SECTION_READ,
-                                     0x00, 0x00, 0x00,
-                                     0xff, 0x1f, 0x00,
-                                     FLASH_SECTION_READ | FLASH_SECTION_WRITE,
-                                     0x00, 0x20, 0x00,
-                                     0xff, 0x7f, 0x00,
-                                     FLASH_SECTION_READ,
-                                     0x00, 0x00, 0x30,
-                                     0x0d, 0x00, 0x30};
-

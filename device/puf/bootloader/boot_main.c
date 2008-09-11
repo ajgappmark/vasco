@@ -51,7 +51,7 @@ void init_boot(void)
 
     // SAFEBOOT_BUTTON pin is used to force the bootloader only mode
     // SAFEBOOT_BUTTON is set in config.h
-    safe_boot = (application_data.invalid != 0) || SAFEBOOT_BUTTON;
+    safe_boot = (application_data.invalid != 0) || SAFE_BOOT_BUTTON;
 
     if(!safe_boot)
     {

@@ -95,7 +95,7 @@ long DataBuffer::compare(DataBuffer& other) {
 }
 
 
-bool DataBuffer::isblank(size_t addr) {
+bool DataBuffer::memcel_isblank(size_t addr) {
 	unsigned int *chunk;
 
 	chunk = chunktable[(addr >> chunk_size_bits) % num_chunks];

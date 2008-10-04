@@ -187,7 +187,7 @@ void USBDevice::write_block(long address, DataBuffer& tab)
 
     for(long a = address; a < address + 32; a++)
     {
-        if(!tab.isblank(a))
+        if(!tab.memcel_isblank(a))
         {
             write_bytes[a - address + 4] = tab[a];
             isBlank = false;

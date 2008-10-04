@@ -71,7 +71,7 @@ public:
 	 * \returns A boolean value indicating if the location contains
 	 *          a value of all binary 1's.
 	 */
-	bool isblank(size_t addr);
+	bool memcel_isblank(size_t addr);
 
 	/** The index operator used for retrieving the address of elements.
 	 * If the access is to a chunk which doesn't exist, the chunk will be

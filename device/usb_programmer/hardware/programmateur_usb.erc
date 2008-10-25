@@ -1,0 +1,10 @@
+Controle ERC (25/10/2008-13:43:39)
+
+***** feuille 1 (Racine)
+ERC: Warning Pin BiDi Non connectée (X= 2,000 pouces, Y= 1,450 pouces
+ERC: Warning Pin BiDi Non connectée (X= 2,000 pouces, Y= 1,600 pouces
+
+***** feuille 2 (power_supply)
+ERC: Warning Pin power_in non pilotée (Net 6) (X= 5,800 pouces, Y= 2,550 pouces
+
+ >> Erreurs ERC: 3

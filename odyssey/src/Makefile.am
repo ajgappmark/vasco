@@ -16,7 +16,7 @@ libcommon_a_SOURCES=ConfigFile.cxx ConfigFile.h \
 	device/Pic16f81xDevice.cxx \
 	device/Pic16f7xDevice.cxx device/Pic18Device.cxx \
 	device/Pic12f6xxDevice.cxx\
-	device/Pic16f6xxDevice.cxx \ device/Pic16f6xxADevice.cxx \
+	device/Pic16f6xxDevice.cxx device/Pic16f6xxADevice.cxx \
 	device/Pic16f87xADevice.cxx device/Pic18f2xx0Device.cxx
 EXTRA_libcommon_a_SOURCES=DirectPPIO.cxx DirectPPIO.h \
 	LinuxPPDevIO.cxx LinuxPPDevIO.h

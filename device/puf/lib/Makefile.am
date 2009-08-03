@@ -32,7 +32,7 @@ GPLIB = gplib
 AM_CFLAGS = -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG) -I../include
 AM_LDFLAGS = 
 ODYSSEY = odyssey
-DEBUG =--optimize-goto --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df 
+DEBUG =--denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df 
 #DEBUG = -D_DEBUG
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)

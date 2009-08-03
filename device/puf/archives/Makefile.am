@@ -20,8 +20,8 @@
 
 ODYSSEY=odyssey-0.5.1
 SDCC=sdcc
-SDCCARCH=$(SDCC)-src-2.8.0
-GPUTILS=gputils-0.13.6
+SDCCARCH=$(SDCC)-src-2.9.0
+GPUTILS=gputils-0.13.7
 
 EXTRA_DIST=$(ODYSSEY).tar.gz $(SDCCARCH).tar.bz2 $(GPUTILS).tar.bz2
 

@@ -8,16 +8,25 @@ distribute and modify it.
 
 
 PUF (PIC USB Framework) is divided into 3 archives :
-- puf-<release #>.tar.gz contains the bootloader and the demo device application,
-- docker-<release #>.tar.gz is the flash programmer that communicate with the bootloader through USB,
+- puf-<release #>.tar.gz contains the bootloader and the demo device 
+   application,
+- docker-<release #>.tar.gz is the flash programmer that communicate
+   with the bootloader through USB,
 - demo-<release #>.tar.gz is the host demo application.
 
 docker and demo depend on libusb >=0.11.
 
-PUF contains its own cross-compilation tools. A simple make
-at the root will build everything, including the cross
+PUF contains its own cross-compilation tools. To build it, run :
+ 
+ ./configure
+ 
+ and then :
+ 
+ make
+ 
+at the root. It will build everything, including the cross
 tools in the tools folder. The bootloader is then available as 
-bootloader/boot.hex and the demo device application in 
+bootloader/bootloader.hex and the demo device application in 
 application/application.hex. Odyssey, once configured for your hardware,
 can then be used to flash the bootloader with :
 
@@ -36,7 +45,7 @@ good to develop as root...
 When your device is started, it stays in a neutral
 configuration (#1) until it receives a SET_CONFIGURATION request
 from the host. Configuration ID #2 is associated to the
-flashing function, and USB configuration ID > 2 are reserved for 
+programming function, and USB configuration ID > 2 are reserved for 
 the application. demo can be used to switch to the application with :
 
 demo -c <configuration ID>

@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   config.h - Bootloader configuration
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
+             (c) 2006-2009 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -41,7 +41,22 @@
 #define EP2_BUFFER_SIZE 64
 
 /* Application data address */
-#define APPLICATION_DATA_ADDRESS 0x2000
+#ifdef _DEBUG
+	#define APPLICATION_DATA_ADDRESS 0x2000
+#else
+	#define APPLICATION_DATA_ADDRESS 0x6000
+#endif
+
+/* Interrupt vectors */
+#ifdef _DEBUG
+	#define HIGH_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x6020")
+	#define LOW_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x7000")
+#else
+	#define HIGH_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x2020")
+	#define LOW_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x4000")
+#endif
+
+/* Stack size and address : see boot_main.c line 24 due to _Pragma limitations */
 
 /* Memory sections for flash operations */
 extern const uchar section_descriptor [22];

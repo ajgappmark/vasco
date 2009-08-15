@@ -1,5 +1,5 @@
 #
-#             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+#             (c) 2006-2009 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 #
 #    This library is free software; you can redistribute it and/or
 #    modify it under the terms of the GNU Lesser General Public
@@ -21,19 +21,25 @@
 OBJEXT=o
 PIC_TYPE = PIC18F4550
 sdcc_PIC_TYPE = 18f4550
-lkr_PIC_TYPE = 18f4550
 TOOLSDIR = $(abspath ../tools)
 CC = sdcc
-AM_CFLAGS = -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG) 
+AM_CFLAGS =-mpic16 -p$(sdcc_PIC_TYPE) --denable-peeps --obanksel=9\
+ --opt-code-size --optimize-cmp --optimize-df $(DEBUG)
 LNK = sdcc
 AM_LDFLAGS = 
 ODYSSEY = odyssey
-DEBUG =--denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df
-#DEBUG = -D_DEBUG
+
+if DEBUG_BOOTLOADER
+DEBUG = -D_DEBUG
+lkr_PIC_TYPE = bootloader-18f4550-debug
+else
+DEBUG =
+lkr_PIC_TYPE = bootloader-18f4550
+endif
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
-COMPILE=$(CC) -mpic16 $(DEBUG) -p$(sdcc_PIC_TYPE) -Iinclude -c
+COMPILE=$(CC) -mpic16 $(AM_CFLAGS) -Iinclude -c
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=crt0.o -Wl-s$(lkr_PIC_TYPE).lkr,-m \
 	-mpic16 -p$(sdcc_PIC_TYPE) -llibio$(sdcc_PIC_TYPE).lib -llibc18f.lib
 
@@ -46,7 +52,7 @@ bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          usb_std_req.h common_types.h \
                          debug.h flash.h boot_iface.h config.h flashmap.c
 
-EXTRA_DIST=$(lkr_PIC_TYPE).lkr
+EXTRA_DIST=bootloader-18f4550.lkr bootloader-18f4550-debug.lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 

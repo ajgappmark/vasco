@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   interrupt_iface.c - Interruptions interface
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
+             (c) 2006-2009 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,16 @@
 
 /* $Id$ */
 
-
-/* TODO Interrupt entry points should be defines in config.h */
+#include "config.h"
 
 /* Interrupt vectors */
-#pragma code high_priority_isr 0x2020
-void high_priority_isr(void) interrupt 1
-{
-}
 
-#pragma code low_priority_isr 0x4000
+LOW_PRIORITY_ISR_PRAGMA
 void low_priority_isr(void) interrupt 2
 {
 }
 
+HIGH_PRIORITY_ISR_PRAGMA
+void high_priority_isr(void) interrupt 1
+{
+}

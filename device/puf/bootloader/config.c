@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   config.c - PIC configuration words
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
+             (c) 2006-2009 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -21,6 +21,7 @@
 /* $Id$ */
 
 #include <pic18fregs.h>
+#include "config.h"
 
 /* Set the PIC config words */
 code char at __CONFIG1L _conf0  = _USBPLL_CLOCK_SRC_FROM_96MHZ_PLL_2_1L &
@@ -59,11 +60,22 @@ code char at __CONFIG5L _conf6  = _CP_0_OFF_5L &
 code char at __CONFIG5H _conf7  = _CPB_OFF_5H &
                                   _CPD_OFF_5H;
 
+#ifdef _DEBUG
+
+code char at __CONFIG6L _conf8  = _WRT_0_ON_6L &
+                                  _WRT_1_ON_6L &
+                                  _WRT_2_ON_6L &
+// 4550 specific
+                                  _WRT_3_OFF_6L;
+
+#else
 code char at __CONFIG6L _conf8  = _WRT_0_ON_6L &
                                   _WRT_1_OFF_6L &
                                   _WRT_2_OFF_6L &
 // 4550 specific
                                   _WRT_3_OFF_6L;
+
+#endif
 
 code char at __CONFIG6H _conf9  = _WRTB_ON_6H &
                                   _WRTC_ON_6H &

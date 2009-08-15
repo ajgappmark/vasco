@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------
   boot_iface.c - Boot interface for applications
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
+             (c) 2006-2009 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -20,12 +20,11 @@
 
 /* $Id$ */
 
+#include "config.h"
 #pragma code boot_goto_table 0x1c
 
 // This dummy function is in fact a table of goto exported to
 // the application
-
-// TODO The boot version should be a define from config.h
 
 void boot_goto_table(void) __naked
 {
@@ -62,7 +61,7 @@ void boot_goto_table(void) __naked
 
 ;--------------------------------
 
-    DW 0x0120 ; Boot Version in BCD format
+    DW BOOTLOADER_VERSION ; Boot Version in BCD format
 
     goto _dispatch_usb_event
     goto _init_usb

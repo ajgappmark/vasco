@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   usb_descriptors.c - USB device, interface, class, ep, string descriptors
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+             (c) 2006-2009 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@
 #define EP0_BUFFER_SIZE 8
 
 const USB_Device_Descriptor device_descriptor =
-{    
+{
     sizeof(USB_Device_Descriptor),    // Size of this descriptor in bytes
     DEVICE_DESCRIPTOR,                // Device descriptor type
     0x0200,                 // USB Spec Release Number in BCD format
@@ -43,7 +43,7 @@ const USB_Device_Descriptor device_descriptor =
 
 /* Configurations Descriptor */
 const USB_Default_Composite_Descriptor default_cfg = {
-    // Configuration Descriptor 
+    // Configuration Descriptor
     {sizeof(USB_Configuration_Descriptor),    // Size of this descriptor in bytes
     CONFIGURATION_DESCRIPTOR,                 // CONFIGURATION descriptor type
     sizeof(default_cfg),          // Total length of data for this configuration
@@ -52,7 +52,7 @@ const USB_Default_Composite_Descriptor default_cfg = {
     4,                      // Configuration string index
     DEFAULT | SELF_POWERED, // Attributes
     0},                     // Max power consumption (2X mA)
-    
+
     // Boot Interface Descriptor
     {sizeof(USB_Interface_Descriptor),   // Size of this descriptor in bytes
     INTERFACE_DESCRIPTOR,                // Interface descriptor type
@@ -66,7 +66,7 @@ const USB_Default_Composite_Descriptor default_cfg = {
 };
 
 const USB_Flash_Composite_Descriptor flash_cfg = {
-    // Configuration Descriptor 
+    // Configuration Descriptor
     {sizeof(USB_Configuration_Descriptor),    // Size of this descriptor in bytes
     CONFIGURATION_DESCRIPTOR,                 // CONFIGURATION descriptor type
     sizeof(flash_cfg),          // Total length of data for this configuration
@@ -75,7 +75,7 @@ const USB_Flash_Composite_Descriptor flash_cfg = {
     5,                      // Configuration string index
     DEFAULT | SELF_POWERED, // Attributes
     0},                     // Max power consumption (2X mA)
-    
+
     // Flash Interface Descriptor
     {sizeof(USB_Interface_Descriptor),   // Size of this descriptor in bytes
     INTERFACE_DESCRIPTOR,               // Interface descriptor type
@@ -86,7 +86,7 @@ const USB_Flash_Composite_Descriptor flash_cfg = {
     0xff,                   // Subclass code
     0xff,                   // Protocol code
     5},                     // Interface string index
-    
+
     // Flash Endpoint Descriptors
     {{sizeof(USB_Endpoint_Descriptor),
       ENDPOINT_DESCRIPTOR,
@@ -94,7 +94,7 @@ const USB_Flash_Composite_Descriptor flash_cfg = {
       BULK,
       64,   // 68 bytes max
       0}, // not used for full speed bulk EP
-      
+
     {sizeof(USB_Endpoint_Descriptor),
      ENDPOINT_DESCRIPTOR,
      EP(2) | IN_EP,
@@ -104,7 +104,7 @@ const USB_Flash_Composite_Descriptor flash_cfg = {
 };
 
 const USB_Application_Composite_Descriptor application_cfg = {
-    // Configuration Descriptor 
+    // Configuration Descriptor
     {sizeof(USB_Configuration_Descriptor),    // Size of this descriptor in bytes
     CONFIGURATION_DESCRIPTOR,                 // CONFIGURATION descriptor type
     sizeof(application_cfg),          // Total length of data for this configuration
@@ -113,7 +113,7 @@ const USB_Application_Composite_Descriptor application_cfg = {
     4,                      // Configuration string index
     DEFAULT | SELF_POWERED, // Attributes
     0},                     // Max power consumption (2X mA)
-    
+
     // Application Interface Descriptor
     {sizeof(USB_Interface_Descriptor),   // Size of this descriptor in bytes
     INTERFACE_DESCRIPTOR,                // Interface descriptor type
@@ -150,7 +150,7 @@ const uchar str1[] = {sizeof(str1),  STRING_DESCRIPTOR,
                                               'e',0x00,
                                               'c',0x00,
                                               't',0x00};
-                                              
+
 const uchar str2[] = {sizeof(str2),  STRING_DESCRIPTOR,
                                               'T',0x00,
                                               'o',0x00,
@@ -165,7 +165,7 @@ const uchar str2[] = {sizeof(str2),  STRING_DESCRIPTOR,
                                               'u',0x00,
                                               'l',0x00,
                                               'e',0x00};
-                                              
+
 const uchar str3[] = {sizeof(str3), STRING_DESCRIPTOR, '1',0x00};
 
 const uchar str4[] = {sizeof(str4),  STRING_DESCRIPTOR,
@@ -176,7 +176,7 @@ const uchar str4[] = {sizeof(str4),  STRING_DESCRIPTOR,
                                               'u',0x00,
                                               'l',0x00,
                                               't',0x00};
-                                              
+
 const uchar str5[] = {sizeof(str5),  STRING_DESCRIPTOR,
                                               'F',0x00,
                                               'l',0x00,
@@ -234,8 +234,8 @@ static void (* const ep_init_cfg1 [])(void) = {
                                         null_function};// 15
 
 /*
- *  ep_init_cfg0 is duplicated so it is used on cfg 0 (device not configured) 
- * and 1 (device configured) 
+ *  ep_init_cfg0 is duplicated so it is used on cfg 0 (device not configured)
+ * and 1 (device configured)
  */
 
 void (** const ep_init[])(void) = {
@@ -244,7 +244,7 @@ void (** const ep_init[])(void) = {
                                      ep_init_cfg1,
                                      ep_init_cfg0
                                    };
-           
+
 static void (* const ep_in_cfg0 [])(void) = {
                                         ep0_in,       // 0
                                         null_function, // 1
@@ -287,7 +287,7 @@ void (** const ep_in[])(void) =   {
                                         ep_in_cfg1,
                                         ep_in_cfg0
                                        };
-                                        
+
 static void (* const ep_out_cfg0 [])(void) = {
                                         ep0_init,      // 0
                                         null_function, // 1
@@ -330,7 +330,7 @@ void (** const ep_out[])(void) =  {
                                         ep_out_cfg1,
                                         ep_out_cfg0
                                        };
-                                        
+
 static void (* const ep_setup_cfg0 [])(void) = {
                                         ep0_setup,     // 0
                                         null_function, // 1

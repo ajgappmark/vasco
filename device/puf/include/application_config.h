@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
-  application_iface.h - Application data
+  config.h - Application configuration
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
+             (c) 2006-2009 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -20,24 +20,25 @@
 
 /* $Id$ */
 
-#ifndef APPLICATION_H_
-#define APPLICATION_H_
+#ifndef APPLICATION_CONFIG_H_
+#define APPLICATION_CONFIG_H_
 
 #include "common_types.h"
-#include "application_config.h"
 
-typedef struct {
-    uchar invalid;                   // != 0 when the application is not valid
-    void* device_descriptor;
-    void** configuration_descriptor; // pointer to an array of pointer to configuration descriptors
-    uchar** string_descriptor;       // pointer to an array of pointer to string descriptors
-    void (*** ep_init)(void);
-    void (*** ep_in)(void);
-    void (*** ep_out)(void);
-    void (*** ep_setup)(void);
-    void (*main) (void);
-} ApplicationData;
+/* Application data address */
+#ifdef _DEBUG
+	#define APPLICATION_DATA_ADDRESS 0x6000
+#else
+	#define APPLICATION_DATA_ADDRESS 0x2000
+#endif
 
-extern const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data;
+/* Interrupt vectors */
+#ifdef _DEBUG
+	#define HIGH_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x6020")
+	#define LOW_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x7000")
+#else
+	#define HIGH_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x2020")
+	#define LOW_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x4000")
+#endif
 
-#endif /*APPLICATION_H_*/
+#endif /*APPLICATION_CONFIG_H_*/

@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   application_iface.c - Application data
 
-             (c) 2006 Pierre Gaufillet <pierre.gaufillet@magic.fr>
+             (c) 2006-2009 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,7 @@
 -------------------------------------------------------------------------*/
 
 #include "common_types.h"
+#include "application_config.h"
 #include "usb_descriptors.h"
 
 void application_main(void);
@@ -35,7 +36,7 @@ typedef struct {
     void (*main) (void);
 } ApplicationData;
 
-const ApplicationData __at(0x2000) application_data = {
+const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data = {
     0x00,                          // Application is valid
     &device_descriptor,            // device descriptor
     configuration_descriptor,      // configuration descriptor

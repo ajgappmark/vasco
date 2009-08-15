@@ -19,6 +19,7 @@
 -------------------------------------------------------------------------*/
 
 #include <pic18fregs.h>
+#include "application_config.h"
 #include "common_types.h"
 #include "debug.h"
 #include "boot_iface.h"
@@ -62,7 +63,7 @@ void application_main(void)
 }
 
 /* Interrupt vectors */
-#pragma code high_priority_isr 0x2020
+HIGH_PRIORITY_ISR_PRAGMA
 void high_priority_isr(void) interrupt
 {
     if(INTCONbits.TMR0IF)
@@ -72,7 +73,7 @@ void high_priority_isr(void) interrupt
     }
 }
 
-#pragma code low_priority_isr 0x4000
+LOW_PRIORITY_ISR_PRAGMA
 void low_priority_isr(void) interrupt
 {
 }

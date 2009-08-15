@@ -1,7 +1,7 @@
 // $Id$
-// File: 18f4550.lkr
-// Sample linker script for the PIC18F4550 processor
-// modified for boot link (limit link to 0x0000-0x1fff boot block)
+// File: application-18f4550.lkr
+// Application linker script for the PIC18F4550 processor
+// modified for application link (limit link to 0x2000-0x7fff block)
 LIBPATH .
 
 CODEPAGE   NAME=vectors    START=0x0            END=0x1B           PROTECTED

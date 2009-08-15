@@ -42,9 +42,9 @@
 
 /* Application data address */
 #ifdef _DEBUG
-	#define APPLICATION_DATA_ADDRESS 0x2000
-#else
 	#define APPLICATION_DATA_ADDRESS 0x6000
+#else
+	#define APPLICATION_DATA_ADDRESS 0x2000
 #endif
 
 /* Interrupt vectors */

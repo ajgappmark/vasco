@@ -188,7 +188,7 @@ void picon_in(void)
     INTCONbits.GIE = ib;
 }
 
-PUTCHAR(c)
+void putchar(char c) __wparam
 {
     char ib;
 

@@ -1,12 +1,11 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.50)
-AC_INIT(src/main.cxx)
+AC_PREREQ(2.59)
+AC_INIT(odyssey, 0.6, vasco-project@lists.gforge.enseeiht.fr)
 AC_REVISION($Id$)
 AC_CONFIG_AUX_DIR(scripts)
-AM_INIT_AUTOMAKE(odyssey, 0.5.1)
+AM_INIT_AUTOMAKE([dist-bzip2])
 AM_CONFIG_HEADER(src/config.h)
-
 
 dnl *** Checks for programs
 AC_CANONICAL_HOST
@@ -20,6 +19,10 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 
+AC_CHECK_PROG([man2html], [man2html], [man2html])
+if test "x$man2html" != "xman2html"; then
+	AC_MSG_NOTICE(html man pages can not be built without man2html)
+fi
 
 dnl *** Checks for libraries
 
@@ -77,4 +80,5 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 data/Makefile
+doc/Makefile
 ])

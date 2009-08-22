@@ -18,6 +18,11 @@
 # $Id$
 #
 
-EXTRA_DIST=README doc/doxygen.cfg scripts/autogen.sh
-dist_doc_DATA=LICENSE ChangeLog doc/setup.txt doc/init_parport.sh
-SUBDIRS=src data doc
+dist_man_MANS=odyssey.1 pic.conf.5
+dist_doc_DATA=odyssey-man.html pic.conf-man.html
+
+odyssey-man.html: odyssey.1
+	man2html $< > $@
+
+pic.conf-man.html: pic.conf.5
+	man2html $< > $@

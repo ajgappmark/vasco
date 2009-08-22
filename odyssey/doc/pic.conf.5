@@ -30,6 +30,12 @@ The PIC numeric id as it can be read from DEVID2:DEVID1.
 .BR deviceidmask " (string)"
 The mask to be applied to DEVID2:DEVID1 to get the actual PIC id.
 .TP
+.BR backend " (string)"
+The name of the programming backend to be used with this device.
+The possible backends are: Pic16f87xADevice, Pic16f81xDevice,
+Pic16f8xxDevice, Pic16f7xDevice, Pic16f6xxADevice, Pic12f6xxDevice, 
+Pic12f6xxDevice, Pic16Device, Pic18f2xx0Device, Pic18Device.
+.TP
 .BR memtype " (string)"
 The type of memory in the PIC. This can have one of the values "eprom",
 "flash", or "flashe". "eprom" can be used for any eprom/OTP device. "flash"
@@ -119,6 +125,7 @@ The value of the bkbug bits when the debugger is disabled.
 [PIC16F84A]
   deviceid     = 0x0560
   deviceidmask = 0x3fe0
+  backend      = Pic16f8xxDevice
   memtype      = flash
   wordsize     = 14
   codesize     = 1024
@@ -135,6 +142,7 @@ The value of the bkbug bits when the debugger is disabled.
 [PIC18F4550]
   deviceid       = 0x1200
   deviceidmask   = 0xffe0
+  backend        = Pic18f2xx0Device
   memtype        = flash
   wordsize       = 16
   codesize       = 16384

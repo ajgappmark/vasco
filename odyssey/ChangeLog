@@ -1,3 +1,12 @@
+Version 0.6:
+ * Specify programming backend in pic.conf for each device.
+ * Fix a few devices backends in pic.conf
+ * Add support for PIC18F4553
+ * Use man2html to build -man.html files (still provided in dist nevertheless)
+ * Remove rules to build pic.conf from spec files that are now used anymore
+ * Replace obsolete INCLUDE variable by AM_CPPFLAGS in src/Makefile.am
+ * Archive now as tar.bz2 file
+  
 Version 0.5.1:
  * Fixed GCC 4.3 compatibility issue
  * Added support for PIC16F627A, PIC16F628A and PIC16F648A (Renato Barbosa Santiago).

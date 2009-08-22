@@ -52,30 +52,40 @@ void PicDevice::list(vector<string> *v) {
 
 
 Device *PicDevice::load(char *name) {
+	char backend[128];
+
 	if(pic_config == NULL)
 		pic_config = new ConfigFile("pic.conf", PACKAGE, DATADIR "/pic.conf");
 
-	if(Util::regex_match("^PIC16F87[3467]A", name)) {
-		return new Pic16f87xADevice(name);
-	} else if(Util::regex_match("^PIC16F81[89]", name)) {
-		return new Pic16f81xDevice(name);
-	} else if(Util::regex_match("^PIC16F8", name) || (strcmp(name, "PIC16C84") == 0)) {
-		return new Pic16f8xxDevice(name);
-	} else if(Util::regex_match("^PIC16F7[3467]$", name)) {
-		return new Pic16f7xDevice(name);
-	} else if( Util::regex_match("^PIC16L?F6((27)|(28)|(48))A", name)){
-		return new Pic16f6xxADevice(name);
-	} else if(Util::regex_match("^PIC16F6.*", name)) {
-		return new Pic16f6xxDevice(name);
-	} else if(Util::regex_match("^PIC12F6.*", name)) {
-		return new Pic12f6xxDevice(name);
-	} else if(Util::regex_match("^PIC16.*", name)) {
-		return new Pic16Device(name);
-	} else if(Util::regex_match("^PIC18F((2..[05])|(2.21)|(4..[05])|(4.21))", name)) {
-		return new Pic18f2xx0Device(name);
-    } else if(Util::regex_match("^PIC18.*", name)) {
-        return new Pic18Device(name);
+	if(!pic_config->get_string(name, "backend", backend, sizeof(backend)))
+	{
+		fprintf(stderr, "No backend specified for chiptype %s\n", name);
+		return NULL;
 	}
+
+	if(!strcmp(backend, "Pic16f87xADevice")) {
+		return new Pic16f87xADevice(name);
+	} else if(!strcmp(backend, "Pic16f81xDevice")) {
+		return new Pic16f81xDevice(name);
+	} else if(!strcmp(backend, "Pic16f8xxDevice")) {
+		return new Pic16f8xxDevice(name);
+	} else if(!strcmp(backend, "Pic16f7xDevice")) {
+		return new Pic16f7xDevice(name);
+	} else if(!strcmp(backend, "Pic16f6xxADevice")){
+		return new Pic16f6xxADevice(name);
+	} else if(!strcmp(backend, "Pic12f6xxDevice")) {
+		return new Pic16f6xxDevice(name);
+	} else if(!strcmp(backend, "Pic12f6xxDevice")) {
+		return new Pic12f6xxDevice(name);
+	} else if(!strcmp(backend, "Pic16Device")) {
+		return new Pic16Device(name);
+	} else if(!strcmp(backend, "Pic18f2xx0Device")) {
+		return new Pic18f2xx0Device(name);
+	} else if(!strcmp(backend, "Pic18Device")) {
+		return new Pic18Device(name);
+	}
+
+	fprintf(stderr, "Unknown backend\n");
 	return NULL;
 }
 

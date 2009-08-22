@@ -51,6 +51,13 @@ The PIC numeric id as it can be read from DEVID2:DEVID1.
 
 <DD>
 The mask to be applied to DEVID2:DEVID1 to get the actual PIC id.
+<DT><B>backend</B> (string)
+
+<DD>
+The name of the programming backend to be used with this device.
+The possible backends are: Pic16f87xADevice, Pic16f81xDevice,
+Pic16f8xxDevice, Pic16f7xDevice, Pic16f6xxADevice, Pic12f6xxDevice, 
+Pic12f6xxDevice, Pic16Device, Pic18f2xx0Device, Pic18Device.
 <DT><B>memtype</B> (string)
 
 <DD>
@@ -166,6 +173,7 @@ The value of the bkbug bits when the debugger is disabled.
 [PIC16F84A]
 <BR>&nbsp;&nbsp;deviceid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0x0560
 <BR>&nbsp;&nbsp;deviceidmask&nbsp;=&nbsp;0x3fe0
+<BR>&nbsp;&nbsp;backend&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Pic16f8xxDevice
 <BR>&nbsp;&nbsp;memtype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;flash
 <BR>&nbsp;&nbsp;wordsize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;14
 <BR>&nbsp;&nbsp;codesize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1024
@@ -182,6 +190,7 @@ The value of the bkbug bits when the debugger is disabled.
 [PIC18F4550]
 <BR>&nbsp;&nbsp;deviceid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0x1200
 <BR>&nbsp;&nbsp;deviceidmask&nbsp;&nbsp;&nbsp;=&nbsp;0xffe0
+<BR>&nbsp;&nbsp;backend&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Pic18f2xx0Device
 <BR>&nbsp;&nbsp;memtype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;flash
 <BR>&nbsp;&nbsp;wordsize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;16
 <BR>&nbsp;&nbsp;codesize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;16384
@@ -246,6 +255,6 @@ is distributed under the terms of the GNU General Public License version 2.
 This document was created by
 <A HREF="/cgi-bin/man/man2html">man2html</A>,
 using the manual pages.<BR>
-Time: 16:48:11 GMT, January 01, 2007
+Time: 12:16:07 GMT, August 22, 2009
 </BODY>
 </HTML>

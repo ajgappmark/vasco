@@ -18,14 +18,14 @@
 #    $Id$
 #
 
-ODYSSEY=odyssey-0.5.1
+ODYSSEY=odyssey-0.6
 SDCC=sdcc
 SDCCARCH=$(SDCC)-src-2.9.0
 GPUTILS=gputils-0.13.7
 
 EXTRA_DIST=$(ODYSSEY).tar.gz $(SDCCARCH).tar.bz2 $(GPUTILS).tar.bz2
 
-TOOLSDIR=$(abspath ../tools)
+TOOLSDIR=@abs_top_srcdir@/tools
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 

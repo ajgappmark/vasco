@@ -21,7 +21,7 @@
 OBJEXT=o
 PIC_TYPE=PIC18F4550
 sdcc_PIC_TYPE=18f4550
-TOOLSDIR=$(abspath ../tools)
+TOOLSDIR=@abs_top_srcdir@/tools
 CC=sdcc
 ASM=gpasm
 GLNK=gplink

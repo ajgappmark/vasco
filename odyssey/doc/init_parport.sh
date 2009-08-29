@@ -3,7 +3,7 @@
 # This script should be executed as root
 
 # stop cups that claims the parallel port
-/etc/init.d/cupsys stop
+/etc/init.d/cups stop
 
 # unload the parallel printer module
 modprobe -r lp

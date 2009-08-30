@@ -6,3 +6,4 @@
 Makefile.in
 Makefile
 .deps
+am_config.h

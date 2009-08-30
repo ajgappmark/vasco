@@ -1,11 +1,11 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
+AC_PREREQ(2.64)
 AC_INIT(odyssey, 0.6, vasco-project@lists.gforge.enseeiht.fr)
 AC_REVISION($Id$)
 AC_CONFIG_AUX_DIR(scripts)
 AM_INIT_AUTOMAKE([dist-bzip2])
-AM_CONFIG_HEADER(src/config.h)
+AC_CONFIG_HEADER(src/config.h)
 
 dnl *** Checks for programs
 AC_CANONICAL_HOST

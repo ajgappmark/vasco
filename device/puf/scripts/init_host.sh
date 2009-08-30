@@ -17,6 +17,9 @@ mount -t debugfs none_debugs /sys/kernel/debug
 # Give user read access to USB debug monitor
 chmod a+r /sys/kernel/debug/usbmon/*
 
+# Initialize odyssey
+$TOOLSDIR/bin/odyssey init
+
 echo Initialization done.
-echo Now, you can initialize the parallel programmer with $TOOLSDIR/bin/odyssey init.
+echo Now, you can use the pic programmer with $TOOLSDIR/bin/odyssey.
 echo USB packets may be traced in /sys/kernel/debug/usbmon or using Wireshark.

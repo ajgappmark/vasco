@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef DEBUG_H_
-#define DEBUG_H_
+#ifndef APPLICATION_DEBUG_H_
+#define APPLICATION_DEBUG_H_
 
 #ifdef _DEBUG
 
@@ -31,17 +31,15 @@
     stdout = STREAM_USER; \
 }
 
-#define debug(x) printf(x);
-#define debug2(x,y) printf(x,y);
+#define debug(format, ...) printf(format, ## __VA_ARGS__)
 #define toggle_A0() { PORTAbits.AN0 = !PORTAbits.AN0; }
 
 #else
 
 #define init_debug()
-#define debug(x)
-#define debug2(x,y)
+#define debug(x, ...)
 #define toggle_A0()
 
 #endif
 
-#endif /*DEBUG_H_*/
+#endif /*APPLICATION_DEBUG_H_*/

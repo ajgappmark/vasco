@@ -49,12 +49,13 @@ bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          usb.c usb_descriptors.c ep0.c ep1.c ep2.c flash.c \
                          config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \
                          ep1.h ep2.h application_iface.h \
-                         usb_std_req.h common_types.h \
+                         usb_std_req.h common_types.h debug.c \
                          debug.h flash.h boot_iface.h config.h flashmap.c
 
 EXTRA_DIST=bootloader-18f4550.lkr bootloader-18f4550-debug.lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
+DISTCLEANFILES=.deps
 
 prog: bootloader.hex
 	(echo "Blanking...";\

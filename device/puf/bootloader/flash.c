@@ -43,7 +43,7 @@ void write_block(__data uchar *src)
     for(i = 0; i < 32; i++)
     {
         TABLAT = *src;
-        debug2("%uhx ", TABLAT);
+        debug("%uhx ", TABLAT);
         src++;
         __asm
 

@@ -34,7 +34,6 @@ volatile uchar ep1_OutBuffer[EP1_BUFFER_SIZE];
 
 void ep1_init(void)
 {
-    debug("ep1_init\n");
     EP_OUT_BD(1).Cnt = EP1_BUFFER_SIZE;
     EP_OUT_BD(1).ADR = (uchar __data *)&ep1_OutBuffer;
     EP_OUT_BD(1).Stat.uc = BDS_USIE | BDS_DAT0 | BDS_DTSEN;
@@ -43,7 +42,6 @@ void ep1_init(void)
 
 void ep1_out(void)
 {
-    debug("ep1_out\n");
     if(EP_OUT_BD(1).Cnt >= 1)
     {
         switch(ep1_OutBuffer[0])

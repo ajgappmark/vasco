@@ -57,6 +57,16 @@ application_hex_SOURCES = usb_descriptors.h  \
 EXTRA_DIST=application-18f4550.lkr application-18f4550-debug.lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
+DISTCLEANFILES=.deps
 
+# Dependencies as compilation side-effect, as recommanded by automake manual
+.c.o:
+	$(COMPILE) -c $<
+	@if [ ! -d .deps ]; then mkdir -p .deps; fi
+	@$(SHELL) -ec '$(COMPILE) -M $< > .deps/$*.d'
 
-application_iface.o main.o usb_descriptors.o: usb_descriptors.h 
+TDEPENDENCIES=$(filter %.c,$(bootloader_hex_SOURCES))
+CDEPENDENCIES=$(TDEPENDENCIES:.c=.d)
+DDEPENDENCIES=$(addprefix .deps/,$(CDEPENDENCIES))
+
+-include $(DDEPENDENCIES)

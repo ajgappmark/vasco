@@ -40,6 +40,9 @@
 /* EP2 buffer size */
 #define EP2_BUFFER_SIZE 64
 
+/* USART debug buffer size */
+#define EUSART_BUFFER_SIZE 256
+
 /* Application data address */
 #ifdef _DEBUG
 	#define APPLICATION_DATA_ADDRESS 0x6000

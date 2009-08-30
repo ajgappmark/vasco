@@ -24,6 +24,7 @@
 #pragma stack 0x200 255
 
 #include <pic18fregs.h>
+#include "am_config.h"
 #include "common_types.h"
 #include "debug.h"
 #include "usb.h"
@@ -47,7 +48,7 @@ void init_boot(void)
     }
 
     PORTA  = 0x00;
-    counter = 0x60000;
+    counter = 0x7000;
 
     // SAFEBOOT_BUTTON pin is used to force the bootloader only mode
     // SAFEBOOT_BUTTON is set in config.h
@@ -80,18 +81,18 @@ void init_boot(void)
     ep_setup = boot_ep_setup;
 }
 
-void toggle_led(ulong* counter)
+void toggle_led()
 {
-    *counter--;
-    if(!*counter)
+    counter--;
+    if(!counter)
     {
     	if(PORTAbits.RA0)
     	{
-    		*counter = 0x60000;
+    		counter = 0x7000;
     	}
     	else
     	{
-    		*counter = 0x20000;
+    		counter = 0x1000;
     	}
     	PORTAbits.RA0 = !PORTAbits.RA0;
     }
@@ -100,45 +101,62 @@ void toggle_led(ulong* counter)
 void main(void)
 {
     init_debug();
-    debug("Init boot\n");
+    debug("Booting %s\n", PACKAGE_STRING);
     init_boot();
 
     if(safe_boot)
     {
     	debug("Safe boot mode\n");
     	debug("Init USB\n");
+    	 // Flush here to save a few eusart buffer bytes before USB starts
+    	debug_eusart_flush();
     	init_usb();
 
     	while(1)
         {
-            usb_sleep();
+    		// In debug mode, we want the device to go on with USART
+    		// So disable sleep mode when USB is suspended
+#ifndef _DEBUG
+    		usb_sleep();
+#endif
             dispatch_usb_event();
-            toggle_led(&counter);
+            debug_eusart_send_char();
+            toggle_led();
         }
     }
 
+	// (void*) avoids sdcc crash when _DEBUG is defined
+    debug("Starting application at %x\n", (void *)application_data.main);
+	debug_eusart_flush();
+
     // init_usb() has to be called by the application
-    debug2("Starting application at %x\n", (void *)application_data.main);
-    application_data.main();
+	application_data.main();
 
     INTCON = 0; // Forbid interrupts
+    init_debug();
     debug("Switch back to bootloader\n");
 
-    while(1)
+	while(1)
     {
         if((application_data.invalid == 0) &&
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {
         	// (void*) avoids sdcc crash when _DEBUG is defined
-            debug2("Starting application at %x\n", (void *)application_data.main);
-            application_data.main();
+            debug("Starting application at %x\n", (void *)application_data.main);
+        	debug_eusart_flush();
+
+        	application_data.main();
 
             INTCON = 0; // Forbid interrupts
             debug("Switch back to bootloader\n");
         }
+		// In debug mode, we want the device to go on with USART
+		// So disable sleep mode when USB is suspended
+#ifndef _DEBUG
         usb_sleep();
+#endif
         dispatch_usb_event();
-        toggle_led(&counter);
+        debug_eusart_send_char();
+        toggle_led();
     }
 }
-

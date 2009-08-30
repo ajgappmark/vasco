@@ -21,7 +21,7 @@
 #include <pic18fregs.h>
 #include "application_config.h"
 #include "common_types.h"
-#include "debug.h"
+#include "application_debug.h"
 #include "boot_iface.h"
 #include "usb.h"
 

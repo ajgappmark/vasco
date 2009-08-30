@@ -79,7 +79,7 @@ uchar ep0_usb_std_request(void)
                     num_bytes_to_be_send = device_descriptor->bLength;
                     break;
                 case CONFIGURATION_DESCRIPTOR:
-                    debug("configuration\n");
+                    debug("config\n");
                     sourceData = configuration_descriptor[SetupBuffer.bDescIndex];
                     num_bytes_to_be_send = ((USB_Configuration_Descriptor*)sourceData)->wTotalLength;
                     break;
@@ -89,7 +89,7 @@ uchar ep0_usb_std_request(void)
                     num_bytes_to_be_send = sourceData[0];
                     break;
                 default:
-                    debug("unknown\n");
+                    debug("0x%x ?\n", SetupBuffer.bDescType);
                     // This is required to stall the DEVICE_QUALIFIER request
                     unknown_request = TRUE;
                     break;
@@ -126,10 +126,11 @@ uchar ep0_usb_std_request(void)
             {
                 coming_cfg = SetupBuffer.bConfigurationValue;
                 SET_DEVICE_STATE(CONFIGURATION_PENDING_STATE);
+                debug("#%i\n", coming_cfg);
             }
             else // invalid configuration
             {
-                debug("invalid configuration\n");
+                debug("invalid config\n");
                 // Reply with a request error (STALL)
                 unknown_request = TRUE;
             }
@@ -147,7 +148,8 @@ uchar ep0_usb_std_request(void)
 // only for isochronous synchronization
 //            break;
         default:
-            unknown_request = TRUE;
+        	debug("Unknown request 0x%x\n", SetupBuffer.bRequest);
+        	unknown_request = TRUE;
             break;
     }
     return !unknown_request;
@@ -166,7 +168,6 @@ void ep0_init(void)
 
 void ep0_in(void)
 {
-    debug2("ep0_in %d\n", (uint)num_bytes_to_be_send);
     if(GET_DEVICE_STATE() == ADDRESS_PENDING_STATE)
     {
         UADDR = SetupBuffer.bAddress;
@@ -178,6 +179,7 @@ void ep0_in(void)
         {
             SET_DEVICE_STATE(DEFAULT_STATE);
         }
+        debug("#%i\n", UADDR);
     }
 
     if(ep0_state == WAIT_IN)
@@ -250,8 +252,6 @@ void ep0_in(void)
 
 void ep0_setup(void)
 {
-    debug("ep0_setup\n");
-
     ep0_state = WAIT_SETUP;
     num_bytes_to_be_send = 0;
 
@@ -289,7 +289,6 @@ void ep0_setup(void)
     }
     else
     {
-        debug("unknown request\n");
         UCONbits.PKTDIS = 0;
         EP_OUT_BD(0).Cnt = EP0_BUFFER_SIZE;
         EP_OUT_BD(0).ADR = (uchar __data *)&SetupBuffer;

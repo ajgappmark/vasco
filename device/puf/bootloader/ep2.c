@@ -33,7 +33,6 @@ volatile uchar ep2_InBuffer[EP2_BUFFER_SIZE];
 
 void ep2_init(void)
 {
-    debug("ep2_init\n");
     // Set DAT1 so that the first call to prepare_ep2_in
     // will switch to DAT0, which is correct for the first
     // message
@@ -43,7 +42,6 @@ void ep2_init(void)
 
 void prepare_ep2_in(void)
 {
-    debug("prepare_ep2_in\n");
     last_send_was_null = (ep2_num_bytes_to_send < EP2_BUFFER_SIZE);
     EP_IN_BD(2).Cnt = ep2_num_bytes_to_send;
     EP_IN_BD(2).ADR = (uchar __data *)&ep2_InBuffer;
@@ -60,7 +58,6 @@ void prepare_ep2_in(void)
 
 void ep2_in(void)
 {
-    debug2("ep2_in %d\n", (uint) ep2_num_bytes_to_send);
     if((ep2_num_bytes_to_send == 0) && last_send_was_null)
     {
         // There is nothing more to send, so keep

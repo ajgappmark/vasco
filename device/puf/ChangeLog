@@ -1,13 +1,28 @@
 PIC USB Framework (1.2)
 
   * Clean up trailing white chars
-  * Upgrade to sdcc 2.8.0 (more strict pointer type checking,
+  * Upgrade to sdcc 2.9.0 (more strict pointer type checking,
     _DEBUG sdcc bug still there so introduce a workaround :-( )
-  * Upgrade to odyssey 0.5.1 (bzipped to reduce archive size)
-  * Upgrade to gputils 0.13.6
+  * Build optimization flags revisited.
+  * Upgrade to odyssey 0.6
+  * Upgrade to gputils 0.13.7
   * Implement preliminary GET_STATUS setup command.
+  * Add --enable-bootloader-debugging option to configure. It
+    enables bootloader runtime traces through USART serial interface.
+    It also modifies the memory map to enlarge sections dedicated to
+    the bootloader. This extra place is used to embed printf function 
+    family. Handy for USB debugging :-)
+  * Add automatic management of dependencies, as automake can not do
+    it alone in this cross-compiling case (sdcc is not available at
+    configure time).
+  * Now automatically switch to the application if valid. SAFE_BOOT_BUTTON
+    can be pressed to stop in the bootloader and load bootloader USB 
+    configuration. SAFE_BOOT_BUTTON defaults to RB5 instead of RA1 (less 
+    multiplexed). This way, USB is not anymore required to start the 
+    application, that may even not be USB aware.
+  * Upgrade automake to 1.9.11 and autoconf to 2.64.
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Apr 22 12:09:53 CEST 2006
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sun Aug 30 16:47:20 CEST 2009
  
 PIC USB Framework (1.1)
 

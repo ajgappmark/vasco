@@ -9,3 +9,5 @@ Makefile.in
 .cdtproject
 Makefile
 .cproject
+configure.lineno
+config.status.lineno

@@ -53,10 +53,10 @@
 /* Interrupt vectors */
 #ifdef _DEBUG
 	#define HIGH_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x6020")
-	#define LOW_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x7000")
+	#define LOW_PRIORITY_ISR_PRAGMA _Pragma ("code low_priority_isr 0x7000")
 #else
 	#define HIGH_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x2020")
-	#define LOW_PRIORITY_ISR_PRAGMA _Pragma ("code high_priority_isr 0x4000")
+	#define LOW_PRIORITY_ISR_PRAGMA _Pragma ("code low_priority_isr 0x4000")
 #endif
 
 /* Stack size and address : see boot_main.c line 24 due to _Pragma limitations */

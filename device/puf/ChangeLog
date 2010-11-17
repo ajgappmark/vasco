@@ -1,8 +1,9 @@
 PIC USB Framework (1.2)
 
   * Clean up trailing white chars
-  * Upgrade to sdcc 2.9.0 (more strict pointer type checking,
-    _DEBUG sdcc bug still there so introduce a workaround :-( )
+  * Upgrade to sdcc 3.0.0 (more strict pointer type checking,
+    cleaner licensing schema, _DEBUG sdcc bug still there so 
+    introduce a workaround :-( )
   * Build optimization flags revisited.
   * Upgrade to odyssey 0.6
   * Upgrade to gputils 0.13.7
@@ -21,6 +22,8 @@ PIC USB Framework (1.2)
     multiplexed). This way, USB is not anymore required to start the 
     application, that may even not be USB aware.
   * Upgrade automake to 1.9.11 and autoconf to 2.64.
+  * Switch the whole code under Apache License 2.0, better adapted than LGPL
+    to the context of a bootloader sharing code with the applications.
 
  -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sun Aug 30 16:47:20 CEST 2009
  

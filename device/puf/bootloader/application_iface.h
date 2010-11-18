@@ -27,7 +27,7 @@
 typedef struct {
     uchar invalid;                   // != 0 when the application is not valid
     void* device_descriptor;
-    const uchar * const *configuration_descriptor; // pointer to an array of pointer to configuration descriptors
+    const uchar __code * const *configuration_descriptor; // pointer to an array of pointer to configuration descriptors
     uchar** string_descriptor;       // pointer to an array of pointer to string descriptors
     void (*** ep_init)(void);
     void (*** ep_in)(void);

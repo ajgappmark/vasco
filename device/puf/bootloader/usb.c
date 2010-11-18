@@ -29,7 +29,7 @@
 volatile BufferDescriptorTable __at (0x400) ep_bdt[32];
 
 const USB_Device_Descriptor *device_descriptor;
-const uchar * const *configuration_descriptor;
+const uchar __code * const *configuration_descriptor;
 const uchar* const *string_descriptor;
 void (** const * ep_init)(void);
 void (** const * ep_in)(void);

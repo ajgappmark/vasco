@@ -124,7 +124,7 @@ const USB_Application_Composite_Descriptor application_cfg = {
     4}                      // Interface string index
 };
 
-const uchar * const configuration_descriptor[] = {
+const uchar __code * const configuration_descriptor[] = {
     (const uchar*) &default_cfg,
     (const uchar*) &flash_cfg,
     (const uchar*) &application_cfg

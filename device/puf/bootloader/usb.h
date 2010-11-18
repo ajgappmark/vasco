@@ -144,7 +144,7 @@ extern uchar __at(0x005e) usb_active_cfg;
 extern uchar __at(0x005d) usb_active_alt_setting;
 
 extern const USB_Device_Descriptor *device_descriptor;
-extern const uchar * const *configuration_descriptor;
+extern const uchar __code * const *configuration_descriptor;
 extern const uchar* const *string_descriptor;
 extern void (** const *ep_init)(void);
 extern void (** const * ep_in)(void);

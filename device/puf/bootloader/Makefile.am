@@ -30,9 +30,21 @@ ODYSSEY = odyssey
 if DEBUG_BOOTLOADER
 DEBUG = -D_DEBUG
 lkr_PIC_TYPE = bootloader-18f4550-debug
+bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
+                         usb.c usb_descriptors.c ep0.c ep1.c ep2.c flash.c \
+                         config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \
+                         ep1.h ep2.h application_iface.h \
+                         usb_std_req.h common_types.h debug.c \
+                         debug.h flash.h boot_iface.h config.h flashmap.c
 else
 DEBUG =
 lkr_PIC_TYPE = bootloader-18f4550
+bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
+                         usb.c usb_descriptors.c ep0.c ep1.c ep2.c flash.c \
+                         config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \
+                         ep1.h ep2.h application_iface.h \
+                         usb_std_req.h common_types.h \
+                         debug.h flash.h boot_iface.h config.h flashmap.c
 endif
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
@@ -43,12 +55,6 @@ LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=crt0.o -Wl-s$(lkr_PIC_TYPE).lkr,
 
 
 bin_PROGRAMS = bootloader.hex
-bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
-                         usb.c usb_descriptors.c ep0.c ep1.c ep2.c flash.c \
-                         config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \
-                         ep1.h ep2.h application_iface.h \
-                         usb_std_req.h common_types.h debug.c \
-                         debug.h flash.h boot_iface.h config.h flashmap.c
 
 EXTRA_DIST=bootloader-18f4550.lkr bootloader-18f4550-debug.lkr
 

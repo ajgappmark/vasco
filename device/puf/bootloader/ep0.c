@@ -39,7 +39,7 @@ volatile __far uchar InBuffer[EP0_BUFFER_SIZE];
 
 static uchar ep0_state;
 static uint  num_bytes_to_be_send;
-static uchar *sourceData;
+static const uchar *sourceData;
 static uchar coming_cfg;
 static uint  ret_status;
 

@@ -62,7 +62,7 @@ void application_main(void)
 
 /* Interrupt vectors */
 HIGH_PRIORITY_ISR_PRAGMA
-void high_priority_isr(void) interrupt
+void high_priority_isr(void) __interrupt
 {
     if(INTCONbits.TMR0IF)
     {
@@ -72,7 +72,7 @@ void high_priority_isr(void) interrupt
 }
 
 LOW_PRIORITY_ISR_PRAGMA
-void low_priority_isr(void) interrupt
+void low_priority_isr(void) __interrupt
 {
 }
 

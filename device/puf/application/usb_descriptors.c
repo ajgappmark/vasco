@@ -131,7 +131,7 @@ const uchar * const configuration_descriptor[] = {
 };
 
 /* String descriptors */
-/* Language desriptors (Unicode 3.0 (UTF-16) */
+/* Language descriptors (Unicode 3.0 (UTF-16) */
 const uchar str0[] = {sizeof(str0),  STRING_DESCRIPTOR, 0x09,0x04};// french = 0x040c, english = 0x409
 
 const uchar str1[] = {sizeof(str1),  STRING_DESCRIPTOR,

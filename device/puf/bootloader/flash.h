@@ -35,7 +35,7 @@
 #define FLASH_SECTION_WRITE    0x02
 
 extern uint ep2_num_bytes_to_send;
-extern uchar *ep2_source_data;
+extern const uchar *ep2_source_data;
 
 void erase_block(void);
 void write_block(__data uchar *src);

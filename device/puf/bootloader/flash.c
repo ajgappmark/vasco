@@ -25,7 +25,7 @@
 #include "flash.h"
 
 uint ep2_num_bytes_to_send;
-uchar *ep2_source_data;
+const uchar *ep2_source_data;
 
 void write_block(__data uchar *src)
 {

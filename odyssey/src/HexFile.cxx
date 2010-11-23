@@ -33,7 +33,8 @@ HexFile *HexFile::load(char *filename) {
 	fp = fopen(filename, "r");
 	if(fp == NULL)
 		throw runtime_error(strerror(errno));
-	fgets(buf, sizeof(buf), fp);
+	if(fgets(buf, sizeof(buf), fp) == NULL)
+		throw runtime_error(strerror(errno));
 
 	/* Detect the file type */
 	if(sscanf(buf, ":%02X", &i) == 1) {	/* Intel hex */

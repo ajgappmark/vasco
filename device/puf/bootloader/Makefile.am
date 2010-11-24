@@ -49,7 +49,7 @@ endif
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
-COMPILE=$(CC) $(AM_CFLAGS) -Iinclude
+COMPILE=$(CC) $(AM_CFLAGS)
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=crt0.o -Wl-s$(lkr_PIC_TYPE).lkr,-m \
 	--use-non-free -mpic16 -p$(sdcc_PIC_TYPE) -llibio$(sdcc_PIC_TYPE).lib -llibc18f.lib
 

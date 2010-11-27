@@ -17,10 +17,10 @@
 #    $Id$
 #
 
+AC_INIT(puf, 1.2, vasco-project@lists.gforge.enseeiht.fr)
 AC_PREREQ(2.64)
 AC_COPYRIGHT(Copyright 2006-2010 Pierre Gaufillet)
 AC_REVISION($Id$)
-AC_INIT(puf, 1.2, vasco-project@lists.gforge.enseeiht.fr)
 AM_INIT_AUTOMAKE([no-dependencies no-exeext dist-bzip2])
 AC_CONFIG_SRCDIR([bootloader/boot_main.c])
 AC_CONFIG_HEADER(bootloader/am_config.h)

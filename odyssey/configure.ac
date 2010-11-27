@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.64)
 AC_INIT(odyssey, 0.6, vasco-project@lists.gforge.enseeiht.fr)
+AC_PREREQ(2.64)
 AC_REVISION($Id$)
 AC_CONFIG_AUX_DIR(scripts)
 AM_INIT_AUTOMAKE([dist-bzip2])

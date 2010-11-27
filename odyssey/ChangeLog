@@ -1,6 +1,7 @@
 Version 0.6:
  * Specify programming backend in pic.conf for each device.
  * Fix a few devices backends in pic.conf
+ * Add experimental support for PIC18F2458, PIC18F2553, PIC18F4458, PIC18F4450
  * Add support for PIC18F4553
  * Use man2html to build -man.html files (still provided in dist nevertheless)
  * Remove rules to build pic.conf from spec files that are not used anymore

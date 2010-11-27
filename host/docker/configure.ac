@@ -1,8 +1,8 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
 AC_INIT(docker, 1.1, vasco-project@lists.gforge.enseeiht.fr)
+AC_PREREQ(2.59)
 AM_INIT_AUTOMAKE([dist-bzip2])
 AC_CONFIG_SRCDIR([src/main.cxx])
 AC_CONFIG_HEADER([config.h])

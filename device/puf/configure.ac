@@ -55,6 +55,15 @@ puf_sdcc_target=`echo $puf_cv_target | sed 's/-.*$//' | sed 's/pic//'`
 # Used as a work around for unsupported chips
 # when they are close enough to already known ones
 case $puf_sdcc_target in
+	18f2458 )
+		puf_sdcc_target=18f2455
+		;;
+	18f2553 )
+		puf_sdcc_target=18f2550
+		;;
+	18f4458 )
+		puf_sdcc_target=18f4455
+		;;
 	18f4553 )
 		puf_sdcc_target=18f4550
 		;;
@@ -65,6 +74,13 @@ AC_SUBST(PUF_SDCC_TARGET, [$puf_sdcc_target])
 puf_lkr_target=`echo $puf_cv_target | sed 's/-.*$//' | sed 's/pic//'`
 # Manage substitutions rules for linker scripts
 case $puf_lkr_target in
+	18f2458 |\
+	18f4455 |\
+	18f4458)
+		puf_lkr_target=18f2455
+		;;
+	18f2550 |\
+	18f2553 |\
 	18f4553 )
 		puf_lkr_target=18f4550
 		;;

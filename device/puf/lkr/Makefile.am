@@ -16,5 +16,9 @@
 #    $Id$
 #
 
-EXTRA_DIST=application-18f4550.lkr application-18f4550-debug.lkr \
-           bootloader-18f4550.lkr bootloader-18f4550-debug.lkr
+EXTRA_DIST= \
+           18f2455-application.lkr 18f2455-application-debug.lkr \
+           18f2455-bootloader.lkr 18f2455-bootloader-debug.lkr \
+           \
+           18f4550-application.lkr 18f4550-application-debug.lkr \
+           18f4550-bootloader.lkr 18f4550-bootloader-debug.lkr

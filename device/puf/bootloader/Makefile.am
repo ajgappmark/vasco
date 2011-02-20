@@ -27,7 +27,7 @@ ODYSSEY = odyssey
 
 if DEBUG_BOOTLOADER
 DEBUG = -D_DEBUG
-lkr_PIC_TYPE = bootloader-@PUF_LKR_TARGET@-debug
+lkr_PIC_TYPE = @PUF_LKR_TARGET@-bootloader-debug
 bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          usb.c usb_descriptors.c ep0.c ep1.c ep2.c flash.c \
                          config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \
@@ -36,7 +36,7 @@ bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          debug.h flash.h boot_iface.h config.h flashmap.c
 else
 DEBUG =
-lkr_PIC_TYPE = bootloader-@PUF_LKR_TARGET@
+lkr_PIC_TYPE = @PUF_LKR_TARGET@-bootloader
 bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          usb.c usb_descriptors.c ep0.c ep1.c ep2.c flash.c \
                          config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \

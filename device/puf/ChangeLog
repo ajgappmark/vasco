@@ -21,11 +21,15 @@ PIC USB Framework (1.2)
     configuration. SAFE_BOOT_BUTTON defaults to RB5 instead of RA1 (less 
     multiplexed). This way, USB is not anymore required to start the 
     application, that may even not be USB aware.
-  * Upgrade automake to 1.9.11 and autoconf to 2.64.
+  * Upgrade automake to 1.9.11 and autoconf to 2.67.
   * Switch the whole code under Apache License 2.0, better adapted than LGPL
     to the context of a bootloader sharing code with the applications.
+  * Add a generic infrastructure to support multiple targets. Target may be
+    specified with ./configure --target=<pic name>, e.g --target=18f4553
+  * Targets supported: 18f2455, 18f2458, 18f2550, 18f2553, 18f4455, 18f4458,
+    18f4550, 18f4553.
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sun Aug 30 16:47:20 CEST 2009
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sun Feb 20 18:50:21 CEST 2011
  
 PIC USB Framework (1.1)
 

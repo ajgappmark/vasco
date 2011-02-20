@@ -140,8 +140,12 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = application-18f4550.lkr application-18f4550-debug.lkr \
-           bootloader-18f4550.lkr bootloader-18f4550-debug.lkr
+EXTRA_DIST =  \
+           18f2455-application.lkr 18f2455-application-debug.lkr \
+           18f2455-bootloader.lkr 18f2455-bootloader-debug.lkr \
+           \
+           18f4550-application.lkr 18f4550-application-debug.lkr \
+           18f4550-bootloader.lkr 18f4550-bootloader-debug.lkr
 
 all: all-am
 

@@ -64,7 +64,7 @@ const uchar section_descriptor [22] = {3,
                                      0x00, 0x00, 0x30,
                                      0x0d, 0x00, 0x30};
 
-	#elif defined(pic18f4450) || defined(pic18f2455)
+	#elif defined(pic18f4455) || defined(pic18f2455)
 
 const uchar section_descriptor [22] = {3,
                                      FLASH_SECTION_READ,
@@ -93,7 +93,7 @@ const uchar section_descriptor [22] = {3,
                                      0x00, 0x00, 0x30,
                                      0x0d, 0x00, 0x30};
 
-	#elif defined(pic18f4450) || defined(pic18f2455)
+	#elif defined(pic18f4455) || defined(pic18f2455)
 
 const uchar section_descriptor [22] = {3,
                                      FLASH_SECTION_READ,

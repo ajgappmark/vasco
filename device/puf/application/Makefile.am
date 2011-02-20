@@ -32,10 +32,10 @@ AM_CFLAGS =--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ --denable-peeps --obanksel
 
 if DEBUG_BOOTLOADER
 DEBUG = -D_DEBUG
-lkr_PIC_TYPE = application-@PUF_LKR_TARGET@-debug
+lkr_PIC_TYPE = @PUF_LKR_TARGET@-application-debug
 else
 DEBUG =
-lkr_PIC_TYPE = application-@PUF_LKR_TARGET@
+lkr_PIC_TYPE = @PUF_LKR_TARGET@-application
 endif
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)

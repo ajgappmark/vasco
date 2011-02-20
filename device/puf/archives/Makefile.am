@@ -45,6 +45,7 @@ sdcc: gputils
 	 tar xvjf $(SDCCARCH).tar.bz2;\
 	 mkdir -p $(TOOLSDIR);\
 	 (cd $(SDCC) && \
+	 patch -p1 < ../ustatbits.diff && \
 	 ./configure --disable-z80-port --disable-mcs51-port \
 	             --disable-gbz80-port --disable-avr-port \
 	             --disable-ds390-port --disable-ds400-port \

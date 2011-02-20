@@ -117,11 +117,25 @@ fi
 case $basic_machine in
 	# Recognize the basic CPU types without company name.
 	# Some are omitted here because they have special meanings below.
-	pic18f4550 | pic18f4553 )
+    pic18f2455 |\
+    pic18f2458 |\
+	pic18f2550 |\
+	pic18f2553 |\
+	pic18f4455 |\
+	pic18f4458 |\
+	pic18f4550 |\
+	pic18f4553 )
 		basic_machine=$basic_machine-microchip
 		os=-none
 	    ;;
-	18f4550 | 18f4553 )
+    18f2455 |\
+    18f2458 |\
+	18f2550 |\
+	18f2553 |\
+	18f4455 |\
+	18f4458 |\
+	18f4550 |\
+	18f4553 )
 		basic_machine=pic$basic_machine-microchip
 		os=-none
 		;;

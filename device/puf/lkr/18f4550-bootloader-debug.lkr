@@ -1,5 +1,5 @@
 // $Id$
-// File: bootloader-18f4550-debug.lkr
+// File: 18f4550-bootloader-debug.lkr
 //
 // Copyright 2005-2010 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 //
@@ -14,11 +14,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-// puf bootloader linker script for the PIC18F4550 processor (debugging mode)
-// in debugging mode, bootloader segment increases to 24KB (0x1C-0x5FFF)
-// TODO Rename to something like puf-bootloader.lkr
-// Identify 18f4550 specific memory ranges
+//
+// Linker script for PIC18F4550 (debugging mode)
+// in debugging mode, the bootloader segment increases to 24KB (0x1C-0x5FFF)
 
 LIBPATH .
 

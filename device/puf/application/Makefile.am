@@ -1,5 +1,5 @@
 #
-#    Copyright 2006-2010 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+#    Copyright 2006-2011 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@
 #
 
 OBJEXT=o
-PIC_TYPE=PIC18F4550
-sdcc_PIC_TYPE=18f4550
 TOOLSDIR=@abs_top_srcdir@/tools
 CC=sdcc
 ASM=gpasm
@@ -27,32 +25,30 @@ LNK=sdcc
 ODYSSEY=odyssey
 CRT0=$(TOOLSDIR)/share/sdcc/lib/pic16/crt0.o
 LIBPUF=../lib/libpuf.lib
-LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio18f4550.lib
+LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio@PUF_SDCC_TARGET@.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
-AM_CFLAGS =--use-non-free -mpic16 -p$(sdcc_PIC_TYPE) --denable-peeps --obanksel=9\
+AM_CFLAGS =--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ --denable-peeps --obanksel=9\
  --opt-code-size --optimize-cmp --optimize-df $(DEBUG)
 
 if DEBUG_BOOTLOADER
 DEBUG = -D_DEBUG
-lkr_PIC_TYPE = application-18f4550-debug
+lkr_PIC_TYPE = application-@PUF_LKR_TARGET@-debug
 else
 DEBUG =
-lkr_PIC_TYPE = application-18f4550
+lkr_PIC_TYPE = application-@PUF_LKR_TARGET@
 endif
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
 COMPILE=$(CC) $(AM_CFLAGS) -I../include -c
-LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s$(lkr_PIC_TYPE).lkr,-m \
-	--use-non-free -mpic16 -p$(sdcc_PIC_TYPE) -l$(LIBPUF) -llibio$(sdcc_PIC_TYPE).lib -llibc18f.lib
+LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s../lkr/$(lkr_PIC_TYPE).lkr,-m \
+	--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ -l$(LIBPUF) -llibio@PUF_SDCC_TARGET@.lib -llibc18f.lib
 
 
 bin_PROGRAMS = application.hex
 application_hex_SOURCES = usb_descriptors.h  \
                           application_iface.c main.c \
                           usb_descriptors.c
-
-EXTRA_DIST=application-18f4550.lkr application-18f4550-debug.lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 DISTCLEANFILES=.deps

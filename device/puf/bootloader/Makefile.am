@@ -1,5 +1,5 @@
 #
-#   Copyright 2006-2010 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+#   Copyright 2006-2011 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -17,11 +17,9 @@
 #
 
 OBJEXT=o
-PIC_TYPE = PIC18F4550
-sdcc_PIC_TYPE = 18f4550
 TOOLSDIR = @abs_top_srcdir@/tools
 CC = sdcc
-AM_CFLAGS =--use-non-free -mpic16 -p$(sdcc_PIC_TYPE) --denable-peeps --obanksel=9\
+AM_CFLAGS =--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ --denable-peeps --obanksel=9\
  --opt-code-size --optimize-cmp --optimize-df $(DEBUG)
 LNK = sdcc
 AM_LDFLAGS = 
@@ -29,7 +27,7 @@ ODYSSEY = odyssey
 
 if DEBUG_BOOTLOADER
 DEBUG = -D_DEBUG
-lkr_PIC_TYPE = bootloader-18f4550-debug
+lkr_PIC_TYPE = bootloader-@PUF_LKR_TARGET@-debug
 bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          usb.c usb_descriptors.c ep0.c ep1.c ep2.c flash.c \
                          config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \
@@ -38,7 +36,7 @@ bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          debug.h flash.h boot_iface.h config.h flashmap.c
 else
 DEBUG =
-lkr_PIC_TYPE = bootloader-18f4550
+lkr_PIC_TYPE = bootloader-@PUF_LKR_TARGET@
 bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \
                          usb.c usb_descriptors.c ep0.c ep1.c ep2.c flash.c \
                          config.c interrupt_iface.c usb.h usb_descriptors.h ep0.h \
@@ -50,28 +48,26 @@ endif
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
 COMPILE=$(CC) $(AM_CFLAGS)
-LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=crt0.o -Wl-s$(lkr_PIC_TYPE).lkr,-m \
-	--use-non-free -mpic16 -p$(sdcc_PIC_TYPE) -llibio$(sdcc_PIC_TYPE).lib -llibc18f.lib
-
+LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=crt0.o -Wl-s../lkr/$(lkr_PIC_TYPE).lkr,-m \
+	--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ -llibio@PUF_SDCC_TARGET@.lib -llibc18f.lib
 
 bin_PROGRAMS = bootloader.hex
-
-EXTRA_DIST=bootloader-18f4550.lkr bootloader-18f4550-debug.lkr
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 DISTCLEANFILES=.deps
 
 prog: bootloader.hex
 	(echo "Blanking...";\
-	$(ODYSSEY) $(PIC_TYPE) erase) && \
+	$(ODYSSEY) @PUF_ODYSSEY_TARGET@ erase) && \
 	(echo "Writing...";\
-	$(ODYSSEY) $(PIC_TYPE) write $<)
+	$(ODYSSEY) @PUF_ODYSSEY_TARGET@ write $<)
 
 # Dependencies as compilation side-effect, as recommanded by automake manual
 .c.o:
 	$(COMPILE) -c $<
 	@if [ ! -d .deps ]; then mkdir -p .deps; fi
 	@$(SHELL) -ec '$(COMPILE) -M $< > .deps/$*.d'
+
 
 TDEPENDENCIES=$(filter %.c,$(bootloader_hex_SOURCES))
 CDEPENDENCIES=$(TDEPENDENCIES:.c=.d)

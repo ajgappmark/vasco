@@ -11,3 +11,4 @@ Makefile
 .cproject
 configure.lineno
 config.status.lineno
+.autotools

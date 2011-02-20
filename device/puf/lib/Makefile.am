@@ -1,5 +1,5 @@
 #
-#   Copyright 2006-2010 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+#   Copyright 2006-2011 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -21,13 +21,10 @@
 #
 
 OBJEXT=o
-PIC_TYPE = PIC18F4550
-sdcc_PIC_TYPE = 18f4550
-lkr_PIC_TYPE = 18f4550
 TOOLSDIR = @abs_top_srcdir@/tools
 CC = sdcc
 GPLIB = gplib
-AM_CFLAGS =--use-non-free -mpic16 -p$(sdcc_PIC_TYPE) $(DEBUG) -I../include
+AM_CFLAGS =--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ $(DEBUG) -I../include
 AM_LDFLAGS = 
 ODYSSEY = odyssey
 DEBUG =--denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df 

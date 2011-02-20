@@ -1,5 +1,5 @@
 #
-#   Copyright 2006-2010 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+#   Copyright 2006-2011 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -16,4 +16,5 @@
 #    $Id$
 #
 
-SUBDIRS = archives include lib bootloader application scripts udev lkr
+EXTRA_DIST=application-18f4550.lkr application-18f4550-debug.lkr \
+           bootloader-18f4550.lkr bootloader-18f4550-debug.lkr

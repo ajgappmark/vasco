@@ -46,6 +46,11 @@ sdcc: gputils
 	 mkdir -p $(TOOLSDIR);\
 	 (cd $(SDCC) && \
 	 patch -p1 < ../ustatbits.diff && \
+	 echo Restrict sdcc to pic families supported by puf... && \
+	 patch -p1 < ../pic_list.diff && \
+	 (cd device/non-free/lib/pic16/libdev; ./mkmk.sh > Makefile.am) && \
+	 cp device/non-free/lib/pic16/pics.all device/lib/pic16 && \
+	 (cd device/lib/pic16/libio; ./mkmk.sh > Makefile.am) && \
 	 ./configure --disable-z80-port --disable-mcs51-port \
 	             --disable-gbz80-port --disable-avr-port \
 	             --disable-ds390-port --disable-ds400-port \

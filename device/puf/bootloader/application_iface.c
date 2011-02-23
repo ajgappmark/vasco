@@ -31,6 +31,7 @@ typedef struct {
     void (*** ep_out)(void);
     void (*** ep_setup)(void);
     void (*main) (void);
+    unsigned short *cinit;
 } ApplicationData;
 
 const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data = {
@@ -42,5 +43,6 @@ const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data = {
     NULL,           // ep_in
     NULL,           // ep_out
     NULL,           // ep_setup
-    NULL            // application main
+    NULL,           // application main
+    NULL            // static initialization table
 };

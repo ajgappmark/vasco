@@ -24,6 +24,20 @@
 #include "config.h"
 #include "common_types.h"
 
+/* The cinit elements as provided by the linker */
+typedef struct
+{
+	unsigned long from;
+	unsigned long to;
+	unsigned long size;
+} entry_type;
+
+typedef struct
+{
+	unsigned short num_init;
+	entry_type first_entry;
+} cinit_type;
+
 typedef struct {
     uchar invalid;                   // != 0 when the application is not valid
     void* device_descriptor;
@@ -34,6 +48,7 @@ typedef struct {
     void (*** ep_out)(void);
     void (*** ep_setup)(void);
     void (*main) (void);
+    cinit_type *cinit;
 } ApplicationData;
 
 extern const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data;

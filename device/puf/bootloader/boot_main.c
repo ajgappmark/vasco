@@ -22,6 +22,7 @@
 #pragma stack 0x200 255
 
 #include <pic18fregs.h>
+#include <string.h>
 #include "am_config.h"
 #include "common_types.h"
 #include "debug.h"
@@ -32,7 +33,21 @@
 static uchar safe_boot;
 static ulong counter;
 
-void init_boot(void)
+/* Take care of static initializations using information from the linker */
+static void
+init_application(void)
+{
+  unsigned short count_init = application_data.cinit->num_init;
+  entry_type *e = &(application_data.cinit->first_entry);
+  while (count_init)
+    {
+      memcpy(e->to, e->from, e->size);
+      e += sizeof(entry_type);
+      count_init--;
+    }
+}
+
+static void init_boot(void)
 {
     ADCON1 = 0x0F;
     CMCON  = 0x07;
@@ -123,12 +138,15 @@ void main(void)
         }
     }
 
-	// (void*) avoids sdcc crash when _DEBUG is defined
+    // (void*) avoids sdcc crash when _DEBUG is defined
     debug("Starting application at %x\n", (void *)application_data.main);
-	debug_eusart_flush();
+    debug_eusart_flush();
+
+    // Static initialization of the application's variables
+    init_application();
 
     // init_usb() has to be called by the application
-	application_data.main();
+    application_data.main();
 
     INTCON = 0; // Forbid interrupts
     init_debug();
@@ -139,9 +157,12 @@ void main(void)
         if((application_data.invalid == 0) &&
            (GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION))
         {
-        	// (void*) avoids sdcc crash when _DEBUG is defined
-            debug("Starting application at %x\n", (void *)application_data.main);
-        	debug_eusart_flush();
+          	// (void*) avoids sdcc crash when _DEBUG is defined
+          	debug("Starting application at %x\n", (void *)application_data.main);
+          	debug_eusart_flush();
+
+          	// Static initialization of the application's variables
+          	init_application();
 
         	application_data.main();
 

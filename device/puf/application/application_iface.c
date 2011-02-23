@@ -32,7 +32,25 @@ typedef struct {
     void (*** ep_out)(void);
     void (*** ep_setup)(void);
     void (*main) (void);
+    void *cinit;
 } ApplicationData;
+
+/* the cinit table will be filled by the linker */
+extern __code struct
+  {
+    unsigned short num_init;
+    struct
+      {
+        unsigned long from;
+        unsigned long to;
+        unsigned long size;
+      } entries[1];
+  } cinit;
+
+// Dummy static variable to force the linker to generate cinit
+// TODO: find an other way to deal with the absence of cinit.
+// BTW, sdcc does it in the same way (see crt0i.c)
+static char a = 0;
 
 const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data = {
     0x00,                          // Application is valid
@@ -43,5 +61,6 @@ const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data = {
     ep_in,                         // ep_in
     ep_out,                        // ep_out
     ep_setup,                      // ep_setup
-    application_main               // application main
+    application_main,              // application main
+    &cinit                         // static initialization table
 };

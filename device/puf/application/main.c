@@ -30,9 +30,8 @@
 
 // beware : this is not a C main function, but the application
 // entry point called from the boot.
-
-unsigned long count;
-
+// Nevertheless, static initialization is ensured by the
+// bootloader.
 void application_main(void)
 {
 

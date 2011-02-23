@@ -62,7 +62,9 @@ void ep1_out(void)
                 debug("READ_FLASH_CMD\n");
                 ep2_num_bytes_to_send = EP2_BUFFER_SIZE;
                 // TODO: Use a Pointer union to set that
-                ep2_source_data = (uchar __code *) (ep1_OutBuffer[1] + ep1_OutBuffer[2] * 256 + ep1_OutBuffer[3] * 65536);
+                ep2_source_data = (uchar __code *) (ep1_OutBuffer[1] +
+                    ((long) ep1_OutBuffer[2] << 8) +
+                    ((long) ep1_OutBuffer[3] << 16));
                 prepare_ep2_in();
                 break;
             case VALID_APPLICATION_CMD:

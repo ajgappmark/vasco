@@ -23,7 +23,6 @@ ASM=gpasm
 GLNK=gplink
 LNK=sdcc
 ODYSSEY=odyssey
-CRT0=$(TOOLSDIR)/share/sdcc/lib/pic16/crt0.o
 LIBPUF=../lib/libpuf.lib
 LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio@PUF_SDCC_TARGET@.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
@@ -40,7 +39,7 @@ endif
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
-COMPILE=$(CC) $(AM_CFLAGS) -I../include -c
+COMPILE=$(CC) $(AM_CFLAGS) -I../include
 LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s../lkr/$(lkr_PIC_TYPE).lkr,-m \
 	--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ -l$(LIBPUF) -llibio@PUF_SDCC_TARGET@.lib -llibc18f.lib
 

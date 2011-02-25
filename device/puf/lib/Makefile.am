@@ -32,7 +32,7 @@ DEBUG =--denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
-COMPILE=$(CC) $(AM_CFLAGS) $(CFLAGS) -c
+COMPILE=$(CC) $(AM_CFLAGS) $(CFLAGS)
 
 
 noinst_PROGRAMS = libpuf.lib

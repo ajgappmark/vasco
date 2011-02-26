@@ -28,8 +28,11 @@ PIC USB Framework (1.2)
     specified with ./configure --target=<pic name>, e.g --target=18f4553
   * Targets supported: 18f2455, 18f2458, 18f2550, 18f2553, 18f4455, 18f4458,
     18f4550, 18f4553.
+  * Static initialization of variables now supported in the application code.
+    Based on cinit data produced by the linker. 
+  * udev scripts updated accordingly to the new syntax.
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sun Feb 20 18:50:21 CEST 2011
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Feb 26 13:54:21 CET 2011
  
 PIC USB Framework (1.1)
 

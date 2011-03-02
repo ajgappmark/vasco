@@ -101,12 +101,24 @@ AC_ARG_ENABLE([bootloader-debugging],
      esac],[debug_bootloader=false])
      AM_CONDITIONAL([DEBUG_BOOTLOADER], [test x$debug_bootloader = xtrue])
 
-AC_MSG_CHECKING(if bootloader debugging mode is set)
+AC_MSG_CHECKING([if bootloader debugging mode is set])
 if test x$debug_bootloader = xtrue; then
     AC_MSG_RESULT(yes)
 else
     AC_MSG_RESULT(no)
 fi
+
+AC_ARG_WITH([crt0],
+    AS_HELP_STRING([--with-bootloader-crt0=crt0|crt0i|crt0iz], [specify the runtime start code of the bootloader]),
+    [case "${withval}" in
+       crt0 | crt0i | crt0iz ) puf_cv_crt0=${withval}.o ;;
+       *) AC_MSG_ERROR([bad value ${withval} for --with-crt0: only crt0, crt0i and crt0iz are supported.]) ;;
+     esac],
+    [puf_cv_crt0=crt0.o])
+    
+AC_MSG_CHECKING([which runtime start code to use for the bootloader])
+AC_MSG_RESULT(${puf_cv_crt0})
+AC_SUBST(PUF_CRT0, [$puf_cv_crt0])
 
 AC_CONFIG_FILES([Makefile
                  application/Makefile

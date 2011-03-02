@@ -48,7 +48,7 @@ endif
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
 COMPILE=$(CC) $(AM_CFLAGS)
-LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=crt0.o -Wl-s../lkr/$(lkr_PIC_TYPE).lkr,-m \
+LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --use-crt=@PUF_CRT0@ -Wl-s../lkr/$(lkr_PIC_TYPE).lkr,-m \
 	--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ -llibio@PUF_SDCC_TARGET@.lib -llibc18f.lib
 
 bin_PROGRAMS = bootloader.hex

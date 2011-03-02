@@ -1,5 +1,5 @@
 #
-#   Copyright 2006-2010 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+#   Copyright 2006-2011 Pierre Gaufillet <pierre.gaufillet@magic.fr> 
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -46,7 +46,6 @@ sdcc: gputils
 	 mkdir -p $(TOOLSDIR);\
 	 (cd $(SDCC) && \
 	 patch -p1 < ../ustatbits.diff && \
-	 echo Restrict sdcc to pic families supported by puf... && \
 	 patch -p1 < ../pic_list.diff && \
 	 (cd device/non-free/lib/pic16/libdev; ./mkmk.sh > Makefile.am) && \
 	 cp device/non-free/lib/pic16/pics.all device/lib/pic16 && \

@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
   common_types.h - Common declarations and types
 
-   Copyright 2005-2010 Pierre Gaufillet <pierre.gaufillet@magic.fr>
+   Copyright 2005-2011 Pierre Gaufillet <pierre.gaufillet@magic.fr>
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -65,6 +65,9 @@ typedef union
 
 #define TRUE 1
 #define FALSE 0
+
+#ifndef NULL
 #define NULL 0
+#endif
 
 #endif /*VASCO_H_*/

@@ -1,3 +1,11 @@
+docker (1.2)
+
+  * Fix compilation issue on Mac OS X.
+  * Upgrade automake to 1.9.11 and autoconf to 2.67.
+  * Fix gcc >= 4.3 compatibility issue.
+  
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Wed Mar  2 08:41:11 CET 2011
+
 docker (1.1)
 
   * error management using exceptions

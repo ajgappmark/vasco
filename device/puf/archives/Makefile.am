@@ -20,14 +20,15 @@ ODYSSEY=odyssey-0.6
 SDCC=sdcc
 SDCCARCH=$(SDCC)-src-3.0.0
 GPUTILS=gputils-0.13.7
+DOCKER=docker-1.2
 
-EXTRA_DIST=$(ODYSSEY).tar.gz $(SDCCARCH).tar.bz2 $(GPUTILS).tar.bz2
+EXTRA_DIST=$(ODYSSEY).tar.gz $(SDCCARCH).tar.bz2 $(GPUTILS).tar.bz2 $(DOCKER).tar.bz2
 
 TOOLSDIR=@abs_top_srcdir@/tools
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
-all: gputils odyssey sdcc
+all: gputils odyssey sdcc docker
 
 odyssey:
 	if [ ! -x "$(TOOLSDIR)/bin/odyssey" ]; then \
@@ -70,10 +71,21 @@ gputils:
 	 make install);\
 	fi
 	
+docker:
+	if [ ! -x "$(TOOLSDIR)/bin/docker" ]; then \
+	 tar xvjf $(DOCKER).tar.bz2;\
+	 mkdir -p $(TOOLSDIR);\
+	 (cd $(DOCKER) && \
+	 ./configure --prefix=$(TOOLSDIR) && \
+	 make && \
+	 make install);\
+	fi
+	
 distclean clean:
 	rm -fr $(TOOLSDIR)
 	rm -fr $(GPUTILS)
 	rm -fr $(SDCC)
 	rm -fr $(ODYSSEY)
+	rm -fr $(DOCKER)
 	
-.PHONY: all sdcc odyssey gputils
+.PHONY: all sdcc odyssey gputils docker

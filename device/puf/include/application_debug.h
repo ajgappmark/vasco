@@ -32,11 +32,16 @@
 #define debug(format, ...) printf(format, ## __VA_ARGS__)
 #define toggle_A0() { PORTAbits.AN0 = !PORTAbits.AN0; }
 
+uchar debug_eusart_send_char();
+void debug_eusart_flush();
+
 #else
 
 #define init_debug()
 #define debug(x, ...)
 #define toggle_A0()
+#define debug_eusart_send_char()
+#define debug_eusart_flush()
 
 #endif
 

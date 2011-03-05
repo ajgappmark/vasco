@@ -92,17 +92,17 @@ puf_odyssey_target=`echo $puf_cv_target | sed 's/-.*$//' | tr [[:lower:]] [[:upp
 AC_SUBST(PUF_ODYSSEY_TARGET, [$puf_odyssey_target])
 
 
-AC_ARG_ENABLE([bootloader-debugging],
-     [  --enable-bootloader-debugging      Turn on bootloader debugging],
+AC_ARG_ENABLE([debug],
+     [  --enable-debug      Turn on serial debugging (bootloader and application)],
      [case "${enableval}" in
-       yes) debug_bootloader=true ;;
-       no)  debug_bootloader=false ;;
-       *) AC_MSG_ERROR([bad value ${enableval} for --enable-bootloader-debugging]) ;;
-     esac],[debug_bootloader=false])
-     AM_CONDITIONAL([DEBUG_BOOTLOADER], [test x$debug_bootloader = xtrue])
+       yes) debug=true ;;
+       no)  debug=false ;;
+       *) AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
+     esac],[debug=false])
+     AM_CONDITIONAL([PUF_DEBUG], [test x$debug = xtrue])
 
-AC_MSG_CHECKING([if bootloader debugging mode is set])
-if test x$debug_bootloader = xtrue; then
+AC_MSG_CHECKING([if debugging mode is set])
+if test x$debug = xtrue; then
     AC_MSG_RESULT(yes)
 else
     AC_MSG_RESULT(no)

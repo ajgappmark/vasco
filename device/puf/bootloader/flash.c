@@ -18,6 +18,9 @@
 
 /* $Id$ */
 
+/* Disable debug information by default as it breaks flash access */
+#undef _DEBUG
+
 #include "config.h"
 #include "common_types.h"
 #include <pic18fregs.h>

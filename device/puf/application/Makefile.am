@@ -22,14 +22,14 @@ CC=sdcc
 ASM=gpasm
 GLNK=gplink
 LNK=sdcc
-ODYSSEY=odyssey
+DOCKER=docker
 LIBPUF=../lib/libpuf.lib
 LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio@PUF_SDCC_TARGET@.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
 AM_CFLAGS =--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ --denable-peeps --obanksel=9\
  --opt-code-size --optimize-cmp --optimize-df $(DEBUG)
 
-if DEBUG_BOOTLOADER
+if PUF_DEBUG
 DEBUG = -D_DEBUG
 lkr_PIC_TYPE = @PUF_LKR_TARGET@-application-debug
 else
@@ -51,6 +51,10 @@ application_hex_SOURCES = usb_descriptors.h  \
 
 CLEANFILES=*.o *.rel *.lst *.cod *.map *.asm
 DISTCLEANFILES=.deps
+
+prog: application.hex
+	(echo "Writing...";\
+	$(DOCKER) -v a5a5 write $<)
 
 # Dependencies as compilation side-effect, as recommanded by automake manual
 .c.o:

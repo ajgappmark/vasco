@@ -66,6 +66,18 @@ global _delay10ktcy
 global _delay1ktcy
 global _delay10tcy
 
+	__endasm;
+
+#ifdef _DEBUG
+    __asm
+global _debug_eusart_send_char
+global _debug_eusart_flush
+global _printf
+	__endasm;
+#endif
+
+    __asm
+
 _boot_version:       res 2
 _dispatch_usb_event: res 4
 _init_usb:           res 4
@@ -96,7 +108,15 @@ _delay10ktcy:        res 4
 _delay1ktcy:         res 4
 _delay10tcy:         res 4
 
-    __endasm;
+	__endasm;
+
+#ifdef _DEBUG
+	__asm
+_debug_eusart_send_char: res 4
+_debug_eusart_flush:     res 4
+_printf:                 res 4
+	__endasm;
+#endif
 
 }
 

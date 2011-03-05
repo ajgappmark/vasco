@@ -26,9 +26,12 @@ CC = sdcc
 GPLIB = gplib
 AM_CFLAGS =--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ $(DEBUG) -I../include
 AM_LDFLAGS = 
-ODYSSEY = odyssey
+
+if PUF_DEBUG
+DEBUG =-D_DEBUG --denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df 
+else
 DEBUG =--denable-peeps --obanksel=9 --opt-code-size --optimize-cmp --optimize-df 
-#DEBUG = -D_DEBUG
+endif
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 

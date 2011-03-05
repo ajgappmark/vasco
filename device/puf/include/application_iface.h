@@ -34,6 +34,7 @@ typedef struct {
     void (*** ep_out)(void);
     void (*** ep_setup)(void);
     void (*main) (void);
+    void *cinit;
 } ApplicationData;
 
 extern const ApplicationData __at(APPLICATION_DATA_ADDRESS) application_data;

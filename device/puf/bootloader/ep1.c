@@ -18,6 +18,10 @@
 
 /* $Id$ */
 
+
+/* Disable debug information by default as it breaks flash access */
+#undef _DEBUG
+
 #include "ep1.h"
 #include "ep2.h"
 #include "usb.h"

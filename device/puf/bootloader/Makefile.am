@@ -25,7 +25,7 @@ LNK = sdcc
 AM_LDFLAGS = 
 ODYSSEY = odyssey
 
-if DEBUG_BOOTLOADER
+if PUF_DEBUG
 DEBUG = -D_DEBUG
 lkr_PIC_TYPE = @PUF_LKR_TARGET@-bootloader-debug
 bootloader_hex_SOURCES = application_iface.c boot_main.c boot_iface.c \

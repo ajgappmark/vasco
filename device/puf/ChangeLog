@@ -8,11 +8,11 @@ PIC USB Framework (1.2)
   * Upgrade to odyssey 0.6
   * Upgrade to gputils 0.13.7
   * Implement preliminary GET_STATUS setup command.
-  * Add --enable-bootloader-debugging option to configure. It
-    enables bootloader runtime traces through USART serial interface.
-    It also modifies the memory map to enlarge sections dedicated to
-    the bootloader. This extra place is used to embed printf function 
-    family. Handy for USB debugging :-)
+  * Add --enable-debug option to configure. It enables bootloader runtime
+    traces through USART serial interface. It also modifies the memory map
+    to enlarge sections dedicated to the bootloader. This extra place is
+    used to embed printf function family. Debug functions are shared with 
+    the application code. Handy for USB debugging :-)
   * Add automatic management of dependencies, as automake can not do
     it alone in this cross-compiling case (sdcc is not available at
     configure time).
@@ -32,7 +32,7 @@ PIC USB Framework (1.2)
     Based on cinit data produced by the linker. 
   * udev scripts updated accordingly to the new syntax.
 
- -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Feb 26 13:54:21 CET 2011
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Sat Mar  5 18:37:19 CET 2011
  
 PIC USB Framework (1.1)
 

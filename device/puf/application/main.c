@@ -25,6 +25,7 @@
 
 #define ftoggle_A0() { PORTAbits.AN0 = !PORTAbits.AN0; }
 
+static uchar T0Counter = 8;
 
 /******************************************************************/
 
@@ -42,21 +43,23 @@ void application_main(void)
     TMR0L = 0;
 
     // Configure the Timer0 and unmask ITs
-    T0CON = 0x86; // TMR0ON, 16bits, CLKO, PSA on, 1:256
+    T0CON = 0x80 | 0x05; // TMR0ON, 16bits, CLKO, PSA on, 1:256
     INTCONbits.TMR0IE = 1;
     INTCONbits.GIE = 1;
 
     init_debug();
     debug("Init application\n");
 	debug("Init USB\n");
+	debug_eusart_flush();
 	init_usb();
 
-    while((GET_ACTIVE_CONFIGURATION() > FLASH_CONFIGURATION) ||
-    		(GET_DEVICE_STATE() != CONFIGURED_STATE))
+    while((GET_ACTIVE_CONFIGURATION() != FLASH_CONFIGURATION))
     {
         usb_sleep();
         dispatch_usb_event();
-    }
+        debug_eusart_send_char();
+   }
+    debug_eusart_flush();
 }
 
 /* Interrupt vectors */
@@ -65,8 +68,18 @@ void high_priority_isr(void) __interrupt
 {
     if(INTCONbits.TMR0IF)
     {
-        ftoggle_A0();
-        INTCONbits.TMR0IF = 0;
+    	T0Counter--;
+    	if(T0Counter == 0)
+		{
+			ftoggle_A0();
+			T0Counter = 8;
+			debug("Toggle\n");
+		}
+    	else if(T0Counter == 7)
+		{
+			ftoggle_A0();
+		}
+		INTCONbits.TMR0IF = 0;
     }
 }
 

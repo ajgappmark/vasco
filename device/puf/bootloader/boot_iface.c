@@ -57,7 +57,19 @@ void boot_goto_table(void) __naked
     extern _delay1ktcy
     extern _delay10tcy
 
-;--------------------------------
+    __endasm;
+
+#ifdef _DEBUG
+    __asm
+    extern _debug_eusart_send_char
+    extern _debug_eusart_flush
+    extern _printf
+    __endasm;
+#endif
+
+//--------------------------------
+
+	__asm
 
     DW BOOTLOADER_VERSION ; Boot Version in BCD format
 
@@ -91,5 +103,14 @@ void boot_goto_table(void) __naked
     goto _delay10tcy
 
     __endasm;
+
+#ifdef _DEBUG
+    __asm
+    goto _debug_eusart_send_char
+    goto _debug_eusart_flush
+    goto _printf
+    __endasm;
+#endif
+
 }
 

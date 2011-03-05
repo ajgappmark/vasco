@@ -41,8 +41,12 @@ init_application(void)
   entry_type *e = &(application_data.cinit->first_entry);
   while (count_init)
     {
-      memcpy(e->to, e->from, e->size);
-      e += sizeof(entry_type);
+	  debug("cinit[%u]\n", count_init);
+	  debug("	to: %lx\n", (uchar __data *) e->to);
+	  debug("	from: %lx\n", (uchar __code *) e->from);
+	  debug("	size: %lu\n", e->size);
+      memcpy((uchar __data *) e->to, (uchar __code *) e->from, e->size);
+      e++;
       count_init--;
     }
 }

@@ -1,7 +1,7 @@
 diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/pic16/pics.all
---- sdcc.org/device/non-free/lib/pic16/pics.all	2010-10-04 21:54:39.000000000 +0200
-+++ sdcc/device/non-free/lib/pic16/pics.all	2011-02-23 21:33:32.000000000 +0100
-@@ -1,122 +1,4 @@
+--- sdcc.org/device/non-free/lib/pic16/pics.all	2012-03-10 18:53:10.000000000 +0100
++++ sdcc/device/non-free/lib/pic16/pics.all	2012-09-03 12:05:44.000000000 +0200
+@@ -1,132 +1,4 @@
 -242
 -248
 -252
@@ -13,7 +13,9 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -458
 -
 -1220
+-1230
 -1320
+-1330
 -13k50
 -14k50
 -
@@ -23,6 +25,7 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -2321
 -2331
 -23k20
+-23k22
 -2410
 -2420
 -2423
@@ -33,6 +36,7 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -24j10
 -24j50
 -24k20
+-24k22
 -2510
 -2515
 -2520
@@ -44,6 +48,7 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -25j10
 -25j50
 -25k20
+-25k22
 -2610
 -2620
 -2680
@@ -51,6 +56,7 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -2685
 -26j50
 -26k20
+-26k22
 -
 -4220
 -4221
@@ -58,6 +64,7 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -4321
 -4331
 -43k20
+-43k22
 -4410
 -4420
 -4423
@@ -68,6 +75,7 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -44j10
 -44j50
 -44k20
+-44k22
 -4510
 -4515
 -4520
@@ -79,6 +87,7 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -45j10
 -45j50
 -45k20
+-45k22
 -4610
 -4620
 -4680
@@ -86,6 +95,7 @@ diff -urN sdcc.org/device/non-free/lib/pic16/pics.all sdcc/device/non-free/lib/p
 -4685
 -46j50
 -46k20
+-46k22
 -
 -6520
 -6527

@@ -1,15 +1,15 @@
 diff -urN sdcc.org/device/non-free/include/pic16/pic18f4450.h sdcc/device/non-free/include/pic16/pic18f4450.h
---- sdcc.org/device/non-free/include/pic16/pic18f4450.h	2010-10-04 21:54:39.000000000 +0200
-+++ sdcc/device/non-free/include/pic16/pic18f4450.h	2011-02-20 18:36:03.610545058 +0100
-@@ -231,10 +231,7 @@
- 		unsigned           	: 1;
- 		unsigned PPBI      	: 1;
- 		unsigned DIR       	: 1;
--		unsigned ENDP0     	: 1;
--		unsigned ENDP1     	: 1;
--		unsigned ENDP2     	: 1;
--		unsigned ENDP3     	: 1;
-+		unsigned ENDP     	: 4;
- 		unsigned           	: 1;
- 	};
+--- sdcc.org/device/non-free/include/pic16/pic18f4450.h	2012-03-14 01:19:44.000000000 +0100
++++ sdcc/device/non-free/include/pic16/pic18f4450.h	2012-09-03 12:03:10.000000000 +0200
+@@ -246,10 +246,7 @@
+                 unsigned                : 1;
+                 unsigned PPBI           : 1;
+                 unsigned DIR            : 1;
+-                unsigned ENDP0          : 1;
+-                unsigned ENDP1          : 1;
+-                unsigned ENDP2          : 1;
+-                unsigned ENDP3          : 1;
++                unsigned ENDP           : 4;
+                 unsigned                : 1;
+         };
  } __USTATbits_t;

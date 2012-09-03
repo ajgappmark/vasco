@@ -18,8 +18,8 @@
 
 ODYSSEY=odyssey-0.6
 SDCC=sdcc
-SDCCARCH=$(SDCC)-src-3.0.0
-GPUTILS=gputils-0.13.7
+SDCCARCH=$(SDCC)-src-3.2.0
+GPUTILS=gputils-0.14.2
 DOCKER=docker-1.2
 
 EXTRA_DIST=$(ODYSSEY).tar.gz $(SDCCARCH).tar.bz2 $(GPUTILS).tar.bz2 $(DOCKER).tar.bz2
@@ -48,10 +48,12 @@ sdcc: gputils
 	 (cd $(SDCC) && \
 	 patch -p1 < ../ustatbits.diff && \
 	 patch -p1 < ../pic_list.diff && \
-	 (cd device/non-free/lib/pic16/libdev; ./mkmk.sh > Makefile.am) && \
+	 patch -p1 < ../libdev.diff && \
 	 cp device/non-free/lib/pic16/pics.all device/lib/pic16 && \
 	 (cd device/lib/pic16/libio; ./mkmk.sh > Makefile.am) && \
 	 ./configure --disable-z80-port --disable-mcs51-port \
+	             --disable-z180-port --disable-r2k-port \
+	             --disable-r3ka-port --disable-s08-port \
 	             --disable-gbz80-port --disable-avr-port \
 	             --disable-ds390-port --disable-ds400-port \
 	             --disable-pic-port --disable-xa51-port \

@@ -77,7 +77,7 @@ typedef struct
 /******************************************************************************
  * USB Configuration Descriptor (table 9-10)
  *****************************************************************************/
-typedef struct 
+typedef struct
 {
     uchar bLength;
     uchar bDescriptorType;
@@ -147,7 +147,7 @@ typedef struct
  *****************************************************************************/
 
 extern const USB_Device_Descriptor device_descriptor;
-extern const uchar * const configuration_descriptor[];
+extern const uchar __code * const configuration_descriptor[];
 extern const uchar * const string_descriptor[];
 extern const uchar str0[];
 extern const uchar str1[];

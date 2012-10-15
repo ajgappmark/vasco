@@ -24,7 +24,7 @@
 #include "power_ep2.h"
 #include "power_mgr.h"
 #include "usb.h"
-#include "debug.h"
+#include "application_debug.h"
 #include <pic18fregs.h>
 #include <delay.h>
 

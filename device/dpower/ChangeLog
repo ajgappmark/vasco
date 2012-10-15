@@ -1,3 +1,13 @@
+DPOWER (1.1)
+
+  * Now support PUF 1.2
+  * Switch to Apache 2.0 license
+  * Update code to support compiling with sdcc 3.x
+  * Improved slave configuration mechanism, based on puf.conf file
+  * support cinit mechanism
+  
+ -- Pierre Gaufillet <pierre.gaufillet@magic.fr>  Thu Oct 11 18:45:07 CEST 2012
+
 DPOWER (1.0)
 
   * Initial release

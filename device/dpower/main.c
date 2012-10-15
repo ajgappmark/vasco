@@ -20,7 +20,7 @@
 
 #include <pic18fregs.h>
 #include "common_types.h"
-#include "debug.h"
+#include "application_debug.h"
 #include "boot_iface.h"
 #include "power_mgr.h"
 #include "sequencer.h"
@@ -99,7 +99,7 @@ void application_main(void)
 
 /* Interrupt vectors */
 #pragma code high_priority_isr 0x2020
-void high_priority_isr(void) interrupt
+void high_priority_isr(void) __interrupt
 {
     // Process USB interrupts
     if(PIR2bits.USBIF)
@@ -122,7 +122,7 @@ void high_priority_isr(void) interrupt
 }
 
 #pragma code low_priority_isr 0x4000
-void low_priority_isr(void) interrupt
+void low_priority_isr(void) __interrupt
 {
 }
 

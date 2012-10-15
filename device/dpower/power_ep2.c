@@ -23,7 +23,7 @@
 #include "boot_iface.h"
 #include "power_ep2.h"
 #include "usb.h"
-#include "debug.h"
+#include "application_debug.h"
 #include <pic18fregs.h>
 
 static uchar last_send_was_null;
@@ -63,7 +63,7 @@ void power_prepare_ep2_in(void)
 
 void power_ep2_in(void)
 {
-    debug2("power_ep2_in %d\n", (uint) power_ep2_num_bytes_to_send);
+    debug("power_ep2_in %d\n", (uint) power_ep2_num_bytes_to_send);
     if((power_ep2_num_bytes_to_send == 0) && last_send_was_null)
     {
         // There is nothing more to send, so keep

@@ -24,7 +24,7 @@
 #include "power_ep2.h"
 #include "power_ep3.h"
 #include "usb.h"
-#include "debug.h"
+#include "application_debug.h"
 #include <pic18fregs.h>
 #include <adc.h>
 #include <stdio.h>
@@ -175,7 +175,7 @@ void power_supply_mgr(void)
                     }
                     
                     a /= 10;
-                    debug2(" a=%d\n", a);
+                    debug(" a=%d\n", a);
                     
                     if(tm_measure_validity && !ep3_send_in_progress)
                     {
@@ -232,8 +232,8 @@ void set_battery_tension_alert(uint a_period, uint a_threshold)
     tm_threshold = tm_init_threshold - 1;
     tm_measure_validity = FALSE;
     tm_measure_num = 0;
-    debug2("tm_period=%d\n", tm_period);
-    debug2("tm_threshold=%d\n", tm_threshold);
+    debug("tm_period=%d\n", tm_period);
+    debug("tm_threshold=%d\n", tm_threshold);
 }
 
 void unset_battery_tension_alert(void)

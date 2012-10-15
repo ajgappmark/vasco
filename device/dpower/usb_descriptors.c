@@ -169,7 +169,7 @@ const USB_4EP_Composite_Descriptor application_cfg = {
       1}  
 };
 
-const uchar * const configuration_descriptor[] = {
+const uchar __code * const configuration_descriptor[] = {
     (const uchar*) &default_cfg,
     (const uchar*) &flash_cfg,
     (const uchar*) &application_cfg

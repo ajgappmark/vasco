@@ -17,30 +17,34 @@
 #
 
 OBJEXT=o
-TOOLSDIR=@abs_top_srcdir@/tools
+TOOLSDIR=@PUF@/tools
 CC=sdcc
 ASM=gpasm
 GLNK=gplink
 LNK=sdcc
 DOCKER=docker
-LIBPUF=../lib/libpuf.lib
+LIBPUF=@PUF@/lib/libpuf.lib
 LIBIO=$(TOOLSDIR)/share/sdcc/lib/pic16/libio@PUF_SDCC_TARGET@.lib
 LIBC18F=$(TOOLSDIR)/share/sdcc/lib/pic16/libc18f.lib
 AM_CFLAGS =--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ --denable-peeps --obanksel=9\
  --opt-code-size --optimize-cmp --optimize-df $(DEBUG)
 
 if PUF_DEBUG
-DEBUG = -D_DEBUG
 lkr_PIC_TYPE = @PUF_LKR_TARGET@-application-debug
 else
-DEBUG =
 lkr_PIC_TYPE = @PUF_LKR_TARGET@-application
+endif
+
+if APPLICATION_DEBUG
+DEBUG = -D_APP_DEBUG
+else
+DEBUG =
 endif
 
 export PATH:=$(TOOLSDIR)/bin:$(PATH)
 
-COMPILE=$(CC) $(AM_CFLAGS) -I../include
-LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s../lkr/$(lkr_PIC_TYPE).lkr,-m \
+COMPILE=$(CC) $(AM_CFLAGS) -I@PUF@/include
+LINK=$(LNK) -o $@ $(DEBUG) $(LDFLAGS) --no-crt -Wl-s@PUF@/lkr/$(lkr_PIC_TYPE).lkr,-m \
 	--use-non-free -mpic16 -p@PUF_SDCC_TARGET@ -l$(LIBPUF) -llibio@PUF_SDCC_TARGET@.lib -llibc18f.lib
 
 
@@ -62,7 +66,7 @@ prog: application.hex
 	@if [ ! -d .deps ]; then mkdir -p .deps; fi
 	@$(SHELL) -ec '$(COMPILE) -M $< > .deps/$*.d'
 
-TDEPENDENCIES=$(filter %.c,$(bootloader_hex_SOURCES))
+TDEPENDENCIES=$(filter %.c,$(application_hex_SOURCES))
 CDEPENDENCIES=$(TDEPENDENCIES:.c=.d)
 DDEPENDENCIES=$(addprefix .deps/,$(CDEPENDENCIES))
 
